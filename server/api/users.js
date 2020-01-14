@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Address} = require('../db/models')
+const {User, Address, Order} = require('../db/models')
 module.exports = router
 
 //GET all users
@@ -25,7 +25,9 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   //Authenticate - only admin. User shoudl use /me for their user page
   try {
-    const user = await User.findByPk(req.params.id)
+    const user = await User.findByPk(req.params.id, {
+      include: [Order]
+    })
     res.json(user)
   } catch (error) {
     next(error)
