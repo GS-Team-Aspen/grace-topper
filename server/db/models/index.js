@@ -23,8 +23,10 @@ Order.belongsTo(User)
 User.hasMany(Order)
 
 Item.belongsTo(Category)
+Category.hasMany(Item)
 
 Address.belongsTo(User)
+User.hasOne(Address)
 
 /**
  * If we had any associations to make, this would be a great place to put them!

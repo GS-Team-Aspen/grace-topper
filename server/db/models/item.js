@@ -26,7 +26,7 @@ module.exports = db.define('item', {
     }
   },
   description: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     validate: {
       notEmpty: true
     }
