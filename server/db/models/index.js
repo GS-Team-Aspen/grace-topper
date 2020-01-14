@@ -15,8 +15,16 @@ User.belongsToMany(Item, {through: Cart, foreignKey: 'itemId'})
 Order.belongsToMany(Item, {through: OrderItem, foreignKey: 'itemId'})
 Item.belongsToMany(Order, {through: OrderItem, foreignKey: 'orderId'})
 
+//Item User relation through Review
 User.belongsToMany(Item, {through: Review, foreignKey: 'itemId'})
 Item.belongsToMany(User, {through: Review, foreignKey: 'userId'})
+
+Order.belongsTo(User)
+User.hasMany(Order)
+
+Item.belongsTo(Category)
+
+Address.belongsTo(User)
 
 /**
  * If we had any associations to make, this would be a great place to put them!
