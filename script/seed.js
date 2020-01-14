@@ -8,10 +8,13 @@ const {
   Review,
   Order,
   Item,
+  OrderItem,
   Category,
   Cart,
   Address
 } = require('../server/db/models')
+
+const orderStatuses = ['shipped', 'delivered', 'cancelled', 'carted']
 
 async function seed() {
   await db.sync({force: true})
@@ -19,6 +22,12 @@ async function seed() {
 
   const userFramework = []
   const addressFramework = []
+  const categoriesFramework = []
+  const reviewsFramework = []
+  const itemsFramework = []
+  const orderItemsFramework = []
+  const ordersFramework = []
+
   for (let i = 0; i < 1; i++) {
     userFramework.push({
       email: faker.internet.email(),
@@ -32,11 +41,30 @@ async function seed() {
       street: `${faker.address.streetAddress()} ${faker.address.streetName()}`,
       city: faker.address.city(),
       state: faker.address.state(),
-      zipCode: '01234' //faker.address.zipCode('#####'),
+      zipCode: faker.address.zipCode('#####')
+    })
+    categoriesFramework.push({
+      name: faker.commerce.productMaterial()
+    })
+    itemsFramework.push({
+      name: faker.commerce.product(),
+      imageUrl: faker.image.fashion(),
+      description: faker.lorem.sentence(),
+      price: faker.commerce.price(),
+      stock: faker.random.number({min: 1, max: 2000})
+    })
+    reviewsFramework.push({
+      rating: faker.random.number({min: 1, max: 5}),
+      description: faker.lorem.sentence()
+    })
+    orderItemsFramework.push({
+      quantity: faker.random.number({min: 1, max: 2000}),
+      salePrice: faker.commerce.price()
+    })
+    ordersFramework.push({
+      status: orderStatuses[Math.floor(Math.random() * orderStatuses.length)]
     })
   }
-
-  console.log(addressFramework)
 
   const users = await Promise.all([
     User.create({
@@ -55,7 +83,35 @@ async function seed() {
     addressFramework.map(address => Address.create(address))
   )
 
-  console.log(`seeded ${users.length} addresses`)
+  console.log(`seeded ${addresses.length} addresses`)
+
+  const categories = await Promise.all(
+    categoriesFramework.map(category => Category.create(category))
+  )
+
+  console.log(`seeded ${categories.length} categories`)
+
+  const items = await Promise.all(itemsFramework.map(item => Item.create(item)))
+
+  console.log(`seeded ${items.length} items`)
+
+  //    const reviews = await Promise.all(
+  //	reviewsFramework.map(review => Review.create(review))
+  //    )
+
+  //    console.log(`seeded ${reviews.length} reviews`)
+
+  //    const orderItems = await Promise.all(
+  //	orderItemsFramework.map(orderItems => OrderItem.create(orderItems))
+  //    )
+
+  //    console.log(`seeded ${orderItems.length} orderItems`)
+
+  const orders = await Promise.all(
+    ordersFramework.map(order => Order.create(order))
+  )
+
+  console.log(`seeded ${orders.length} orders`)
 
   await Promise.all(addresses.map((address, i) => address.setUser(users[i])))
 
