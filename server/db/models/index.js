@@ -1,15 +1,14 @@
 const User = require('./user')
 const Address = require('./address')
-const Cart = require('./cart')
 const Category = require('./category')
 const Item = require('./item')
 const Order = require('./order')
 const Review = require('./review')
 const OrderItem = require('./orderItem')
 
-//Item User relation through Cart
-Item.belongsToMany(User, {through: Cart, foreignKey: 'userId'})
-User.belongsToMany(Item, {through: Cart, foreignKey: 'itemId'})
+//Item User relation through Order
+Item.belongsToMany(User, {through: Order, foreignKey: 'userId'})
+User.belongsToMany(Item, {through: Order, foreignKey: 'itemId'})
 
 //Order Item relation through OrderItem
 Order.belongsToMany(Item, {through: OrderItem, foreignKey: 'itemId'})
@@ -45,6 +44,5 @@ module.exports = {
   Order,
   Item,
   Category,
-  Cart,
   Address
 }

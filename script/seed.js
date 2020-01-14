@@ -10,7 +10,6 @@ const {
   Item,
   OrderItem,
   Category,
-  Cart,
   Address
 } = require('../server/db/models')
 
