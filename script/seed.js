@@ -1,18 +1,64 @@
 'use strict'
 
+const faker = require('faker')
+
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {
+  User,
+  Review,
+  Order,
+  Item,
+  Category,
+  Cart,
+  Address
+} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
+  const userFramework = []
+  const addressFramework = []
+  for (let i = 0; i < 1; i++) {
+    userFramework.push({
+      email: faker.internet.email(),
+      firstName: faker.name.firstName(),
+      lastName: faker.name.lastName(),
+      password: faker.internet.password(),
+      salt: 'salt',
+      admin: false
+    })
+    addressFramework.push({
+      street: `${faker.address.streetAddress()} ${faker.address.streetName()}`,
+      city: faker.address.city(),
+      state: faker.address.state(),
+      zipCode: '01234' //faker.address.zipCode('#####'),
+    })
+  }
+
+  console.log(addressFramework)
+
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({
+      firstName: 'admin',
+      lastName: 'admin',
+      email: 'admin@email.com',
+      password: 'admin',
+      admin: true
+    }),
+    ...userFramework.map(user => User.create(user))
   ])
 
   console.log(`seeded ${users.length} users`)
+
+  const addresses = await Promise.all(
+    addressFramework.map(address => Address.create(address))
+  )
+
+  console.log(`seeded ${users.length} addresses`)
+
+  await Promise.all(addresses.map((address, i) => address.setUser(users[i])))
+
   console.log(`seeded successfully`)
 }
 
