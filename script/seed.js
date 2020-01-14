@@ -27,7 +27,7 @@ async function seed() {
   const orderItemsFramework = []
   const ordersFramework = []
 
-  for (let i = 0; i < 1; i++) {
+  for (let i = 0; i < 10; i++) {
     userFramework.push({
       email: faker.internet.email(),
       firstName: faker.name.firstName(),
@@ -113,6 +113,10 @@ async function seed() {
   console.log(`seeded ${orders.length} orders`)
 
   await Promise.all(addresses.map((address, i) => address.setUser(users[i])))
+  await Promise.all(reviews.map((review, i) => review.setUser(users[i])))
+  await Promise.all(reviews.map((review, i) => review.setItem(items[i])))
+  await Promise.all(orders.map((order, i) => order.setUser(users[i])))
+  await Promise.all(items.map((item, i) => item.setCategory(categories[i])))
 
   console.log(`seeded successfully`)
 }
