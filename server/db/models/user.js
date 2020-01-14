@@ -27,24 +27,24 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING
   },
-    firstName: {
-	type: Sequelize.STRING
-	allowNull: false,
-	validate: {
-	    notEmpty: true,
-	}
-    },
-    lastName: {
-	type: Sequelize.STRING
-	allowNull: false,
-	validate: {
-	    notEmpty: true,
-	}
-    },
-    admin: {
-	type: Sequelize.BOOLEAN,
-	defaultValue: false,
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
     }
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  admin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  }
 })
 
 module.exports = User
