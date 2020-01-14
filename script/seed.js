@@ -94,17 +94,17 @@ async function seed() {
 
   console.log(`seeded ${items.length} items`)
 
-  //    const reviews = await Promise.all(
-  //	reviewsFramework.map(review => Review.create(review))
-  //    )
+  const reviews = await Promise.all(
+    reviewsFramework.map(review => Review.create(review))
+  )
 
-  //    console.log(`seeded ${reviews.length} reviews`)
+  console.log(`seeded ${reviews.length} reviews`)
 
-  //    const orderItems = await Promise.all(
-  //	orderItemsFramework.map(orderItems => OrderItem.create(orderItems))
-  //    )
+  //      const orderItems = await Promise.all(
+  //  	orderItemsFramework.map(orderItems => OrderItem.create(orderItems))
+  //      )
 
-  //    console.log(`seeded ${orderItems.length} orderItems`)
+  //      console.log(`seeded ${orderItems.length} orderItems`)
 
   const orders = await Promise.all(
     ordersFramework.map(order => Order.create(order))
