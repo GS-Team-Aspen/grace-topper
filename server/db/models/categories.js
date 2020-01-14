@@ -1,12 +1,12 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-module.exports = db.define('order', {
-    status: {
+module.exports = db.define('category', {
+    name: {
 	type: Sequelize.STRING,
 	allowNull: false,
 	validate: {
-	    isIn: [['shipped', 'delivered', 'cancelled']],
+	    notEmpty: true,
 	}
     }
 });
