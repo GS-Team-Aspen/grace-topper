@@ -23,7 +23,7 @@ router.get('/', async (req, res, next) => {
 
 //GET specific user
 router.get('/:id', async (req, res, next) => {
-  //Authenticate - only admin and the specific user should have access to the user
+  //Authenticate - only admin. User shoudl use /me for their user page
   try {
     const user = await User.findByPk(req.params.id)
     res.json(user)
@@ -31,19 +31,6 @@ router.get('/:id', async (req, res, next) => {
     next(error)
   }
 })
-
-//Register new user - MOVE TO AUTH ROUTE
-// router.post('/', async (req, res, next) => {
-//   try {
-//     const {firstName, lastName, email, password} = req.body
-//     res.status(201)
-//     res.json(
-//       await User.create({firstName, lastName, email, password, admin: false})
-//     )
-//   } catch (error) {
-//     next(error)
-//   }
-// })
 
 //Update user information - admin and the user should be able to update, not other users
 //Admin should be able to promote other users to admins
