@@ -5,6 +5,7 @@ module.exports = db.define('order', {
   status: {
     type: Sequelize.STRING,
     allowNull: false,
+    defaultValue: 'carted',
     validate: {
       isIn: [['shipped', 'delivered', 'cancelled', 'carted']]
     }
