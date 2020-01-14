@@ -6,10 +6,6 @@ const Order = require('./order')
 const Review = require('./review')
 const OrderItem = require('./orderItem')
 
-//Item User relation through Order
-Item.belongsToMany(User, {through: Order, foreignKey: 'userId'})
-User.belongsToMany(Item, {through: Order, foreignKey: 'itemId'})
-
 //Order Item relation through OrderItem
 Order.belongsToMany(Item, {through: OrderItem, foreignKey: 'itemId'})
 Item.belongsToMany(Order, {through: OrderItem, foreignKey: 'orderId'})
