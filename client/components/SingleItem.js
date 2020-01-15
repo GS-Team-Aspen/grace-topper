@@ -1,29 +1,30 @@
 import React, {Component} from 'react'
+import {fetchSingleItem} from './../store/singleItem'
+import {connect} from 'react-redux'
+
+//params.id OK
 
 class SingleItem extends Component {
-  //componentDidMount to access item matching route id, from global state
-  render() {
-    const fakeItem = {
-      id: 1,
-      name: 'Urban Sombrero',
-      price: 275.0,
-      stock: 17,
-      description:
-        'Handmade in Mexico by one of my favorite mom-and-pop hatmakers. Top-quality natural felt with grosgrain hatband and feather.',
-      imageUrl: 'urbanSombrero.jpg'
-    }
+  componentDidMount() {
+    //const id = 1
+    const id = Number(this.props.match.params.id)
+    //console.log('MATCH', typeof id)
+    this.props.loadSingleItem(id)
+  }
 
+  render() {
+    //const {item} = this.props
     return (
       <div className="centered-parent">
         <div className="single-item">
           <div className="item-image">
-            <img src={fakeItem.imageUrl} />
+            <img src={this.props.item.imageUrl} />
           </div>
           <div className="item-details">
-            <div className="target-name">{fakeItem.name}</div>
-            <div className="item-desc">{fakeItem.description}</div>
+            <div className="target-name">{this.props.item.name}</div>
+            <div className="item-desc">{this.props.item.description}</div>
             <div className="item-review-stars">[Reviews Component]</div>
-            <div className="item-price">{`$ ${fakeItem.price}`}</div>
+            <div className="item-price">{`$ ${this.props.item.price}`}</div>
             <button
               type="submit"
               className="ui label submit-button"
@@ -40,4 +41,16 @@ class SingleItem extends Component {
   }
 }
 
-export default SingleItem
+const mapStateToProps = state => {
+  return {
+    item: state.singleItem
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loadSingleItem: id => dispatch(fetchSingleItem(id))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingleItem)
