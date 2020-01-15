@@ -54,11 +54,13 @@ async function seed() {
     })
     reviewsFramework.push({
       rating: faker.random.number({min: 1, max: 5}),
-      description: faker.lorem.sentence()
+      description: faker.lorem.paragraph()
     })
     orderItemsFramework.push({
       quantity: faker.random.number({min: 1, max: 2000}),
-      salePrice: faker.commerce.price()
+      salePrice: faker.commerce.price(),
+      orderId: i + 1,
+      itemId: i + 1
     })
     ordersFramework.push({
       status: orderStatuses[Math.floor(Math.random() * orderStatuses.length)]
@@ -100,17 +102,17 @@ async function seed() {
 
   console.log(`seeded ${reviews.length} reviews`)
 
-  //      const orderItems = await Promise.all(
-  //  	orderItemsFramework.map(orderItems => OrderItem.create(orderItems))
-  //      )
-
-  //      console.log(`seeded ${orderItems.length} orderItems`)
-
   const orders = await Promise.all(
     ordersFramework.map(order => Order.create(order))
   )
 
   console.log(`seeded ${orders.length} orders`)
+
+  const orderItems = await Promise.all(
+    orderItemsFramework.map(orderItems => OrderItem.create(orderItems))
+  )
+
+  console.log(`seeded ${orderItems.length} orderItems`)
 
   await Promise.all(addresses.map((address, i) => address.setUser(users[i])))
   await Promise.all(reviews.map((review, i) => review.setUser(users[i])))
