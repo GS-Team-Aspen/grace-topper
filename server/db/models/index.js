@@ -1,15 +1,10 @@
 const User = require('./user')
 const Address = require('./address')
-const Cart = require('./cart')
 const Category = require('./category')
 const Item = require('./item')
 const Order = require('./order')
 const Review = require('./review')
 const OrderItem = require('./orderItem')
-
-//Item User relation through Cart
-Item.belongsToMany(User, {through: Cart, foreignKey: 'userId'})
-User.belongsToMany(Item, {through: Cart, foreignKey: 'itemId'})
 
 //Order Item relation through OrderItem
 Order.belongsToMany(Item, {through: OrderItem, foreignKey: 'itemId'})
@@ -29,7 +24,6 @@ Category.hasMany(Item)
 
 Address.belongsTo(User)
 User.hasOne(Address)
-
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:
@@ -49,6 +43,6 @@ module.exports = {
   Order,
   Item,
   Category,
-  Cart,
-  Address
+  Address,
+  OrderItem
 }

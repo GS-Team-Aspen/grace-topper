@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom'
 
 const ItemCard = props => {
   const {id, name, price, imageUrl} = props
-
   return (
     //hover on product card
     <div className="custom-card">
