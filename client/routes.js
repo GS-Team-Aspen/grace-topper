@@ -2,8 +2,11 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, allItems} from './components'
+import {Login, Signup, UserHome} from './components'
 import {me} from './store'
+//new Grace Topper components:
+import AllItems from './components/AllItems'
+import SingleItem from './components/SingleItem'
 
 /**
  * COMPONENT
@@ -21,7 +24,9 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/items" component={allItems} />
+        <Route exact path="/items/single" component={SingleItem} />
+        <Route exact path="/items" component={AllItems} />
+
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
