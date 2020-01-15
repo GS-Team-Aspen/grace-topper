@@ -28,6 +28,44 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+//GET all orders associated to a specific user
+router.get('/orderHistory/:userId', async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      where: {
+        userId: req.params.userId
+      }
+    })
+    res.json(orders)
+  } catch (error) {
+    next(error)
+  }
+})
+
+//GET or CREATE a new cart for a user; runs at first login ideally
+router.get('/cart/:userId', async (req, res, next) => {
+  try {
+    const cart = await Order.findOrCreate({
+      where: {
+        userId: req.params.userId,
+        status: 'carted'
+      },
+      include: [Item]
+    })
+    res.json(cart)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/cart/changeQuantity', async (req, res, next) => {
+  try {
+    console.log(req)
+  } catch (error) {
+    next(error)
+  }
+})
+
 //**needs to capture userId; get info to OrderItems
 router.post('/', async (req, res, next) => {
   try {

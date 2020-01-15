@@ -63,7 +63,7 @@ async function seed() {
       itemId: i + 1
     })
     ordersFramework.push({
-      status: orderStatuses[Math.floor(Math.random() * orderStatuses.length)]
+      status: 'carted' //orderStatuses[Math.floor(Math.random() * orderStatuses.length)]
     })
   }
 

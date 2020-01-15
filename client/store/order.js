@@ -23,21 +23,10 @@ const setOrders = orders => ({type: SET_ORDERS, orders})
 /**
  * THUNK CREATORS
  */
-
 export const fetchOrders = userId => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/orders/userHistory/${userId}`)
+    const {data} = await axios.get(`/api/orders/orderHistory/${userId}`)
     dispatch(setOrders(data))
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-export const logout = () => async dispatch => {
-  try {
-    await axios.post('/auth/logout')
-    dispatch(removeOrder())
-    history.push('/login')
   } catch (err) {
     console.error(err)
   }
