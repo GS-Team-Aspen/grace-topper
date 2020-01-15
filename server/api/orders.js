@@ -1,6 +1,6 @@
 const router = require('express').Router()
 //const Op = require('Sequelize').Op
-const {Order, OrderItem, User} = require('../db/models')
+const {Order, OrderItem, User, Item} = require('../db/models')
 module.exports = router
 
 //GET all orders--see if additional models should be included
@@ -19,7 +19,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.id, {
-      include: [OrderItem, User]
+      include: [User, Item]
     })
     res.json(order)
   } catch (error) {
