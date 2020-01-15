@@ -6,21 +6,23 @@ const Order = require('./order')
 const Review = require('./review')
 const OrderItem = require('./orderItem')
 
-//Order Item relation through OrderItem
 Order.belongsToMany(Item, {through: OrderItem, foreignKey: 'itemId'})
 Item.belongsToMany(Order, {through: OrderItem, foreignKey: 'orderId'})
 
-//Item User relation through Review
-User.belongsToMany(Item, {through: Review, foreignKey: 'itemId'})
-Item.belongsToMany(User, {through: Review, foreignKey: 'userId'})
+User.hasMany(Review)
+Review.belongsTo(User)
+
+Item.hasMany(Review)
+Review.belongsTo(Item)
 
 Order.belongsTo(User)
 User.hasMany(Order)
 
 Item.belongsTo(Category)
+Category.hasMany(Item)
 
 Address.belongsTo(User)
-
+User.hasOne(Address)
 /**
  * If we had any associations to make, this would be a great place to put them!
  * ex. if we had another model called BlogPost, we might say:

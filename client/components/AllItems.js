@@ -5,15 +5,11 @@ import {connect} from 'react-redux'
 
 class AllItems extends Component {
   componentDidMount() {
-    try {
-      this.props.loadItems()
-    } catch (err) {
-      console.log(err)
-    }
+    this.props.loadItems()
   }
+
   //needs onSubmit: add to cart to send as props
   render() {
-    console.log(Array.isArray(this.props.items), 'in all items')
     return (
       <div className="centered-parent">
         <div className="custom-card-list ui cards">
