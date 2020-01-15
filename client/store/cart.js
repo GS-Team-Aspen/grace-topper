@@ -27,9 +27,18 @@ export const fetchCart = userId => async dispatch => {
   }
 }
 
-export const changeItemQuantity = (itemId, change) => async dispatch => {
+export const changeItemQuantity = (
+  orderId,
+  itemId,
+  change
+) => async dispatch => {
   try {
-    await axios.put('/api/orders/cart/changeQuantity', {itemId, change})
+    console.log(orderId, itemId, change)
+    await axios.put('/api/orders/cart/changeQuantity', {
+      orderId,
+      itemId,
+      change
+    })
   } catch (err) {
     console.error(err)
   }

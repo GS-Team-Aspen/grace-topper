@@ -18,11 +18,10 @@ class Cart extends React.Component {
   }
 
   changeQuantity(itemId, change) {
-    this.props.changeQuantity(itemId, change)
+    this.props.changeQuantity(this.props.cart.id, itemId, change)
   }
 
   render() {
-    console.log(this.props)
     const cart = this.props.cart.items ? this.props.cart.items : []
     return (
       <div>
@@ -54,8 +53,8 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   fetchCart: userId => dispatch(fetchCart(userId)),
-  changeQuantity: (itemId, change) =>
-    dispatch(changeItemQuantity(itemId, change))
+  changeQuantity: (orderId, itemId, change) =>
+    dispatch(changeItemQuantity(orderId, itemId, change))
 })
 
 export default connect(mapState, mapDispatch)(Cart)

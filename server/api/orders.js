@@ -60,7 +60,16 @@ router.get('/cart/:userId', async (req, res, next) => {
 
 router.put('/cart/changeQuantity', async (req, res, next) => {
   try {
-    console.log(req)
+    const orderItem = await OrderItem.findOne({
+      where: {
+        orderId: req.body.orderId,
+        itemId: req.body.itemId
+      }
+    })
+    await orderItem.update({
+      quantity: orderItem.quantity + req.body.change
+    })
+    console.log(orderItem)
   } catch (error) {
     next(error)
   }
