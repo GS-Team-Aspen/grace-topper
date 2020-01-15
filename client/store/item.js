@@ -9,10 +9,14 @@ const initialState = {}
 
 export const fetchItems = () => {
   return async dispatch => {
-    const response = await axios.get('../api/items')
-    const items = response.data
-    const action = getItems(items)
-    dispatch(action)
+    try {
+      const response = await axios.get('../api/items')
+      const items = response.data
+      const action = getItems(items)
+      dispatch(action)
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 
