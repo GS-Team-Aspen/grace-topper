@@ -16,7 +16,7 @@ module.exports = db.define('review', {
     allowNull: false,
     validate: {
       notEmpty: true,
-      len: [15, 500]
+      len: [15, 2500]
     }
   }
 })

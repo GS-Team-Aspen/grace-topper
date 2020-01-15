@@ -27,7 +27,7 @@ async function seed() {
   const orderItemsFramework = []
   const ordersFramework = []
 
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 10; i++) {
     userFramework.push({
       email: faker.internet.email(),
       firstName: faker.name.firstName(),
@@ -54,11 +54,13 @@ async function seed() {
     })
     reviewsFramework.push({
       rating: faker.random.number({min: 1, max: 5}),
-      description: faker.lorem.sentence()
+      description: faker.lorem.paragraph()
     })
     orderItemsFramework.push({
       quantity: faker.random.number({min: 1, max: 2000}),
-      salePrice: faker.commerce.price()
+      salePrice: faker.commerce.price(),
+      orderId: i + 1,
+      itemId: i + 1
     })
     ordersFramework.push({
       status: orderStatuses[Math.floor(Math.random() * orderStatuses.length)]
@@ -94,17 +96,11 @@ async function seed() {
 
   console.log(`seeded ${items.length} items`)
 
-  //    const reviews = await Promise.all(
-  //	reviewsFramework.map(review => Review.create(review))
-  //    )
+  const reviews = await Promise.all(
+    reviewsFramework.map(review => Review.create(review))
+  )
 
-  //    console.log(`seeded ${reviews.length} reviews`)
-
-  //    const orderItems = await Promise.all(
-  //	orderItemsFramework.map(orderItems => OrderItem.create(orderItems))
-  //    )
-
-  //    console.log(`seeded ${orderItems.length} orderItems`)
+  console.log(`seeded ${reviews.length} reviews`)
 
   const orders = await Promise.all(
     ordersFramework.map(order => Order.create(order))
@@ -112,7 +108,17 @@ async function seed() {
 
   console.log(`seeded ${orders.length} orders`)
 
+  const orderItems = await Promise.all(
+    orderItemsFramework.map(orderItems => OrderItem.create(orderItems))
+  )
+
+  console.log(`seeded ${orderItems.length} orderItems`)
+
   await Promise.all(addresses.map((address, i) => address.setUser(users[i])))
+  await Promise.all(reviews.map((review, i) => review.setUser(users[i])))
+  await Promise.all(reviews.map((review, i) => review.setItem(items[i])))
+  await Promise.all(orders.map((order, i) => order.setUser(users[i])))
+  await Promise.all(items.map((item, i) => item.setCategory(categories[i])))
 
   console.log(`seeded successfully`)
 }

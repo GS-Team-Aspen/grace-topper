@@ -6,6 +6,7 @@ const Order = require('./order')
 const Review = require('./review')
 const OrderItem = require('./orderItem')
 
+//Order Item relation through OrderItem
 Order.belongsToMany(Item, {through: OrderItem, foreignKey: 'itemId'})
 Item.belongsToMany(Order, {through: OrderItem, foreignKey: 'orderId'})
 
@@ -42,5 +43,6 @@ module.exports = {
   Order,
   Item,
   Category,
-  Address
+  Address,
+  OrderItem
 }
