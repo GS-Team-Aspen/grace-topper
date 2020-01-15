@@ -1,10 +1,20 @@
 import React, {Component} from 'react'
 import ItemCard from './ItemCard'
+import {fetchItems} from './../store/item'
+import {connect} from 'react-redux'
 
 class AllItems extends Component {
+  componentDidMount() {
+    try {
+      this.props.loadItems()
+    } catch (err) {
+      console.log(err)
+    }
+  }
   //componentDidMount to access all items from global state
   //needs onSubmit: add to cart to send as props
   render() {
+    console.log(this)
     const fakeItems = [
       {
         id: 1,
@@ -27,18 +37,30 @@ class AllItems extends Component {
     ]
     return (
       <div className="centered-parent">
-        <div className="custom-card-list ui cards">
-          {fakeItems.map(item => {
+        {/* <div className="custom-card-list ui cards">
+          {this.props.items.items.map(item => {
             return (
               <div key={item.id}>
                 <ItemCard {...item} />
               </div>
             )
           })}
-        </div>
+        </div>  */}
       </div>
     )
   }
 }
 
-export default AllItems
+const mapStateToProps = state => {
+  return {
+    state: state
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    loadItems: () => dispatch(fetchItems())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatch)(AllItems)

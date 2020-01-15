@@ -5,21 +5,21 @@ export const GET_ITEMS = 'GET_ITEMS'
 
 export const getItems = items => ({type: GET_ITEMS, items})
 
-const defaultItem = []
+const initialState = {}
 
 export const fetchItems = () => {
   return async dispatch => {
-    const response = await axios.get('api/items')
+    const response = await axios.get('../api/items')
     const items = response.data
     const action = getItems(items)
     dispatch(action)
   }
 }
 
-export const itemsReducer = (state = defaultItem, action) => {
+export const itemsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ITEMS:
-      return [...action.items]
+      return action.items
     default:
       return state
   }

@@ -27,7 +27,7 @@ async function seed() {
   const orderItemsFramework = []
   const ordersFramework = []
 
-  for (let i = 0; i < 1; i++) {
+  for (let i = 0; i < 2; i++) {
     userFramework.push({
       email: faker.internet.email(),
       firstName: faker.name.firstName(),

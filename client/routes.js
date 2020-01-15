@@ -4,6 +4,8 @@ import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome} from './components'
 import {me} from './store'
+import {fetchItems} from './store/item'
+
 //new Grace Topper components:
 import AllItems from './components/AllItems'
 import SingleItem from './components/SingleItem'
@@ -14,6 +16,7 @@ import SingleItem from './components/SingleItem'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
+    this.props.loadItems()
   }
 
   render() {
@@ -53,6 +56,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
+    loadItems: () => dispatch(fetchItems()),
     loadInitialData() {
       dispatch(me())
     }
