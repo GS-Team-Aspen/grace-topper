@@ -24,12 +24,12 @@ module.exports = db.define('address', {
     }
   },
   zipCode: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false,
     validate: {
+      isNumeric: true,
       notEmpty: true,
-      min: 5,
-      max: 5
+      len: [5, 5]
     }
   }
 })
