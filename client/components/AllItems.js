@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import ItemCard from './ItemCard'
 
 class AllItems extends Component {
+  //componentDidMount to access all items from global state
   //needs onSubmit: add to cart to send as props
   render() {
     const fakeItems = [

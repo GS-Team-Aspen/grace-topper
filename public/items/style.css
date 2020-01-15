@@ -50,7 +50,6 @@ body {
 }
 
 .target-name {
-  font-size: 1.05rem;
   font-weight: 600;
 }
 
@@ -62,47 +61,23 @@ body {
 /* SingleItems component */
 
 /* similar to .custom-card-list: */
-.single-item {
+.item-details {
   display: flex;
-  flex-direction: row;
+  justify-content: center;
   width: 80vw;
 }
 
 .item-image {
   width: 60%;
-  margin-right: 2rem;
+  margin-right: 1rem;
   box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
-  justify-content: flex-start;
-}
-
-.item-image img {
-  width: 100%;
-  background: #fff;
 }
 
 .item-details {
   width: 40%;
-  margin-left: 1rem;
-  justify-content: flex-end;
+  margin-left: 1 rem;
 }
 
-.target-name,
-.item-desc,
-.item-review-stars,
-.item-price,
-.submit-button {
-  padding-bottom: 10px;
-}
-
-.item-desc {
+.item-details {
   font-style: oblique;
-}
-
-/* button */
-.submit-button:hover {
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
-button:focus {
-  outline: 0;
 }
