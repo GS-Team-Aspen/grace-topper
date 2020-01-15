@@ -21,6 +21,7 @@ router.get('/:id', async (req, res, next) => {
     const order = await Order.findByPk(req.params.id, {
       include: [User, Item]
     })
+
     res.json(order)
   } catch (error) {
     next(error)
