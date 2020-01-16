@@ -15,11 +15,11 @@ const reducer = combineReducers({
   user,
   items,
   singleItem,
+  category,
+  review,
   orders,
   singleOrder,
-  cart,
-  category,
-  review
+  cart
 })
 
 const middleware = composeWithDevTools(
