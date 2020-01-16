@@ -58,6 +58,7 @@ router.get('/cart/:userId', async (req, res, next) => {
   }
 })
 
+//update quantity of an item in a cart
 router.put('/cart/changeQuantity', async (req, res, next) => {
   try {
     const orderItem = await OrderItem.findOne({
@@ -75,6 +76,7 @@ router.put('/cart/changeQuantity', async (req, res, next) => {
   }
 })
 
+//update the carts status to shipped and set a new cart up for a user
 router.put('/cart/purchase', async (req, res, next) => {
   try {
     console.log(req.body.userId)
@@ -100,6 +102,21 @@ router.post('/', async (req, res, next) => {
     // const orderitem = await OrderItem.create(req.body)
     res.status(201)
     res.json(order)
+  } catch (error) {
+    next(error)
+  }
+})
+
+//delete an item from a cart
+router.delete('/cart/delete/:itemId', async (req, res, next) => {
+  try {
+    console.log(req.params)
+    await OrderItem.destroy({
+      where: {
+        itemId: req.params.itemId
+      }
+    })
+    res.send('success')
   } catch (error) {
     next(error)
   }
