@@ -110,8 +110,9 @@ button:focus {
   outline: 0;
 }
 
-/* reviews on SingleItem page */
+/* reviews on SingleItem page; except for star icons, semantic-ui styling removed from ReviewCard */
 
+/* id to pre-empt semantic-ui class styling (width too narrow) */
 #review-list {
   width: 80%;
 }
@@ -126,6 +127,24 @@ button:focus {
   font-size: 0.9rem;
 }
 
+.review-info {
+  display: flex;
+}
+
+.review-author {
+  font-weight: 600;
+  padding: 0 10px 0 0;
+}
+
+.review-date {
+  color: #989898;
+  padding: 0 10px 0 0;
+}
+
+.review-rating {
+  color: #989898;
+}
+
 .review-text {
-  margin: 20px 0 10px 0;
+  margin: 5px 0 15px 0;
 }

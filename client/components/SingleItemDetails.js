@@ -16,7 +16,7 @@ const SingleItemDetails = props => {
             <div className="ui mini basic label">Sombrero</div>
           </div>
           <div className="item-review-stars">
-            [Reviews Component: Stars & # reviews]
+            [Reviews Component: Stars (partial?) & # reviews]
           </div>
 
           <button
