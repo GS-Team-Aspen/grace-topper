@@ -13,6 +13,7 @@ class ReviewWrap extends Component {
   // }
   //**need to access Review info for a specific item, from global state */
   //**need to access user name associated with userId */
+  //**could use userId to get a total # of their reviews (to display by their name in ReviewCard) */
 
   render() {
     const reviews = [
