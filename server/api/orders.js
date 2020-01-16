@@ -66,10 +66,28 @@ router.put('/cart/changeQuantity', async (req, res, next) => {
         itemId: req.body.itemId
       }
     })
-    await orderItem.update({
-      quantity: orderItem.quantity + req.body.change
+    const newOrderItem = await orderItem.update({
+      quantity: req.body.newValue
     })
-    console.log(orderItem)
+    res.json(newOrderItem)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/cart/purchase', async (req, res, next) => {
+  try {
+    console.log(req.body.userId)
+    const cart = await Order.findByPk(req.body.orderId)
+    await cart.update({status: 'shipped'})
+    const newCart = await Order.findOrCreate({
+      where: {
+        userId: req.body.userId,
+        status: 'carted'
+      },
+      include: [Item]
+    })
+    res.json(newCart)
   } catch (error) {
     next(error)
   }
