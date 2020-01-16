@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {fetchOrders} from '../store/order'
 import {
   fetchCart,
@@ -7,6 +8,68 @@ import {
   purchase,
   removeItem
 } from '../store/cart'
+
+const ItemCard = props => {
+  const {item} = props
+
+  return (
+    //hover on product card
+    <div className="custom-card">
+      <div className="ui card">
+        <Link to={`/items/${item.id}`}>
+          <div className="image">
+            <img src={item.imageUrl} />
+          </div>
+          <div className="extra content">
+            <span className="target-name">{`${item.name} ${
+              item.orderItem.quantity
+            }`}</span>
+            <span className="right floated">{`$ ${item.price}`}</span>
+          </div>
+        </Link>
+        <div>
+          {item.price.toLocaleString(undefined, {
+            style: 'currency',
+            currency: 'USD'
+          })}
+        </div>
+        <div className="button-holder">
+          Quantity:
+          <div
+            onClick={() =>
+              this.changeQuantity(
+                item.id,
+                parseInt(item.orderItem.quantity) - 1,
+                item.stock
+              )
+            }
+          >
+            -
+          </div>
+          <input
+            className="quantity-input"
+            onChange={event => this.handleChange(item.id, event, item.stock)}
+            type="text"
+            value={item.orderItem.quantity}
+          />
+          <div
+            onClick={() =>
+              this.changeQuantity(
+                item.id,
+                parseInt(item.orderItem.quantity) + 1,
+                item.stock
+              )
+            }
+          >
+            +
+          </div>
+          <div>{item.description}</div>
+          <div onClick={() => this.handleRemove(item.id)}>Remove Item</div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 class Cart extends React.Component {
   constructor(props) {
@@ -53,55 +116,7 @@ class Cart extends React.Component {
             .toLocaleString(undefined, {style: 'currency', currency: 'USD'})}
         </div>
         <div onClick={this.handlePurchase}>Purchase Cart</div>
-        {cart.map(item => (
-          <div key={item.id} className="custom-card">
-            <img src={item.imageUrl} />
-            <div>
-              {item.name}{' '}
-              {item.price.toLocaleString(undefined, {
-                style: 'currency',
-                currency: 'USD'
-              })}
-            </div>
-            <div className="button-holder">
-              Quantity:
-              <div
-                onClick={() =>
-                  this.changeQuantity(
-                    item.id,
-                    parseInt(item.orderItem.quantity) - 1,
-                    item.stock
-                  )
-                }
-              >
-                {' '}
-                -{' '}
-              </div>
-              <input
-                className="quantity-input"
-                onChange={event =>
-                  this.handleChange(item.id, event, item.stock)
-                }
-                type="text"
-                value={item.orderItem.quantity}
-              />
-              <div
-                onClick={() =>
-                  this.changeQuantity(
-                    item.id,
-                    parseInt(item.orderItem.quantity) + 1,
-                    item.stock
-                  )
-                }
-              >
-                {' '}
-                +{' '}
-              </div>
-            </div>
-            <div onClick={() => this.handleRemove(item.id)}>Remove Item</div>
-            <div>{item.description}</div>
-          </div>
-        ))}
+        {cart.map(item => <ItemCard key={item.id} item={item} />)}
       </div>
     )
   }
