@@ -2,13 +2,15 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome} from './components'
+import {Login, Signup, UserHome, Cart} from './components'
 import {me} from './store'
 import {fetchItems} from './store/item'
 
 //new Grace Topper components:
 import AllItems from './components/AllItems'
 import SingleItem from './components/SingleItem'
+import Orders from './components/Orders'
+import SingleOrder from './components/SingleOrder'
 
 /**
  * COMPONENT
@@ -28,8 +30,10 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/items/:id" component={SingleItem} />
+        <Route path="/orders/:orderId" component={SingleOrder} />
+        <Route exact path="/orders" component={Orders} />
+        <Route path="/cart" component={Cart} />
         <Route exact path="/items" component={AllItems} />
-
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
