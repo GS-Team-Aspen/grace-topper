@@ -15,6 +15,11 @@ nav a {
   margin: 1em;
 }
 
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+
 form div {
   margin: 1em;
   display: inline-block;
@@ -105,6 +110,12 @@ body {
 
 button:focus {
   outline: 0;
+}
+
+.order {
+  display: flex;
+  justify-content: space-evenly;
+  flex-grow: 1;
 }
 
 /* cart */
