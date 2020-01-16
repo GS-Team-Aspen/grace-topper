@@ -19,3 +19,99 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+/* custom css below */
+
+body {
+  font-family: 'Raleway', sans-serif;
+  color: #383838;
+}
+
+.centered-parent {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+}
+
+/* AllItems component */
+
+.custom-card-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 80vw;
+}
+
+.custom-card {
+  width: 225px;
+  /* flex: 1 0 33%; */
+  margin: 1rem;
+}
+
+.target-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.target-name:hover {
+  color: black;
+  transition: all 0.5s ease;
+}
+
+/* SingleItems component */
+
+/* similar to .custom-card-list: */
+.single-item {
+  display: flex;
+  flex-direction: row;
+  width: 80vw;
+}
+
+.item-image {
+  width: 60%;
+  margin-right: 2rem;
+  box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+  justify-content: flex-start;
+}
+
+.item-image img {
+  width: 100%;
+  background: #fff;
+}
+
+.item-details {
+  width: 40%;
+  margin-left: 1rem;
+  justify-content: flex-end;
+}
+
+.target-name,
+.item-desc,
+.item-review-stars,
+.item-price,
+.submit-button {
+  padding-bottom: 10px;
+}
+
+.item-desc {
+  font-style: oblique;
+}
+
+/* button */
+.submit-button:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+button:focus {
+  outline: 0;
+}
+
+/* cart */
+.button-holder {
+  display: flex;
+}
+
+.quantity-input {
+  width: 75px;
+}
