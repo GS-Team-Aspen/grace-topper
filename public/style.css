@@ -24,7 +24,6 @@ form div {
 
 body {
   font-family: 'Raleway', sans-serif;
-  color: #383838;
 }
 
 .centered-parent {
@@ -49,8 +48,9 @@ body {
   margin: 1rem;
 }
 
+/* AllItems & SingleItems components */
 .target-name {
-  font-size: 1.05rem;
+  font-size: 1.3rem;
   font-weight: 600;
 }
 
@@ -66,6 +66,7 @@ body {
   display: flex;
   flex-direction: row;
   width: 80vw;
+  padding: 20px 0;
 }
 
 .item-image {
@@ -90,6 +91,7 @@ body {
 .item-desc,
 .item-review-stars,
 .item-price,
+.desc-label,
 .submit-button {
   padding-bottom: 10px;
 }
@@ -105,4 +107,13 @@ body {
 
 button:focus {
   outline: 0;
+}
+
+.comments-header {
+  font-family: 'Raleway', sans-serif;
+  /* color: #606060; */
+}
+.comments-panel {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.9rem;
 }
