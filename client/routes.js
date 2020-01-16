@@ -10,6 +10,7 @@ import {fetchItems} from './store/item'
 import AllItems from './components/AllItems'
 import SingleItem from './components/SingleItem'
 import Orders from './components/Orders'
+import SingleOrder from './components/SingleOrder'
 
 /**
  * COMPONENT
@@ -28,7 +29,8 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/orders" component={Orders} />
+        <Route path="/orders/:orderId" component={SingleOrder} />
+        <Route exact path="/orders" component={Orders} />
         <Route exact path="/items/single" component={SingleItem} />
         <Route exact path="/items" component={AllItems} />
 

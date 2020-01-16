@@ -4,6 +4,7 @@ import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import orders from './orders'
+import singleOrder from './singleOrder'
 import {itemsReducer as items} from './item'
 import {singleItemReducer as singleItem} from './singleItem'
 
@@ -11,7 +12,8 @@ const reducer = combineReducers({
   user,
   items,
   singleItem,
-  orders
+  orders,
+  singleOrder
 })
 
 const middleware = composeWithDevTools(

@@ -111,3 +111,9 @@ body {
 button:focus {
   outline: 0;
 }
+
+.order {
+  display: flex;
+  justify-content: space-evenly;
+  flex-grow: 1;
+}

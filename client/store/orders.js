@@ -7,6 +7,7 @@ export const GET_ORDERS = 'GET_ORDERS'
 export const getOrders = orders => ({type: GET_ORDERS, orders})
 
 //Thunk Creators
+//Add arguments for user ID to filter orders
 export const fetchOrders = () => async dispatch => {
   try {
     const {data} = await axios.get('/api/orders')

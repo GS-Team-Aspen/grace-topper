@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {fetchOrders} from '../store/orders'
+import OrderCard from './OrderCard'
 
 const Orders = props => {
   useEffect(() => {
@@ -10,16 +11,17 @@ const Orders = props => {
   return (
     <div>
       {props.orders.length ? (
-        props.orders.map(order => <h1 key={order.id}>{order.status}</h1>)
+        props.orders.map(order => <OrderCard order={order} key={order.id} />)
       ) : (
-        <h2>There are no orders</h2>
+        <h2>No orders</h2>
       )}
     </div>
   )
 }
 
 const mapState = state => ({
-  orders: state.orders
+  orders: state.orders,
+  user: state.user
 })
 
 const mapDispatch = {
