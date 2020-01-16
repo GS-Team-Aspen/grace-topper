@@ -29,7 +29,6 @@ form div {
 
 body {
   font-family: 'Raleway', sans-serif;
-  color: #383838;
 }
 
 .centered-parent {
@@ -54,8 +53,9 @@ body {
   margin: 1rem;
 }
 
+/* AllItems & SingleItems components */
 .target-name {
-  font-size: 1.05rem;
+  font-size: 1.3rem;
   font-weight: 600;
 }
 
@@ -70,7 +70,9 @@ body {
 .single-item {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   width: 80vw;
+  padding: 20px 0;
 }
 
 .item-image {
@@ -95,6 +97,7 @@ body {
 .item-desc,
 .item-review-stars,
 .item-price,
+.desc-label,
 .submit-button {
   padding-bottom: 10px;
 }
@@ -112,6 +115,45 @@ button:focus {
   outline: 0;
 }
 
+/* reviews on SingleItem page; except for star icons, semantic-ui styling removed from ReviewCard */
+
+/* id to pre-empt semantic-ui class styling (width too narrow) */
+#review-list {
+  width: 80%;
+}
+
+.reviews-header {
+  font-family: 'Raleway', sans-serif;
+  /* color: #606060; */
+}
+
+.review-card {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.9rem;
+}
+
+.review-info {
+  display: flex;
+}
+
+.review-author {
+  font-weight: 600;
+  padding: 0 10px 0 0;
+}
+
+.review-date {
+  color: #989898;
+  padding: 0 10px 0 0;
+}
+
+.review-rating {
+  color: #989898;
+}
+
+.review-text {
+  margin: 5px 0 15px 0;
+}
+
 .order {
   display: flex;
   justify-content: space-evenly;
@@ -125,4 +167,42 @@ button:focus {
 
 .quantity-input {
   width: 75px;
+}
+/* reviews on SingleItem page; except for star icons, semantic-ui styling removed from ReviewCard */
+
+/* id to pre-empt semantic-ui class styling (width too narrow) */
+#review-list {
+  width: 80%;
+}
+
+.reviews-header {
+  font-family: 'Raleway', sans-serif;
+  /* color: #606060; */
+}
+
+.review-card {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.9rem;
+}
+
+.review-info {
+  display: flex;
+}
+
+.review-author {
+  font-weight: 600;
+  padding: 0 10px 0 0;
+}
+
+.review-date {
+  color: #989898;
+  padding: 0 10px 0 0;
+}
+
+.review-rating {
+  color: #989898;
+}
+
+.review-text {
+  margin: 5px 0 15px 0;
 }
