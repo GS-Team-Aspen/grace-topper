@@ -13,11 +13,6 @@ const SingleOrder = props => {
       {props.order.items ? (
         props.order.items.map(item => (
           <ItemCard {...item} type="order" key={item.id} />
-          // <div key={item.id}>
-          //   <h2>{item.name}</h2>
-          //   <h2>{item.orderItem.salePrice}</h2>
-          //   <h2>{item.orderItem.quantity}</h2>
-          // </div>
         ))
       ) : (
         <h2>Loading...</h2>

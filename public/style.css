@@ -117,3 +117,12 @@ button:focus {
   justify-content: space-evenly;
   flex-grow: 1;
 }
+
+/* cart */
+.button-holder {
+  display: flex;
+}
+
+.quantity-input {
+  width: 75px;
+}

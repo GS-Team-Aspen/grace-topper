@@ -33,7 +33,6 @@ async function seed() {
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
       password: faker.internet.password(),
-      salt: 'salt',
       admin: false
     })
     addressFramework.push({
@@ -52,19 +51,22 @@ async function seed() {
       price: faker.commerce.price(),
       stock: faker.random.number({min: 1, max: 2000})
     })
-    reviewsFramework.push({
-      rating: faker.random.number({min: 1, max: 5}),
-      description: faker.lorem.paragraph()
-    })
-    orderItemsFramework.push({
-      quantity: faker.random.number({min: 1, max: 2000}),
-      salePrice: faker.commerce.price(),
-      orderId: i + 1,
-      itemId: i + 1
-    })
-    ordersFramework.push({
-      status: orderStatuses[Math.floor(Math.random() * orderStatuses.length)]
-    })
+
+    for (let j = 0; j < 10; j++) {
+      reviewsFramework.push({
+        rating: faker.random.number({min: 1, max: 5}),
+        description: faker.lorem.paragraph()
+      })
+      ordersFramework.push({
+        status: orderStatuses[Math.floor(Math.random() * orderStatuses.length)]
+      })
+      orderItemsFramework.push({
+        quantity: faker.random.number({min: 1, max: 2000}),
+        salePrice: faker.commerce.price(),
+        orderId: i + 1,
+        itemId: j + 1
+      })
+    }
   }
 
   const users = await Promise.all([
