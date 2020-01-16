@@ -2,6 +2,15 @@ import React from 'react'
 
 const ReviewCard = props => {
   const {createdAt, rating, description} = props
+
+  const formatDate = date => {
+    const miniDate = date.slice(0, 10).split('-')
+    const finalDate = []
+    finalDate.push(miniDate[1])
+    finalDate.push('-', miniDate[2], '-')
+    finalDate.push(miniDate[0])
+    return finalDate
+  }
   console.log(props)
   //   this doesn't handle non-integers (half-stars)
   const createStarArr = num => {
@@ -23,7 +32,7 @@ const ReviewCard = props => {
         ) : (
           <div />
         )}
-        <div className="review-date">{createdAt.slice(0, 10)}</div>
+        <div className="review-date">{formatDate(createdAt)}</div>
         <div className="review-rating">
           <i className="star icon" />
           {createStarArr(rating).map(el => {
