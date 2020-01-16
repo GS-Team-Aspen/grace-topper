@@ -79,7 +79,6 @@ router.put('/cart/changeQuantity', async (req, res, next) => {
 //update the carts status to shipped and set a new cart up for a user
 router.put('/cart/purchase', async (req, res, next) => {
   try {
-    console.log(req.body.userId)
     const cart = await Order.findByPk(req.body.orderId)
     await cart.update({status: 'shipped'})
     const newCart = await Order.findOrCreate({
@@ -110,7 +109,6 @@ router.post('/', async (req, res, next) => {
 //delete an item from a cart
 router.delete('/cart/delete/:itemId', async (req, res, next) => {
   try {
-    console.log(req.params)
     await OrderItem.destroy({
       where: {
         itemId: req.params.itemId

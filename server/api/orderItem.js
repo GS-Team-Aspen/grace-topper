@@ -18,7 +18,6 @@ router.get('/', async (req, res, next) => {
 //GET specific order; accessible to admin or user that created order
 router.get('/:id', async (req, res, next) => {
   try {
-    console.log(req.params.id)
     const orderItem = await OrderItem.findAll({
       where: {
         orderId: req.params.id

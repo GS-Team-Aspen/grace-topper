@@ -59,11 +59,11 @@ async function seed() {
     orderItemsFramework.push({
       quantity: faker.random.number({min: 1, max: 2000}),
       salePrice: faker.commerce.price(),
-      orderId: 1,
+      orderId: i + 1,
       itemId: i + 1
     })
     ordersFramework.push({
-      status: 'carted' //orderStatuses[Math.floor(Math.random() * orderStatuses.length)]
+      status: orderStatuses[Math.floor(Math.random() * orderStatuses.length)]
     })
   }
 

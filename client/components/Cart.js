@@ -27,7 +27,6 @@ class Cart extends React.Component {
   }
 
   changeQuantity(itemId, newValue, quantity) {
-    console.log(newValue, quantity)
     if (newValue <= quantity)
       this.props.changeQuantity(this.props.cart.id, itemId, newValue)
     else console.log('not enough in stock')
