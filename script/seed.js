@@ -15,7 +15,7 @@ const {
 
 const orderStatuses = ['shipped', 'delivered', 'cancelled']
 
-const rng = num => Math.floor(Math.random() * num + 1)
+const rng = num => Math.floor(Math.random() * num)
 
 async function seed() {
   await db.sync({force: true})

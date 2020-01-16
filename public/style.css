@@ -168,3 +168,41 @@ button:focus {
 .quantity-input {
   width: 75px;
 }
+/* reviews on SingleItem page; except for star icons, semantic-ui styling removed from ReviewCard */
+
+/* id to pre-empt semantic-ui class styling (width too narrow) */
+#review-list {
+  width: 80%;
+}
+
+.reviews-header {
+  font-family: 'Raleway', sans-serif;
+  /* color: #606060; */
+}
+
+.review-card {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.9rem;
+}
+
+.review-info {
+  display: flex;
+}
+
+.review-author {
+  font-weight: 600;
+  padding: 0 10px 0 0;
+}
+
+.review-date {
+  color: #989898;
+  padding: 0 10px 0 0;
+}
+
+.review-rating {
+  color: #989898;
+}
+
+.review-text {
+  margin: 5px 0 15px 0;
+}
