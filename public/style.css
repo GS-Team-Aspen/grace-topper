@@ -106,3 +106,12 @@ body {
 button:focus {
   outline: 0;
 }
+
+/* cart */
+.button-holder {
+  display: flex;
+}
+
+.quantity-input {
+  width: 75px;
+}
