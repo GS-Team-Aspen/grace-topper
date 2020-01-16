@@ -13,7 +13,9 @@ const {
   Address
 } = require('../server/db/models')
 
-const orderStatuses = ['shipped', 'delivered', 'cancelled', 'carted']
+const orderStatuses = ['shipped', 'delivered', 'cancelled']
+
+const rng = num => Math.floor(Math.random() * num + 1)
 
 async function seed() {
   await db.sync({force: true})
@@ -26,6 +28,7 @@ async function seed() {
   const itemsFramework = []
   const orderItemsFramework = []
   const ordersFramework = []
+  const cartsFramework = []
 
   for (let i = 0; i < 10; i++) {
     userFramework.push({
@@ -33,7 +36,6 @@ async function seed() {
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
       password: faker.internet.password(),
-      salt: 'salt',
       admin: false
     })
     addressFramework.push({
@@ -45,26 +47,33 @@ async function seed() {
     categoriesFramework.push({
       name: faker.commerce.productMaterial()
     })
-    itemsFramework.push({
-      name: faker.commerce.product(),
-      imageUrl: faker.image.fashion(),
-      description: faker.lorem.sentence(),
-      price: faker.commerce.price(),
-      stock: faker.random.number({min: 1, max: 2000})
+
+    cartsFramework.push({
+      status: 'carted'
     })
-    reviewsFramework.push({
-      rating: faker.random.number({min: 1, max: 5}),
-      description: faker.lorem.paragraph()
-    })
-    orderItemsFramework.push({
-      quantity: faker.random.number({min: 1, max: 2000}),
-      salePrice: faker.commerce.price(),
-      orderId: i + 1,
-      itemId: i + 1
-    })
-    ordersFramework.push({
-      status: orderStatuses[Math.floor(Math.random() * orderStatuses.length)]
-    })
+
+    for (let j = 0; j < 10; j++) {
+      itemsFramework.push({
+        name: faker.commerce.product(),
+        imageUrl: faker.image.fashion(),
+        description: faker.lorem.sentence(),
+        price: faker.commerce.price(),
+        stock: faker.random.number({min: 1, max: 2000})
+      })
+      reviewsFramework.push({
+        rating: faker.random.number({min: 1, max: 5}),
+        description: faker.lorem.paragraph()
+      })
+      ordersFramework.push({
+        status: orderStatuses[Math.floor(Math.random() * orderStatuses.length)]
+      })
+      orderItemsFramework.push({
+        quantity: faker.random.number({min: 1, max: 2000}),
+        salePrice: faker.commerce.price(),
+        orderId: i + 1,
+        itemId: j + 1
+      })
+    }
   }
 
   const users = await Promise.all([
@@ -114,12 +123,43 @@ async function seed() {
 
   console.log(`seeded ${orderItems.length} orderItems`)
 
-  await Promise.all(addresses.map((address, i) => address.setUser(users[i])))
-  await Promise.all(reviews.map((review, i) => review.setUser(users[i])))
-  await Promise.all(reviews.map((review, i) => review.setItem(items[i])))
-  await Promise.all(orders.map((order, i) => order.setUser(users[i])))
-  await Promise.all(items.map((item, i) => item.setCategory(categories[i])))
+  const carts = await Promise.all(
+    cartsFramework.map(cart => Order.create(cart))
+  )
 
+  const cartItemsFramework = []
+  carts.forEach(cart => {
+    for (let i = 0; i < 3; i++) {
+      cartItemsFramework.push(
+        OrderItem.create({
+          quantity: faker.random.number({min: 1, max: 2000}),
+          salePrice: null,
+          orderId: cart.id,
+          itemId: rng(items.length)
+        })
+      )
+    }
+  })
+  const cartItems = await Promise.all(cartItemsFramework)
+
+  console.log(`seeded ${carts.length} carts`)
+
+  await Promise.all(carts.map((cart, i) => cart.setUser(i + 1)))
+
+  await Promise.all(addresses.map((address, i) => address.setUser(users[i])))
+
+  await Promise.all(
+    reviews.map((review, i) => review.setUser(users[rng(users.length)]))
+  )
+  await Promise.all(
+    reviews.map((review, i) => review.setItem(items[rng(items.length)]))
+  )
+  await Promise.all(
+    orders.map((order, i) => order.setUser(users[rng(users.length)]))
+  )
+  await Promise.all(
+    items.map((item, i) => item.setCategory(categories[rng(categories.length)]))
+  )
   console.log(`seeded successfully`)
 }
 

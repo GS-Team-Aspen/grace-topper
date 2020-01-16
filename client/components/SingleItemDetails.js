@@ -3,7 +3,37 @@ import React, {Fragment} from 'react'
 
 // **Need to get Category by itemId (for label)
 const SingleItemDetails = props => {
-  const {imageUrl, name, description, rating} = props
+  const {imageUrl, name, description, review} = props
+
+  console.log(props)
+
+  const ratingAver = arr => {
+    let ratingNums = 0
+    for (let i = 0; i < arr.length; i++) {
+      ratingNums += arr[i].rating
+    }
+    return ratingNums / arr.length
+  }
+
+  console.log(ratingAver(review))
+
+  const reviewsAvgRating = ratingAver(review)
+
+  const createStarArrDecimal = num => {
+    const integer = Math.floor(num)
+    const decimal = num - integer
+    const starArr = []
+    for (let i = 1; i <= integer; i++) {
+      starArr.push(i)
+    }
+    //9 as last item signals need for half star
+    if (decimal > 0.25 || decimal < 0.75) {
+      starArr.push(9)
+    } else {
+      starArr.push(8)
+    }
+    return starArr
+  }
 
   return (
     <Fragment>
@@ -14,18 +44,9 @@ const SingleItemDetails = props => {
         <div className="item-details">
           <div className="target-name">{name}</div>
           <div className="item-desc">{description}</div>
-          {props.category ? (
-            <div className="desc-label">
-              <div className="ui mini basic label">{props.category.name}</div>
-            </div>
-          ) : (
-            <div>''</div>
-          )}
-
-          <div className="item-review-stars">
-            [Reviews Component: Stars (partial?) & # reviews]
+          <div className="item-rating">
+            {`Average Rating: ${reviewsAvgRating}`}
           </div>
-
           <button
             type="submit"
             className="ui label submit-button"
