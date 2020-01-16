@@ -14,58 +14,55 @@ const ItemCard = props => {
 
   return (
     //hover on product card
-    <div className="custom-card">
-      <div className="ui card">
-        <Link to={`/items/${item.id}`}>
-          <div className="image">
-            <img src={item.imageUrl} />
-          </div>
-          <div className="extra content">
-            <span className="target-name">{`${item.name} ${
-              item.orderItem.quantity
-            }`}</span>
-            <span className="right floated">{`$ ${item.price}`}</span>
-          </div>
-        </Link>
-        <div>
-          {item.price.toLocaleString(undefined, {
-            style: 'currency',
-            currency: 'USD'
-          })}
+    <div className="ui card">
+      <div className="image">
+        <img src={item.imageUrl} />
+      </div>
+      <Link to={`/items/${item.id}`}>
+        <div className="extra content">
+          <span className="target-name">{`${item.name} ${
+            item.orderItem.quantity
+          }`}</span>
+          <span className="right floated">{`$ ${item.price}`}</span>
         </div>
-        <div className="button-holder">
-          Quantity:
-          <div
-            onClick={() =>
-              this.changeQuantity(
-                item.id,
-                parseInt(item.orderItem.quantity) - 1,
-                item.stock
-              )
-            }
-          >
-            -
-          </div>
-          <input
-            className="quantity-input"
-            onChange={event => this.handleChange(item.id, event, item.stock)}
-            type="text"
-            value={item.orderItem.quantity}
-          />
-          <div
-            onClick={() =>
-              this.changeQuantity(
-                item.id,
-                parseInt(item.orderItem.quantity) + 1,
-                item.stock
-              )
-            }
-          >
-            +
-          </div>
-          <div>{item.description}</div>
-          <div onClick={() => this.handleRemove(item.id)}>Remove Item</div>
+      </Link>
+      <div>
+        {item.price.toLocaleString(undefined, {
+          style: 'currency',
+          currency: 'USD'
+        })}
+      </div>
+      <div className="button-holder">
+        Quantity:
+        <div
+          onClick={() =>
+            this.changeQuantity(
+              item.id,
+              parseInt(item.orderItem.quantity) - 1,
+              item.stock
+            )
+          }
+        >
+          -
         </div>
+        <input
+          className="quantity-input"
+          onChange={event => this.handleChange(item.id, event, item.stock)}
+          type="text"
+          value={item.orderItem.quantity}
+        />
+        <div
+          onClick={() =>
+            this.changeQuantity(
+              item.id,
+              parseInt(item.orderItem.quantity) + 1,
+              item.stock
+            )
+          }
+        >
+          +
+        </div>
+        <div onClick={() => this.handleRemove(item.id)}>Remove Item</div>
       </div>
     </div>
   )
