@@ -1,16 +1,15 @@
 //Reviews for a specific item; bottom portion of SingleItem page
 import React, {Component} from 'react'
-// import {fetchReviews} from './../store/reviews'
-// import {connect} from 'react-redux'
+import {fetchItemReviews} from './../store/review'
+import {connect} from 'react-redux'
 import ReviewCard from './ReviewCard'
 
 class ReviewWrap extends Component {
   //  **set up to receive itemId as props from SingleItemWrapper, or get from match params:
-  // componentDidMount() {
-
-  //   const itemId = Number(this.props.match.params.id)
-  //   this.props.loadReviews(itemId)
-  // }
+  componentDidMount() {
+    const itemId = Number(this.props.itemId)
+    this.props.loadReviews(itemId)
+  }
   //**need to access Review info for a specific item, from global state */
   //**need to access user name associated with userId */
   //**could use userId to get a total # of their reviews (to display by their name in ReviewCard) */
@@ -42,7 +41,7 @@ class ReviewWrap extends Component {
         <div id="review-list">
           <h4 className="ui reviews-header">Customer Reviews</h4>
           <div className="ui divider" />
-          {reviews.length ? (
+          {/* {reviews.length ? (
             reviews.map(review => {
               return (
                 <div key={review.id}>
@@ -52,25 +51,23 @@ class ReviewWrap extends Component {
             })
           ) : (
             <div> No Reviews</div>
-          )}
+          )} */}
         </div>
       </div>
     )
   }
 }
 
-export default ReviewWrap
+const mapStateToProps = state => {
+  return {
+    reviews: state.review
+  }
+}
 
-// const mapStateToProps = state => {
-//   return {
-//     reviews: state.reviews
-//   }
-// }
+const mapDispatchToProps = dispatch => {
+  return {
+    loadReviews: itemId => dispatch(fetchItemReviews(itemId))
+  }
+}
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     loadReviews: itemId => dispatch(fetchReviews(itemId))
-//   }
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(ReviewWrap)
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewWrap)

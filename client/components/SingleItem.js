@@ -14,7 +14,7 @@ class SingleItem extends Component {
   render() {
     //**can't access Categories down to name
     //console.log(this.props.item)
-    const itemId = this.props.item
+    const itemId = this.props.item.id
     //itemId.category ?
     return (
       <div className="centered-parent">
