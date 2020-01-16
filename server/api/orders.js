@@ -61,6 +61,7 @@ router.get('/cart/:userId', async (req, res, next) => {
 //update quantity of an item in a cart
 router.put('/cart/changeQuantity', async (req, res, next) => {
   try {
+    console.log(req.body)
     const orderItem = await OrderItem.findOne({
       where: {
         orderId: req.body.orderId,
@@ -70,7 +71,7 @@ router.put('/cart/changeQuantity', async (req, res, next) => {
     const newOrderItem = await orderItem.update({
       quantity: req.body.newValue
     })
-    res.json(newOrderItem)
+    res.json(await Order.findByPk(newOrderItem.orderId, {include: [Item]}))
   } catch (error) {
     next(error)
   }
@@ -107,14 +108,16 @@ router.post('/', async (req, res, next) => {
 })
 
 //delete an item from a cart
-router.delete('/cart/delete/:itemId', async (req, res, next) => {
+router.delete('/cart/delete', async (req, res, next) => {
   try {
-    await OrderItem.destroy({
+    const orderItem = await OrderItem.findOne({
       where: {
-        itemId: req.params.itemId
+        orderId: req.body.orderId,
+        itemId: req.body.itemId
       }
     })
-    res.send('success')
+    await orderItem.destroy()
+    res.json(await Order.findByPk(req.body.orderId, {include: [Item]}))
   } catch (error) {
     next(error)
   }

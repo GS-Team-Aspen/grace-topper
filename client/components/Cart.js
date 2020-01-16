@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {fetchOrders} from '../store/order'
 import {
@@ -18,12 +18,14 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchCart(this.props.userId)
+    //this.props.fetchCart(this.props.userId)
+    this.props.fetchCart(5)
   }
 
   handlePurchase(event) {
     event.preventDefault()
-    this.props.purchase(this.props.userId, this.props.cart.id)
+    //this.props.purchase(this.props.userId, this.props.cart.id)
+    this.props.purchase(5, this.props.cart.id)
   }
 
   changeQuantity(itemId, newValue, quantity) {
@@ -37,12 +39,11 @@ class Cart extends React.Component {
   }
 
   handleRemove(itemId) {
-    this.props.removeItem(itemId)
+    this.props.removeItem(itemId, this.props.cart.id)
   }
 
   render() {
     const cart = this.props.cart.items ? this.props.cart.items : []
-    console.log(cart, this.props.cart.items)
     return (
       <div>
         <div>
@@ -116,7 +117,7 @@ const mapDispatch = dispatch => ({
   changeQuantity: (orderId, itemId, newValue) =>
     dispatch(changeItemQuantity(orderId, itemId, newValue)),
   purchase: (userId, orderId) => dispatch(purchase(userId, orderId)),
-  removeItem: itemId => dispatch(removeItem(itemId))
+  removeItem: (itemId, orderId) => dispatch(removeItem(itemId, orderId))
 })
 
 export default connect(mapState, mapDispatch)(Cart)

@@ -3,10 +3,7 @@ import axios from 'axios'
 /**
  * ACTION TYPES
  */
-const GET_CART = 'GET_CART'
-const CHANGE_ORDER_ITEM = 'CHANGE_ORDER_ITEM'
-const PURCHASE_CART = 'PURCHASE_CART'
-const DELETE_ITEM = 'DELETE_ITEM'
+const SET_CART = 'SET_CART'
 
 /**
  * INITIAL STATE
@@ -16,14 +13,7 @@ const initialState = {}
 /**
  * ACTION CREATORS
  */
-const getCart = cart => ({type: GET_CART, cart})
-const changeOrderItem = (orderItem, itemId) => ({
-  type: CHANGE_ORDER_ITEM,
-  orderItem,
-  itemId
-})
-const purchaseCart = cart => ({type: PURCHASE_CART, cart})
-const deleteItem = itemId => ({type: DELETE_ITEM, itemId})
+const setCart = cart => ({type: SET_CART, cart})
 
 /**
  * THUNK CREATORS
@@ -31,7 +21,7 @@ const deleteItem = itemId => ({type: DELETE_ITEM, itemId})
 export const fetchCart = userId => async dispatch => {
   try {
     const {data} = await axios.get(`/api/orders/cart/${userId}`)
-    dispatch(getCart(data[0]))
+    dispatch(setCart(data[0]))
   } catch (err) {
     console.error(err)
   }
@@ -48,7 +38,7 @@ export const changeItemQuantity = (
       itemId,
       newValue
     })
-    dispatch(changeOrderItem(data, itemId))
+    dispatch(setCart(data))
   } catch (err) {
     console.error(err)
   }
@@ -60,16 +50,18 @@ export const purchase = (userId, orderId) => async dispatch => {
       userId,
       orderId
     })
-    dispatch(purchaseCart(data[0]))
+    dispatch(setCart(data[0]))
   } catch (err) {
     console.error(err)
   }
 }
 
-export const removeItem = itemId => async dispatch => {
+export const removeItem = (itemId, orderId) => async dispatch => {
   try {
-    await axios.delete(`/api/orders/cart/delete/${itemId}`)
-    dispatch(deleteItem(itemId))
+    const {data} = await axios.delete('/api/orders/cart/delete/', {
+      data: {itemId, orderId}
+    })
+    dispatch(setCart(data))
   } catch (err) {
     console.error(err)
   }
@@ -79,25 +71,8 @@ export const removeItem = itemId => async dispatch => {
  */
 export default function(state = initialState, action) {
   switch (action.type) {
-    case GET_CART:
+    case SET_CART:
       return action.cart
-    case CHANGE_ORDER_ITEM:
-      const newItem = {
-        ...state.items.filter(item => item.id === action.itemId)[0],
-        orderItem: action.orderItem
-      }
-      const items = state.items.map(item => {
-        if (item.id === action.itemId) return newItem
-        return item
-      })
-      return {...state, items}
-    case PURCHASE_CART:
-      return action.cart
-    case DELETE_ITEM:
-      return {
-        ...state,
-        items: state.items.filter(item => item.id !== action.itemId)
-      }
     default:
       return state
   }
