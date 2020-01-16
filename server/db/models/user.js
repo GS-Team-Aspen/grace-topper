@@ -45,6 +45,10 @@ const User = db.define('user', {
     type: Sequelize.BOOLEAN,
     allowNull: false,
     defaultValue: false
+  },
+  sessionId: {
+    type: Sequelize.STRING,
+    allowNull: true
   }
 })
 
