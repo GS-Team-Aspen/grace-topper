@@ -15,6 +15,7 @@ const ItemCard = props => {
             <span className="target-name">{`${name}`}</span>
             <span className="right floated">{`$ ${price}`}</span>
           </div>
+          {/* Add to Cart button goes here */}
         </div>
       </Link>
     </div>
