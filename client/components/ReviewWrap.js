@@ -15,8 +15,16 @@ class ReviewWrap extends Component {
   //**could use userId to get a total # of their reviews (to display by their name in ReviewCard) */
 
   render() {
-    console.log(this.props, 'in reviewwrap render')
-    const reviews = this.props
+    const rev = nestObj => {
+      const nestArr = Object.entries(nestObj)
+      let result = []
+      for (let i = 0; i < nestArr.length; i++) {
+        result.push(nestArr[i][1])
+      }
+      return result
+    }
+
+    const reviews = rev(this.props)
 
     return (
       <div className="single-item">
