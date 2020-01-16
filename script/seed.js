@@ -15,6 +15,8 @@ const {
 
 const orderStatuses = ['shipped', 'delivered', 'cancelled', 'carted']
 
+const rng = num => Math.floor(Math.random() * num)
+
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
@@ -115,10 +117,19 @@ async function seed() {
   console.log(`seeded ${orderItems.length} orderItems`)
 
   await Promise.all(addresses.map((address, i) => address.setUser(users[i])))
-  await Promise.all(reviews.map((review, i) => review.setUser(users[i])))
-  await Promise.all(reviews.map((review, i) => review.setItem(items[i])))
-  await Promise.all(orders.map((order, i) => order.setUser(users[i])))
-  await Promise.all(items.map((item, i) => item.setCategory(categories[i])))
+
+  await Promise.all(
+    reviews.map((review, i) => review.setUser(users[rng(users.length)]))
+  )
+  await Promise.all(
+    reviews.map((review, i) => review.setItem(items[rng(items.length)]))
+  )
+  await Promise.all(
+    orders.map((order, i) => order.setUser(users[rng(users.length)]))
+  )
+  await Promise.all(
+    items.map((item, i) => item.setCategory(categories[rng(categories.length)]))
+  )
 
   console.log(`seeded successfully`)
 }
