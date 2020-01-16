@@ -9,10 +9,14 @@ const initialState = {}
 
 export const fetchSingleItem = id => {
   return async dispatch => {
-    const response = await axios.get(`../api/items/:${id}`)
-    const item = response.data
-    const action = getSingleItem(item)
-    dispatch(action)
+    try {
+      const response = await axios.get(`/api/items/${id}`)
+      const item = response.data
+      const action = getSingleItem(item)
+      dispatch(action)
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 
