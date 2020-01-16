@@ -1,16 +1,18 @@
-import React, {Component, Fragment} from 'react'
-import {resetWarningCache} from 'prop-types'
+//Reviews for a specific item; bottom portion of SingleItem page
+import React, {Component} from 'react'
 // import {fetchReviews} from './../store/reviews'
 // import {connect} from 'react-redux'
 import ReviewCard from './ReviewCard'
 
 class ReviewWrap extends Component {
+  //  **set up to receive itemId as props from SingleItemWrapper, or get from match params:
   // componentDidMount() {
-  //  **matching itemId received as props from SingleItemWrapper, or:
+
   //   const itemId = Number(this.props.match.params.id)
   //   this.props.loadReviews(itemId)
   // }
-  //inherit user name from props
+  //**need to access Review info for a specific item, from global state */
+  //**need to access user name associated with userId */
 
   render() {
     const reviews = [
@@ -33,11 +35,11 @@ class ReviewWrap extends Component {
         itemId: 2
       }
     ]
-    console.log('review', this.props)
+
     return (
-      <div className="centered-parent">
-        <div className="ui small comments">
-          <h4 className="ui comments-header">Customer Reviews</h4>
+      <div className="single-item">
+        <div id="review-list">
+          <h4 className="ui reviews-header">Customer Reviews</h4>
           <div className="ui divider" />
           {reviews.length ? (
             reviews.map(review => {

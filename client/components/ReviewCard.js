@@ -3,10 +3,10 @@ import React from 'react'
 const ReviewCard = props => {
   const {user, createdAt, rating, description} = props
   return (
-    <div className="ui comments comments-panel">
+    <div className="ui comments review-card">
       <div className="comment">
         <div className="content">
-          <a className="author">{user}</a>
+          <div className="author">{user}</div>
           <div className="metadata">
             <div className="date">{createdAt.slice(0, 10)}</div>
             <div className="rating">
@@ -20,7 +20,7 @@ const ReviewCard = props => {
                 } */}
             </div>
           </div>
-          <div className="text">{description}</div>
+          <div className="text review-text">{description}</div>
         </div>
       </div>
     </div>

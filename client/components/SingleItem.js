@@ -1,6 +1,7 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import {fetchSingleItem} from './../store/singleItem'
 import {connect} from 'react-redux'
+import SingleItemDetails from './SingleItemDetails'
 import ReviewWrap from './ReviewWrap'
 
 class SingleItem extends Component {
@@ -11,39 +12,15 @@ class SingleItem extends Component {
 
   render() {
     //**can't access Categories down to name
-    const {name, description, id} = this.props.item
+    const itemId = this.props.item
     return (
-      <React.Fragment>
-        <div className="centered-parent">
-          <div className="single-item">
-            <div className="item-image">
-              <img src={this.props.item.imageUrl} />
-            </div>
-            <div className="item-details">
-              <div className="target-name">{name}</div>
-              <div className="item-desc">{description}</div>
-              <div className="desc-label">
-                <div className="ui mini basic label">Sombrero</div>
-              </div>
-              <div className="item-review-stars">
-                [Reviews Component: Stars & # reviews]
-              </div>
+      <div className="centered-parent">
+        <Fragment>
+          <SingleItemDetails {...this.props.item} />
 
-              <button
-                type="submit"
-                className="ui label submit-button"
-                //   onClick={() => ADD TO CART (id)}
-              >
-                <i className="plus square icon" />
-                Add to Cart
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div className="ui divider" />
-        <ReviewWrap itemId={id} />
-      </React.Fragment>
+          <ReviewWrap itemId={itemId} />
+        </Fragment>
+      </div>
     )
   }
 }
