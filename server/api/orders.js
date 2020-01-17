@@ -1,10 +1,10 @@
 const router = require('express').Router()
-//const Op = require('Sequelize').Op
 const {Order, OrderItem, User, Item} = require('../db/models')
+const userVerification = require('./middleware/userVerification')
 module.exports = router
 
 //GET all orders--see if additional models should be included
-router.get('/', async (req, res, next) => {
+router.get('/', userVerification, async (req, res, next) => {
   try {
     const orders = await Order.findAll({
       include: [User, Item]
