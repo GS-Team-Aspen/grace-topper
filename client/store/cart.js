@@ -4,6 +4,7 @@ import axios from 'axios'
  * ACTION TYPES
  */
 const SET_CART = 'SET_CART'
+const ADD_CART = 'ADD_CART'
 
 /**
  * INITIAL STATE
@@ -14,7 +15,7 @@ const initialState = {}
  * ACTION CREATORS
  */
 const setCart = cart => ({type: SET_CART, cart})
-
+const addCart = cart => ({type: ADD_CART, cart})
 /**
  * THUNK CREATORS
  */

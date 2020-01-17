@@ -1,11 +1,10 @@
 //top portion of SingleItem page with photo & item details
 import React, {Fragment} from 'react'
+import {addToCart} from '../store/cart'
 
 // **Need to get Category by itemId (for label)
 const SingleItemDetails = props => {
-  const {imageUrl, name, description, review} = props
-
-  console.log(props)
+  const {imageUrl, name, description, review, add} = props
 
   const ratingAver = arr => {
     let ratingNums = 0
@@ -15,7 +14,7 @@ const SingleItemDetails = props => {
     return ratingNums / arr.length
   }
 
-  console.log(ratingAver(review))
+  console.log(props, 'in single item details')
 
   const reviewsAvgRating = ratingAver(review)
 
@@ -49,8 +48,11 @@ const SingleItemDetails = props => {
           </div>
           <button
             type="submit"
+            id="1"
             className="ui label submit-button"
-            //   onClick={() => ADD TO CART (id)}
+            onClick={() => {
+              add(props.id) && console.log('clicked')
+            }}
           >
             <i className="plus square icon" />
             Add to Cart

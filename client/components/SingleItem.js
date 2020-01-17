@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {fetchSingleItem} from './../store/singleItem'
 import {fetchItemReviews} from './../store/review'
+import {addToCart} from './../store/cart'
 //import {fetchCategory} from './../store/category'
 import {connect} from 'react-redux'
 import SingleItemDetails from './SingleItemDetails'
@@ -11,6 +12,7 @@ class SingleItem extends Component {
     const id = Number(this.props.match.params.id)
     this.props.loadSingleItem(id)
     this.props.loadReviews(id)
+    this.props.addCart(id)
   }
 
   render() {
@@ -20,7 +22,11 @@ class SingleItem extends Component {
     return (
       <div className="centered-parent">
         <Fragment>
-          <SingleItemDetails {...this.props.item} review={reviews} />
+          <SingleItemDetails
+            {...this.props.item}
+            review={reviews}
+            add={this.props.addCart}
+          />
 
           <ReviewWrap {...reviews} />
         </Fragment>
@@ -39,7 +45,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     loadSingleItem: id => dispatch(fetchSingleItem(id)),
-    loadReviews: id => dispatch(fetchItemReviews(id))
+    loadReviews: id => dispatch(fetchItemReviews(id)),
+    addCart: id => dispatch(addToCart(id))
   }
 }
 
