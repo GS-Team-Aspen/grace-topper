@@ -5,6 +5,8 @@ import {connect} from 'react-redux'
 import ReviewCard from './ReviewCard'
 import AddReviewForm from './AddReviewForm'
 
+// **AddReviewForm only displays if User is logged in
+
 class ReviewWrap extends Component {
   //  **set up to receive itemId as props from SingleItemWrapper, or get from match params:
   // componentDidMount() {

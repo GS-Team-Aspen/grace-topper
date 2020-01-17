@@ -1,6 +1,8 @@
 //top portion of SingleItem page with photo & item details
 import React, {Fragment} from 'react'
 
+// **Add Review button only displays if User is logged in
+
 // **Need to get Category by itemId (for label)
 const SingleItemDetails = props => {
   const {imageUrl, name, description, rating} = props

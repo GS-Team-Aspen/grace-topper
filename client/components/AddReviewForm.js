@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 
 //loads user name
 //"postReview"
+//item & user ids are sent with description & rating
 
 class AddReviewForm extends Component {
   constructor() {
