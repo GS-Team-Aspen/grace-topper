@@ -8,7 +8,6 @@ import {addToCart} from '../store/cart'
 const SingleItemDetails = props => {
   const {imageUrl, name, description, price, review, add, id} = props
 
-
   const ratingAver = arr => {
     let ratingNums = 0
     for (let i = 0; i < arr.length; i++) {
@@ -64,7 +63,6 @@ const SingleItemDetails = props => {
           <button
             type="submit"
             id="add-cart-item"
-            // id="1"
             className="ui label submit-button"
             onClick={() => {
               add() && console.log('clicked')
