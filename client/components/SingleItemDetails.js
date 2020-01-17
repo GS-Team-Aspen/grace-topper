@@ -2,9 +2,11 @@
 import React, {Fragment} from 'react'
 import {addToCart} from '../store/cart'
 
+// **Add Review button only displays if User is logged in
+
 // **Need to get Category by itemId (for label)
 const SingleItemDetails = props => {
-  const {imageUrl, name, description, review, add, id} = props
+  const {imageUrl, name, description, price, review, add, id} = props
 
   const ratingAver = arr => {
     let ratingNums = 0
@@ -41,12 +43,26 @@ const SingleItemDetails = props => {
         <div className="item-details">
           <div className="target-name">{name}</div>
           <div className="item-desc">{description}</div>
+          <div className="item-price">{`$${price}`}</div>
           <div className="item-rating">
             {`Average Rating: ${reviewsAvgRating}`}
           </div>
+
+          <div id="button-wrapper">
+            <a href="#review-form">
+              <button
+                type="button"
+                id="add-review"
+                className="ui label submit-button"
+              >
+                <i className="pen square icon" />
+                Add Review
+              </button>
+            </a>
+          </div>
           <button
             type="submit"
-            id="1"
+            id="add-cart-item"
             className="ui label submit-button"
             onClick={() => {
               add() && console.log('clicked')
