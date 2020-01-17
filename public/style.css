@@ -97,8 +97,7 @@ body {
 .item-desc,
 .item-review-stars,
 .item-price,
-.desc-label,
-.submit-button {
+.desc-label {
   padding-bottom: 10px;
 }
 
@@ -107,6 +106,9 @@ body {
 }
 
 /* button */
+#add-cart-item {
+  padding: 15px;
+}
 .submit-button:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
@@ -125,6 +127,28 @@ button:focus {
 .reviews-header {
   font-family: 'Raleway', sans-serif;
   /* color: #606060; */
+}
+
+/* add review button */
+button#add-review.ui.label {
+  border: 1px solid #e8e8e8;
+  color: #6a6969;
+  background-color: white;
+  margin-bottom: 10px;
+  border-radius: 0.28571429rem;
+}
+.icon-padding {
+  padding-left: 0.5em;
+}
+
+#button-wrapper {
+  width: 100%;
+  margin-left: 0;
+}
+
+/* same as .submit-button */
+button#add-review.ui.label:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .review-card {

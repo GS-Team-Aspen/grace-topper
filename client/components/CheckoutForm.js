@@ -1,15 +1,18 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-//ready to go?
-//fetchCart
-//getUser
-//purchase
+//Why are no Reviews rendering?
+//Checkout view sim to Cart view, but can't change qty/delete--OK?
+
+//ready to add?
+//fetchCart: map state
+//getUser: map state
+//purchase shifts status to shipped
 
 //CartCheckout & CartCheckoutCard components
 
-//get/post users: FORM - firstName, lastName, email
-//get/post address: FORM - address
+//get/post users: FORM - firstName, lastName, email; if logged in, already in record
+//get/post address: FORM - address; logged in vs guest
 //get/how posted? orderItems: quantity, salePrice, itemId (orderId auto assigned)
 //to orders: status = carted, userId
 //need format, destination of CC info

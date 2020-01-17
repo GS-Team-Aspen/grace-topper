@@ -25,9 +25,21 @@ const SingleItemDetails = props => {
           <div className="item-review-stars">
             [Reviews Component: Stars (partial?) & # reviews]
           </div>
+          <div id="button-wrapper">
+            <button
+              type="submit"
+              id="add-review"
+              className="ui label submit-button"
 
+              //   scrolls to add review fields at bottom of ReviewWrap component
+            >
+              <i className="pen square icon" />
+              Add Review
+            </button>
+          </div>
           <button
             type="submit"
+            id="add-cart-item"
             className="ui label submit-button"
             //   onClick={() => ADD TO CART (id)}
           >

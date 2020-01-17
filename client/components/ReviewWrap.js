@@ -30,6 +30,7 @@ class ReviewWrap extends Component {
       <div className="single-item">
         <div id="review-list">
           <h4 className="ui reviews-header">Customer Reviews</h4>
+
           <div className="ui divider" />
           {reviews.length ? (
             reviews.map(review => {
