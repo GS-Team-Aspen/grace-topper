@@ -29,10 +29,10 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route exact path="/items/:id" component={SingleItem} />
         <Route path="/orders/:orderId" component={SingleOrder} />
         <Route exact path="/orders" component={Orders} />
         <Route path="/cart" component={Cart} />
-        <Route exact path="/items/single" component={SingleItem} />
         <Route exact path="/items" component={AllItems} />
         {isLoggedIn && (
           <Switch>
