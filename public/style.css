@@ -168,3 +168,19 @@ button:focus {
 .quantity-input {
   width: 75px;
 }
+
+/* checkout page */
+#form-segment-addS {
+  width: 70vw;
+  margin-top: 2rem;
+}
+
+/* need to override semantic-ui classes & make form rows fill width */
+#name-wrapper,
+#address-wrapper {
+  width: 100%;
+}
+
+#order-submit-button {
+  margin: 20px 0;
+}
