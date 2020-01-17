@@ -110,6 +110,17 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+router.post('/cart/add', async (req, res, next) => {
+  try {
+    await OrderItem.findOrCreate({where: {...req.body}})
+    const cart = await Order.findByPk(req.body.orderId, {include: [Item]})
+    res.status(201)
+    res.json(cart)
+  } catch (error) {
+    next(error)
+  }
+})
+
 //delete an item from a cart
 router.delete('/cart/delete', async (req, res, next) => {
   try {

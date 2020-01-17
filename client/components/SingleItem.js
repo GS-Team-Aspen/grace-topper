@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {fetchSingleItem} from './../store/singleItem'
 import {fetchItemReviews} from './../store/review'
+import {addToCart} from './../store/cart'
 //import {fetchCategory} from './../store/category'
 import {connect} from 'react-redux'
 import SingleItemDetails from './SingleItemDetails'
@@ -15,13 +16,22 @@ class SingleItem extends Component {
 
   render() {
     //**can't access Categories down to name
-    //console.log(this.props.item)
     const reviews = this.props.reviews
     //itemId.category ?
     return (
       <div className="centered-parent">
         <Fragment>
-          <SingleItemDetails {...this.props.item} />
+          <SingleItemDetails
+            {...this.props.item}
+            review={reviews}
+            add={quantity =>
+              this.props.addCart(
+                this.props.item.id,
+                this.props.orderId,
+                quantity
+              )
+            }
+          />
 
           <ReviewWrap {...reviews} />
         </Fragment>
@@ -33,14 +43,17 @@ class SingleItem extends Component {
 const mapStateToProps = state => {
   return {
     item: state.singleItem,
-    reviews: state.review
+    reviews: state.review,
+    orderId: state.cart.id
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     loadSingleItem: id => dispatch(fetchSingleItem(id)),
-    loadReviews: id => dispatch(fetchItemReviews(id))
+    loadReviews: id => dispatch(fetchItemReviews(id)),
+    addCart: (itemId, orderId, quantity) =>
+      dispatch(addToCart(itemId, orderId, quantity))
   }
 }
 

@@ -53,6 +53,9 @@ export const logout = () => async dispatch => {
     await axios.post('/auth/logout')
     dispatch(removeUser())
     history.push('/login')
+    const res = await axios.get('/auth/me')
+    dispatch(getUser(res.data || defaultUser))
+    dispatch(fetchCart(res.data.id))
   } catch (err) {
     console.error(err)
   }

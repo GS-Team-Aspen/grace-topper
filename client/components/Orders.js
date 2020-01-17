@@ -10,11 +10,6 @@ const Orders = props => {
 
   return (
     <div>
-      <div className="order">
-        <h1>Order ID</h1>
-        <h1>Order Status</h1>
-        <h1>Email</h1>
-      </div>
       {props.orders.length ? (
         props.orders.map(order => <OrderCard order={order} key={order.id} />)
       ) : (

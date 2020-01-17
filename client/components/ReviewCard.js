@@ -11,7 +11,6 @@ const ReviewCard = props => {
     finalDate.push(miniDate[0])
     return finalDate
   }
-  console.log(props)
   //   this doesn't handle non-integers (half-stars)
   const createStarArr = num => {
     const starArr = []
