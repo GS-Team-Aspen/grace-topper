@@ -3,7 +3,10 @@ import {Link} from 'react-router-dom'
 
 const ItemCard = props => {
   const {id, name, imageUrl} = props
-  const price = props.type === 'order' ? props.orderItem.salePrice : props.price
+  const price = (props.type === 'order'
+    ? props.orderItem.salePrice * props.orderItem.quantity
+    : props.price
+  ).toLocaleString(undefined, {style: 'currency', currency: 'USD'})
   const quantity = props.type === 'order' ? `x${props.orderItem.quantity}` : ''
 
   return (
@@ -16,7 +19,7 @@ const ItemCard = props => {
           </div>
           <div className="extra content">
             <span className="target-name">{`${name} ${quantity}`}</span>
-            <span className="right floated">{`$ ${price}`}</span>
+            <span className="right floated">{price}</span>
           </div>
           {/* Add to Cart button goes here */}
         </div>
