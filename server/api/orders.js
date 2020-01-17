@@ -4,7 +4,9 @@ const userVerification = require('./middleware/userVerification')
 module.exports = router
 
 //GET all orders--see if additional models should be included
-router.get('/', userVerification, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
+  console.log(req.body, 'in the route itself')
+
   try {
     const orders = await Order.findAll({
       include: [User, Item]
