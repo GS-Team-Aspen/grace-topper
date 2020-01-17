@@ -107,14 +107,12 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.post('/cart/:id/add', async (req, res, next) => {
-  console.log(req, 'weouthere')
+router.post('/cart/add', async (req, res, next) => {
   try {
-    console.log('inside post route')
-    const orderItem = await OrderItem.create(req.body)
-    // const orderitem = await OrderItem.create(req.body)
+    await OrderItem.findOrCreate({where: {...req.body}})
+    const cart = await Order.findByPk(req.body.orderId)
     res.status(201)
-    res.json(order)
+    res.json(cart)
   } catch (error) {
     next(error)
   }

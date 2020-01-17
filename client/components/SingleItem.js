@@ -12,7 +12,6 @@ class SingleItem extends Component {
     const id = Number(this.props.match.params.id)
     this.props.loadSingleItem(id)
     this.props.loadReviews(id)
-    this.props.addCart(id)
   }
 
   render() {
@@ -25,7 +24,13 @@ class SingleItem extends Component {
           <SingleItemDetails
             {...this.props.item}
             review={reviews}
-            add={this.props.addCart}
+            add={quantity =>
+              this.props.addCart(
+                this.props.item.id,
+                this.props.orderId,
+                quantity
+              )
+            }
           />
 
           <ReviewWrap {...reviews} />
@@ -38,7 +43,8 @@ class SingleItem extends Component {
 const mapStateToProps = state => {
   return {
     item: state.singleItem,
-    reviews: state.review
+    reviews: state.review,
+    orderId: state.cart.id
   }
 }
 
@@ -46,7 +52,8 @@ const mapDispatchToProps = dispatch => {
   return {
     loadSingleItem: id => dispatch(fetchSingleItem(id)),
     loadReviews: id => dispatch(fetchItemReviews(id)),
-    addCart: id => dispatch(addToCart(id))
+    addCart: (itemId, orderId, quantity) =>
+      dispatch(addToCart(itemId, orderId, quantity))
   }
 }
 

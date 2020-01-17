@@ -4,7 +4,7 @@ import {addToCart} from '../store/cart'
 
 // **Need to get Category by itemId (for label)
 const SingleItemDetails = props => {
-  const {imageUrl, name, description, review, add} = props
+  const {imageUrl, name, description, review, add, id} = props
 
   const ratingAver = arr => {
     let ratingNums = 0
@@ -13,8 +13,6 @@ const SingleItemDetails = props => {
     }
     return ratingNums / arr.length
   }
-
-  console.log(props, 'in single item details')
 
   const reviewsAvgRating = ratingAver(review)
 
@@ -51,7 +49,7 @@ const SingleItemDetails = props => {
             id="1"
             className="ui label submit-button"
             onClick={() => {
-              add(props.name) && console.log('clicked')
+              add() && console.log('clicked')
             }}
           >
             <i className="plus square icon" />
