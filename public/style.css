@@ -170,17 +170,51 @@ button:focus {
 }
 
 /* checkout page */
-#form-segment-addS {
+#segment-checkout-form,
+#segment-checkout-user {
   width: 70vw;
   margin-top: 2rem;
 }
 
-/* need to override semantic-ui classes & make form rows fill width */
+.checkout-form {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.9rem;
+}
+
+#checkout-header {
+  font-family: 'Raleway', sans-serif;
+  text-align: center;
+}
+
+/* overrides semantic-ui classes & make form rows fill width */
 #name-wrapper,
-#address-wrapper {
+#address-wrapper,
+#email-wrapper {
   width: 100%;
+  margin-left: 0;
 }
 
 #order-submit-button {
   margin: 20px 0;
+}
+
+#segment-checkout-user {
+  font-weight: 600;
+}
+
+.user-info {
+  text-align: center;
+  line-height: 1.5rem;
+  margin: 30px;
+}
+
+#checkout-user-divider {
+  width: 96%;
+}
+
+/* removes useless dropdown from zip code input field */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

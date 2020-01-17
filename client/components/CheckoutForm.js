@@ -1,15 +1,20 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-//import postOrder from redux store
+//ready to go?
+//fetchCart
+//getUser
+//purchase
 
-//to users: FORM - firstName, lastName, email
-//to address: FORM - address
-//to orderItems: quantity, salePrice, itemId (orderId auto assigned)
+//CartCheckout & CartCheckoutCard components
+
+//get/post users: FORM - firstName, lastName, email
+//get/post address: FORM - address
+//get/how posted? orderItems: quantity, salePrice, itemId (orderId auto assigned)
 //to orders: status = carted, userId
+//need format, destination of CC info
 
-//IF User info is in database, display with Edit button
-//IF User wants to edit, or isn't in db, show form
+//IF User info is in database, load user info component; else: load
 
 class CheckoutForm extends Component {
   constructor() {
@@ -49,7 +54,64 @@ class CheckoutForm extends Component {
   render() {
     return (
       <div className="centered-parent">
-        <div className="ui segment" id="form-segment-addS">
+        <div className="ui segment checkout-form" id="segment-checkout-form">
+          <h3 id="checkout-header">Checkout</h3>
+
+          <table className="ui table">
+            <thead>
+              <tr>
+                <th className="seven wide">Item</th>
+                <th className="three wide center aligned">Unit Price</th>
+                <th className="one wide center aligned" />
+                <th className="two wide center aligned">Qty</th>
+                <th className="three wide center aligned">Item Cost</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Urban Sombrero</td>
+                <td className="center aligned">$75</td>
+                <td className="center aligned">x</td>
+                <td className="center aligned">2</td>
+                <td className="center aligned">$150</td>
+              </tr>
+              <tr>
+                <td>Brown Derby</td>
+                <td className="center aligned">$25</td>
+                <td className="center aligned">x</td>
+                <td className="center aligned">3</td>
+                <td className="center aligned">$75</td>
+              </tr>
+              <tr>
+                <td>Top Hat</td>
+                <td className="center aligned">$100</td>
+                <td className="center aligned">x</td>
+                <td className="center aligned">4</td>
+                <td className="center aligned">$400</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>Total Cost</th>
+                <th className="center aligned" />
+                <th className="center aligned" />
+                <th className="center aligned" />
+                <th className="center aligned">$625</th>
+              </tr>
+            </tfoot>
+          </table>
+
+          <div id="segment-checkout-user">
+            <h4 className="ui dividing header" id="checkout-user-divider">
+              Customer Information
+            </h4>
+            <div className="user-info">
+              <div>Kristen Andersen</div>
+              <div>523 S. Plymouth Ct., Chicago, IL 60605</div>
+              <div>kristen.andersen@gmail.com</div>
+            </div>
+          </div>
+
           <form className="ui form" onSubmit={this.handleSubmit}>
             <h4 className="ui dividing header">Shipping Information</h4>
             <div className="field" id="name-wrapper">
@@ -76,7 +138,7 @@ class CheckoutForm extends Component {
               </div>
             </div>
             <div className="field" id="address-wrapper">
-              <label>Shipping Address</label>
+              <label>Address</label>
               <div className="two fields">
                 <div className="twelve wide field">
                   <input
@@ -142,9 +204,9 @@ class CheckoutForm extends Component {
                 />
               </div>
               <div className="six wide field">
-                <label>Expiration</label>
                 <div className="two fields">
                   <div className="field">
+                    <label>Expiration</label>
                     <select
                       className="ui fluid search dropdown"
                       name="card[expire-month]"
@@ -165,11 +227,12 @@ class CheckoutForm extends Component {
                     </select>
                   </div>
                   <div className="field">
+                    <label>Year</label>
                     <input
                       type="text"
                       name="card[expire-year]"
                       maxLength="4"
-                      placeholder="Year"
+                      placeholder="4 digits"
                     />
                   </div>
                 </div>
@@ -177,18 +240,21 @@ class CheckoutForm extends Component {
             </div>
 
             <h4 className="ui dividing header">Email Address</h4>
-            <div className="sixteen wide field">
-              <input
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                value={this.state.email}
-                onChange={this.handleChange}
-              />
+            <div id="email-wrapper">
+              <div className="ten wide field">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email Address"
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                />
+              </div>
             </div>
             <div className="ui divider" />
+
             <button
-              className="ui button"
+              className="ui right floated button"
               id="order-submit-button"
               type="submit"
             >
