@@ -6,7 +6,7 @@ import {addToCart} from '../store/cart'
 
 // **Need to get Category by itemId (for label)
 const SingleItemDetails = props => {
-  const {imageUrl, name, description, review, add, id} = props
+  const {imageUrl, name, description, price, review, add, id} = props
 
   const ratingAver = arr => {
     let ratingNums = 0
@@ -43,6 +43,7 @@ const SingleItemDetails = props => {
         <div className="item-details">
           <div className="target-name">{name}</div>
           <div className="item-desc">{description}</div>
+          <div className="item-price">{`$${price}`}</div>
           <div className="item-rating">
             {`Average Rating: ${reviewsAvgRating}`}
           </div>

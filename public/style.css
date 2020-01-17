@@ -105,6 +105,11 @@ body {
   font-style: oblique;
 }
 
+.item-price {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
 /* button */
 #add-cart-item {
   padding: 15px;
