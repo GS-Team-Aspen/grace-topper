@@ -15,19 +15,14 @@ const SingleItemDetails = props => {
   }
 
   const reviewsAvgRating = ratingAver(review)
+  const reviewDec = reviewsAvgRating - Math.floor(reviewsAvgRating)
+  const wholeReview = Math.ceil(reviewsAvgRating)
+  console.log(typeof reviewsAvgRating)
 
-  const createStarArrDecimal = num => {
-    const integer = Math.floor(num)
-    const decimal = num - integer
+  const createStarArr = num => {
     const starArr = []
-    for (let i = 1; i <= integer; i++) {
+    for (let i = 1; i < num; i++) {
       starArr.push(i)
-    }
-    //9 as last item signals need for half star
-    if (decimal > 0.25 || decimal < 0.75) {
-      starArr.push(9)
-    } else {
-      starArr.push(8)
     }
     return starArr
   }
@@ -42,7 +37,24 @@ const SingleItemDetails = props => {
           <div className="target-name">{name}</div>
           <div className="item-desc">{description}</div>
           <div className="item-rating">
-            {`Average Rating: ${reviewsAvgRating}`}
+            {reviewsAvgRating > 0 ? (
+              createStarArr(wholeReview).map(i => {
+                return (
+                  <span key={i}>
+                    <i className="star icon" />
+                  </span>
+                )
+              })
+            ) : (
+              <h1>No Reviews</h1>
+            )}
+            {reviewDec > 0.25 && reviewDec < 0.75 ? (
+              <span>
+                <i className="half star icon" />
+              </span>
+            ) : (
+              ''
+            )}
           </div>
           <button
             type="submit"
@@ -63,3 +75,13 @@ const SingleItemDetails = props => {
 }
 
 export default SingleItemDetails
+
+// {typeof reviewsAvgRating == 'number' ? createStarArr(Math.floor(reviewArr)).map(i => {
+// 	return (
+// 		<span key={i}>
+// 			<i className="star icon" />
+// 		</span>
+// 	)
+// }) : 'No Ratings'
+// }
+// {reviewDec > .25 && reviewDec < .75 ? 'halfstar'  :  'no halfstar' }
