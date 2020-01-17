@@ -51,7 +51,7 @@ const SingleItemDetails = props => {
             id="1"
             className="ui label submit-button"
             onClick={() => {
-              add(props.id) && console.log('clicked')
+              add(props.name) && console.log('clicked')
             }}
           >
             <i className="plus square icon" />
