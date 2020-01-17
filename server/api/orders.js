@@ -1,5 +1,5 @@
 const router = require('express').Router()
-//const Op = require('Sequelize').Op
+const Op = require('sequelize').Op
 const {Order, OrderItem, User, Item} = require('../db/models')
 module.exports = router
 
@@ -7,7 +7,10 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const orders = await Order.findAll({
-      include: [User, Item]
+      include: [User, Item],
+      where: {
+        status: {[Op.not]: 'carted'}
+      }
     })
     res.json(orders)
   } catch (error) {
@@ -110,7 +113,7 @@ router.post('/', async (req, res, next) => {
 router.post('/cart/add', async (req, res, next) => {
   try {
     await OrderItem.findOrCreate({where: {...req.body}})
-    const cart = await Order.findByPk(req.body.orderId)
+    const cart = await Order.findByPk(req.body.orderId, {include: [Item]})
     res.status(201)
     res.json(cart)
   } catch (error) {
