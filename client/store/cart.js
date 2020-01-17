@@ -28,6 +28,15 @@ export const fetchCart = userId => async dispatch => {
   }
 }
 
+export const addToCart = itemId => async dispatch => {
+  try {
+    const {data} = await axios.post(`/api/orders/cart/${itemId}/add`)
+    dispatch(se)
+  } catch (error) {
+    console.log(err)
+  }
+}
+
 export const changeItemQuantity = (
   orderId,
   itemId,
@@ -74,6 +83,8 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case SET_CART:
       return action.cart
+    case ADD_CART:
+      return [...state, action.cart]
     default:
       return state
   }

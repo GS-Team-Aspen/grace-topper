@@ -107,6 +107,19 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+router.post('/cart/:id/add', async (req, res, next) => {
+  console.log(req, 'weouthere')
+  try {
+    console.log('inside post route')
+    const orderItem = await OrderItem.create(req.body)
+    // const orderitem = await OrderItem.create(req.body)
+    res.status(201)
+    res.json(order)
+  } catch (error) {
+    next(error)
+  }
+})
+
 //delete an item from a cart
 router.delete('/cart/delete', async (req, res, next) => {
   try {
