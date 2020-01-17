@@ -23,18 +23,18 @@ const ItemCard = props => {
           <span className="target-name">{`${item.name} ${
             item.orderItem.quantity
           }`}</span>
-          <span className="right floated">{`$ ${item.price}`}</span>
         </div>
       </Link>
-      <div>
+      <span className="right floated">
         {item.price.toLocaleString(undefined, {
           style: 'currency',
           currency: 'USD'
         })}
-      </div>
+      </span>
       <div className="button-holder">
         Quantity:
         <div
+          className="mini ui button"
           onClick={() =>
             this.changeQuantity(
               item.id,
@@ -45,13 +45,16 @@ const ItemCard = props => {
         >
           -
         </div>
-        <input
-          className="quantity-input"
-          onChange={event => this.handleChange(item.id, event, item.stock)}
-          type="text"
-          value={item.orderItem.quantity}
-        />
+        <div className="ui input">
+          <input
+            className="quantity-input"
+            onChange={event => this.handleChange(item.id, event, item.stock)}
+            type="text"
+            value={item.orderItem.quantity}
+          />
+        </div>
         <div
+          className="mini ui button"
           onClick={() =>
             this.changeQuantity(
               item.id,
@@ -62,7 +65,12 @@ const ItemCard = props => {
         >
           +
         </div>
-        <div onClick={() => this.handleRemove(item.id)}>Remove Item</div>
+      </div>
+      <div
+        className="ui negative button"
+        onClick={() => this.handleRemove(item.id)}
+      >
+        Remove Item
       </div>
     </div>
   )
@@ -112,7 +120,9 @@ class Cart extends React.Component {
             .reduce((a, c) => a + c.price * c.orderItem.quantity, 0)
             .toLocaleString(undefined, {style: 'currency', currency: 'USD'})}
         </div>
-        <div onClick={this.handlePurchase}>Purchase Cart</div>
+        <div className="ui button" onClick={this.handlePurchase}>
+          Purchase Cart
+        </div>
         {cart.map(item => <ItemCard key={item.id} item={item} />)}
       </div>
     )

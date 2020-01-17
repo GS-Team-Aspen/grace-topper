@@ -121,8 +121,12 @@ button:focus {
 /* cart */
 .button-holder {
   display: flex;
+  justify-content: space-around;
+  padding-bottom: 5px;
 }
 
 .quantity-input {
   width: 75px;
 }
+
+.item-;
