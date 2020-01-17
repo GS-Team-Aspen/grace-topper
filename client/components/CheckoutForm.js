@@ -1,9 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {fetchCart} from './../store/cart'
 import CheckoutCartSummary from './CheckoutCartSummary'
-
-//Why are no Reviews rendering?
-//Checkout view sim to Cart view, but can't change qty/delete--OK?
 
 //ready to add?
 //fetchCart: map state
@@ -34,6 +32,7 @@ class CheckoutForm extends Component {
       },
       email: ''
     }
+
     //**also to collect: cc info */
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -239,10 +238,10 @@ class CheckoutForm extends Component {
   }
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     addStudent: order => dispatch(postOrder(order))
-//   };
-// };
+const mapStateToProps = state => {
+  return {
+    currState: state
+  }
+}
 
-export default CheckoutForm
+export default connect(mapStateToProps)(CheckoutForm)
