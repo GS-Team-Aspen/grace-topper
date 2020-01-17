@@ -40,7 +40,6 @@ router.post('/logout', (req, res) => {
 })
 
 router.get('/me', async (req, res) => {
-  console.log(req.session.id, 'me req')
   const user = req.user
     ? [req.user]
     : await User.findOrCreate({

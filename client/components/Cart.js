@@ -1,13 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {fetchOrders} from '../store/order'
-import {
-  fetchCart,
-  changeItemQuantity,
-  purchase,
-  removeItem
-} from '../store/cart'
+import {changeItemQuantity, purchase, removeItem} from '../store/cart'
 
 const ItemCard = props => {
   const {item} = props
@@ -77,15 +71,9 @@ class Cart extends React.Component {
     this.handlePurchase = this.handlePurchase.bind(this)
   }
 
-  componentDidMount() {
-    //this.props.fetchCart(this.props.userId)
-    this.props.fetchCart(5)
-  }
-
   handlePurchase(event) {
     event.preventDefault()
-    //this.props.purchase(this.props.userId, this.props.cart.id)
-    this.props.purchase(5, this.props.cart.id)
+    this.props.purchase(this.props.userId, this.props.cart.id)
   }
 
   changeQuantity(itemId, newValue, quantity) {
@@ -125,7 +113,6 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  fetchCart: userId => dispatch(fetchCart(userId)),
   changeQuantity: (orderId, itemId, newValue) =>
     dispatch(changeItemQuantity(orderId, itemId, newValue)),
   purchase: (userId, orderId) => dispatch(purchase(userId, orderId)),
