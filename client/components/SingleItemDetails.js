@@ -63,7 +63,6 @@ const SingleItemDetails = props => {
           <button
             type="submit"
             id="add-cart-item"
-            // id="1"
             className="ui label submit-button"
             onClick={() => {
               add() && console.log('clicked')
