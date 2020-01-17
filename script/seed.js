@@ -135,7 +135,7 @@ async function seed() {
           quantity: faker.random.number({min: 1, max: 2000}),
           salePrice: null,
           orderId: cart.id,
-          itemId: rng(items.length)
+          itemId: i + 1
         })
       )
     }
