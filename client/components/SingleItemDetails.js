@@ -25,17 +25,18 @@ const SingleItemDetails = props => {
           <div className="item-review-stars">
             [Reviews Component: Stars (partial?) & # reviews]
           </div>
-          <div id="button-wrapper">
-            <button
-              type="submit"
-              id="add-review"
-              className="ui label submit-button"
 
-              //   scrolls to add review fields at bottom of ReviewWrap component
-            >
-              <i className="pen square icon" />
-              Add Review
-            </button>
+          <div id="button-wrapper">
+            <a href="#review-form">
+              <button
+                type="button"
+                id="add-review"
+                className="ui label submit-button"
+              >
+                <i className="pen square icon" />
+                Add Review
+              </button>
+            </a>
           </div>
           <button
             type="submit"

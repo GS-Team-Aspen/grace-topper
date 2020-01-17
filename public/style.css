@@ -120,7 +120,8 @@ button:focus {
 /* reviews on SingleItem page; except for star icons, semantic-ui styling removed from ReviewCard */
 
 /* id to pre-empt semantic-ui class styling (width too narrow) */
-#review-list {
+#review-list,
+#review-form {
   width: 80%;
 }
 
@@ -182,6 +183,11 @@ button#add-review.ui.label:hover {
   display: flex;
   justify-content: space-evenly;
   flex-grow: 1;
+}
+
+.review-cust {
+  font-family: 'Open Sans', sans-serif;
+  margin: 10px 0;
 }
 
 /* cart */
