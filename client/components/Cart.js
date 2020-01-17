@@ -1,16 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {fetchOrders} from '../store/order'
-import {
-  fetchCart,
-  changeItemQuantity,
-  purchase,
-  removeItem
-} from '../store/cart'
+
+import {changeItemQuantity, purchase, removeItem} from '../store/cart'
 
 const ItemCard = props => {
-  const {item} = props
+  const {item, handleChange, handleRemove, changeQuantity} = props
 
   return (
     //hover on product card
@@ -23,20 +18,20 @@ const ItemCard = props => {
           <span className="target-name">{`${item.name} ${
             item.orderItem.quantity
           }`}</span>
+          <span className="right floated">{`$ ${item.price}`}</span>
         </div>
       </Link>
-      <span className="right floated">
+      <div>
         {item.price.toLocaleString(undefined, {
           style: 'currency',
           currency: 'USD'
         })}
-      </span>
+      </div>
       <div className="button-holder">
         Quantity:
         <div
-          className="mini ui button"
           onClick={() =>
-            this.changeQuantity(
+            changeQuantity(
               item.id,
               parseInt(item.orderItem.quantity) - 1,
               item.stock
@@ -45,18 +40,15 @@ const ItemCard = props => {
         >
           -
         </div>
-        <div className="ui input">
-          <input
-            className="quantity-input"
-            onChange={event => this.handleChange(item.id, event, item.stock)}
-            type="text"
-            value={item.orderItem.quantity}
-          />
-        </div>
+        <input
+          className="quantity-input"
+          onChange={event => handleChange(item.id, event, item.stock)}
+          type="text"
+          value={item.orderItem.quantity}
+        />
         <div
-          className="mini ui button"
           onClick={() =>
-            this.changeQuantity(
+            changeQuantity(
               item.id,
               parseInt(item.orderItem.quantity) + 1,
               item.stock
@@ -65,12 +57,7 @@ const ItemCard = props => {
         >
           +
         </div>
-      </div>
-      <div
-        className="ui negative button"
-        onClick={() => this.handleRemove(item.id)}
-      >
-        Remove Item
+        <div onClick={() => handleRemove(item.id)}>Remove Item</div>
       </div>
     </div>
   )
@@ -85,15 +72,9 @@ class Cart extends React.Component {
     this.handlePurchase = this.handlePurchase.bind(this)
   }
 
-  componentDidMount() {
-    //this.props.fetchCart(this.props.userId)
-    this.props.fetchCart(5)
-  }
-
   handlePurchase(event) {
     event.preventDefault()
-    //this.props.purchase(this.props.userId, this.props.cart.id)
-    this.props.purchase(5, this.props.cart.id)
+    this.props.purchase(this.props.userId, this.props.cart.id)
   }
 
   changeQuantity(itemId, newValue, quantity) {
@@ -120,10 +101,16 @@ class Cart extends React.Component {
             .reduce((a, c) => a + c.price * c.orderItem.quantity, 0)
             .toLocaleString(undefined, {style: 'currency', currency: 'USD'})}
         </div>
-        <div className="ui button" onClick={this.handlePurchase}>
-          Purchase Cart
-        </div>
-        {cart.map(item => <ItemCard key={item.id} item={item} />)}
+        <div onClick={this.handlePurchase}>Purchase Cart</div>
+        {cart.map(item => (
+          <ItemCard
+            key={item.id}
+            item={item}
+            changeQuantity={this.changeQuantity}
+            handleChange={this.handleChange}
+            handleRemove={this.handleRemove}
+          />
+        ))}
       </div>
     )
   }
@@ -135,7 +122,6 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  fetchCart: userId => dispatch(fetchCart(userId)),
   changeQuantity: (orderId, itemId, newValue) =>
     dispatch(changeItemQuantity(orderId, itemId, newValue)),
   purchase: (userId, orderId) => dispatch(purchase(userId, orderId)),

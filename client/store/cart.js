@@ -27,6 +27,19 @@ export const fetchCart = userId => async dispatch => {
   }
 }
 
+export const addToCart = (itemId, orderId, quantity = 1) => async dispatch => {
+  try {
+    const {data} = await axios.post(`/api/orders/cart/add`, {
+      itemId,
+      orderId,
+      quantity
+    })
+    dispatch(setCart(data))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const changeItemQuantity = (
   orderId,
   itemId,

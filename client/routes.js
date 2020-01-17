@@ -11,6 +11,7 @@ import AllItems from './components/AllItems'
 import SingleItem from './components/SingleItem'
 import Orders from './components/Orders'
 import SingleOrder from './components/SingleOrder'
+import CheckoutForm from './components/CheckoutForm'
 
 /**
  * COMPONENT
@@ -29,6 +30,7 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/checkout" component={CheckoutForm} />
         <Route exact path="/items/:id" component={SingleItem} />
         <Route path="/orders/:orderId" component={SingleOrder} />
         <Route exact path="/orders" component={Orders} />
@@ -54,7 +56,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    userId: state.user.id
   }
 }
 
