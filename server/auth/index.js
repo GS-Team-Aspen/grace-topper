@@ -12,6 +12,7 @@ router.post('/login', async (req, res, next) => {
       console.log('Incorrect password for user:', req.body.email)
       res.status(401).send('Wrong username and/or password')
     } else {
+      console.log(user)
       req.login(user, err => (err ? next(err) : res.json(user)))
     }
   } catch (err) {
@@ -39,8 +40,18 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/me', (req, res) => {
-  res.json(req.user)
+router.get('/me', async (req, res) => {
+  const user = req.user
+    ? [req.user]
+    : await User.findOrCreate({
+        where: {
+          sessionId: req.session.id,
+          firstName: 'Guest',
+          lastName: 'User',
+          email: `${req.session.id}@guestmail.com`
+        }
+      })
+  res.json(user[0])
 })
 
 router.use('/google', require('./google'))
