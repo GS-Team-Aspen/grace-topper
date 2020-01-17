@@ -7,7 +7,7 @@ router.get('/', async (req, res, next) => {
   //Authenticate that the user is an admin in order to access all users
   try {
     const users = await User.findAll({
-      attributes: ['id', 'email', 'admin', 'firstName', 'lastName'],
+      attributes: ['id', 'email', 'userType', 'firstName', 'lastName'],
       include: [
         {
           //Confirm naming of address model

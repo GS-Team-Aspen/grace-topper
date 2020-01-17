@@ -36,7 +36,7 @@ async function seed() {
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
       password: faker.internet.password(),
-      admin: false
+      userType: 'user'
     })
     addressFramework.push({
       street: `${faker.address.streetAddress()} ${faker.address.streetName()}`,
@@ -82,7 +82,7 @@ async function seed() {
       lastName: 'admin',
       email: 'admin@email.com',
       password: 'admin',
-      admin: true
+      userType: 'admin'
     }),
     ...userFramework.map(user => User.create(user))
   ])
