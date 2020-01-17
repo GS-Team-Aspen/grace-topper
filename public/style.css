@@ -146,7 +146,7 @@ button#add-review.ui.label {
   margin-left: 0;
 }
 
-/* same as .submit-button */
+/* same as other outlined buttons */
 button#add-review.ui.label:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
@@ -234,6 +234,20 @@ button#add-review.ui.label:hover {
 
 #checkout-user-divider {
   width: 96%;
+}
+
+/* #edit-user-details {
+  margin: 20px auto;
+} */
+button#edit-user-details.ui.label {
+  border: 1px solid #e8e8e8;
+  color: #6a6969;
+  background-color: white;
+  margin: 20px auto;
+  border-radius: 0.28571429rem;
+}
+button#edit-user-details.ui.label:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 /* removes useless dropdown from zip code input field */

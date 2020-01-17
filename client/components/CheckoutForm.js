@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import CheckoutCartSummary from './CheckoutCartSummary'
 
 //Why are no Reviews rendering?
 //Checkout view sim to Cart view, but can't change qty/delete--OK?
@@ -55,55 +56,12 @@ class CheckoutForm extends Component {
   }
 
   render() {
+    console.log('CHECKOUT', this.props)
     return (
       <div className="centered-parent">
         <div className="ui segment checkout-form" id="segment-checkout-form">
           <h3 id="checkout-header">Checkout</h3>
-
-          <table className="ui table">
-            <thead>
-              <tr>
-                <th className="seven wide">Item</th>
-                <th className="three wide center aligned">Unit Price</th>
-                <th className="one wide center aligned" />
-                <th className="two wide center aligned">Qty</th>
-                <th className="three wide center aligned">Item Cost</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Urban Sombrero</td>
-                <td className="center aligned">$75</td>
-                <td className="center aligned">x</td>
-                <td className="center aligned">2</td>
-                <td className="center aligned">$150</td>
-              </tr>
-              <tr>
-                <td>Brown Derby</td>
-                <td className="center aligned">$25</td>
-                <td className="center aligned">x</td>
-                <td className="center aligned">3</td>
-                <td className="center aligned">$75</td>
-              </tr>
-              <tr>
-                <td>Top Hat</td>
-                <td className="center aligned">$100</td>
-                <td className="center aligned">x</td>
-                <td className="center aligned">4</td>
-                <td className="center aligned">$400</td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <th>Total Cost</th>
-                <th className="center aligned" />
-                <th className="center aligned" />
-                <th className="center aligned" />
-                <th className="center aligned">$625</th>
-              </tr>
-            </tfoot>
-          </table>
-
+          <CheckoutCartSummary />
           <div id="segment-checkout-user">
             <h4 className="ui dividing header" id="checkout-user-divider">
               Customer Information
@@ -112,6 +70,17 @@ class CheckoutForm extends Component {
               <div>Kristen Andersen</div>
               <div>523 S. Plymouth Ct., Chicago, IL 60605</div>
               <div>kristen.andersen@gmail.com</div>
+
+              <button
+                type="submit"
+                id="edit-user-details"
+                className="ui label submit-button"
+
+                //    links to Add/Update User page
+              >
+                <i className="pen square icon" />
+                Edit
+              </button>
             </div>
           </div>
 
