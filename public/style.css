@@ -97,8 +97,7 @@ body {
 .item-desc,
 .item-review-stars,
 .item-price,
-.desc-label,
-.submit-button {
+.desc-label {
   padding-bottom: 10px;
 }
 
@@ -106,7 +105,15 @@ body {
   font-style: oblique;
 }
 
+.item-price {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
 /* button */
+#add-cart-item {
+  padding: 15px;
+}
 .submit-button:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
@@ -118,13 +125,36 @@ button:focus {
 /* reviews on SingleItem page; except for star icons, semantic-ui styling removed from ReviewCard */
 
 /* id to pre-empt semantic-ui class styling (width too narrow) */
-#review-list {
+#review-list,
+#review-form {
   width: 80%;
 }
 
 .reviews-header {
   font-family: 'Raleway', sans-serif;
   /* color: #606060; */
+}
+
+/* add review button */
+button#add-review.ui.label {
+  border: 1px solid #e8e8e8;
+  color: #6a6969;
+  background-color: white;
+  margin-bottom: 10px;
+  border-radius: 0.28571429rem;
+}
+.icon-padding {
+  padding-left: 0.5em;
+}
+
+#button-wrapper {
+  width: 100%;
+  margin-left: 0;
+}
+
+/* same as other outlined buttons */
+button#add-review.ui.label:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .review-card {
@@ -160,49 +190,82 @@ button:focus {
   flex-grow: 1;
 }
 
+.review-cust {
+  font-family: 'Open Sans', sans-serif;
+  margin: 10px 0;
+}
+
 /* cart */
 .button-holder {
   display: flex;
+  justify-content: space-around;
+  padding-bottom: 5px;
 }
 
 .quantity-input {
   width: 75px;
 }
-/* reviews on SingleItem page; except for star icons, semantic-ui styling removed from ReviewCard */
 
-/* id to pre-empt semantic-ui class styling (width too narrow) */
-#review-list {
-  width: 80%;
+/* checkout page */
+#segment-checkout-form,
+#segment-checkout-user {
+  width: 70vw;
+  margin-top: 2rem;
 }
 
-.reviews-header {
-  font-family: 'Raleway', sans-serif;
-  /* color: #606060; */
-}
-
-.review-card {
+.checkout-form {
   font-family: 'Open Sans', sans-serif;
   font-size: 0.9rem;
 }
 
-.review-info {
-  display: flex;
+#checkout-header {
+  font-family: 'Raleway', sans-serif;
+  text-align: center;
 }
 
-.review-author {
+/* overrides semantic-ui classes & make form rows fill width */
+#name-wrapper,
+#address-wrapper,
+#email-wrapper {
+  width: 100%;
+  margin-left: 0;
+}
+
+#order-submit-button {
+  margin: 20px 0;
+}
+
+#segment-checkout-user {
   font-weight: 600;
-  padding: 0 10px 0 0;
 }
 
-.review-date {
-  color: #989898;
-  padding: 0 10px 0 0;
+.user-info {
+  text-align: center;
+  line-height: 1.5rem;
+  margin: 30px;
 }
 
-.review-rating {
-  color: #989898;
+#checkout-user-divider {
+  width: 96%;
 }
 
-.review-text {
-  margin: 5px 0 15px 0;
+/* #edit-user-details {
+  margin: 20px auto;
+} */
+button#edit-user-details.ui.label {
+  border: 1px solid #e8e8e8;
+  color: #6a6969;
+  background-color: white;
+  margin: 20px auto;
+  border-radius: 0.28571429rem;
+}
+button#edit-user-details.ui.label:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* removes useless dropdown from zip code input field */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

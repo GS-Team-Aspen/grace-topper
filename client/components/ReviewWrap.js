@@ -1,8 +1,11 @@
 //Reviews for a specific item; bottom portion of SingleItem page
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import {fetchItemReviews} from './../store/review'
 import {connect} from 'react-redux'
 import ReviewCard from './ReviewCard'
+import AddReviewForm from './AddReviewForm'
+
+// **AddReviewForm only displays if User is logged in
 
 class ReviewWrap extends Component {
   //  **set up to receive itemId as props from SingleItemWrapper, or get from match params:
@@ -27,23 +30,30 @@ class ReviewWrap extends Component {
     const reviews = rev(this.props)
 
     return (
-      <div className="single-item">
-        <div id="review-list">
-          <h4 className="ui reviews-header">Customer Reviews</h4>
-          <div className="ui divider" />
-          {reviews.length ? (
-            reviews.map(review => {
-              return (
-                <div key={review.id}>
-                  <ReviewCard {...review} />
-                </div>
-              )
-            })
-          ) : (
-            <div> No Reviews</div>
-          )}
+      <Fragment>
+        <div className="single-item">
+          <div id="review-list">
+            <h4 className="ui reviews-header">Customer Reviews</h4>
+
+            <div className="ui divider" />
+            {reviews.length ? (
+              reviews.map(review => {
+                return (
+                  <div key={review.id}>
+                    <ReviewCard {...review} />
+                  </div>
+                )
+              })
+            ) : (
+              <div> No Reviews</div>
+            )}
+          </div>
         </div>
-      </div>
+        <div className="single-item">
+          {/* only displays if user is logged in: */}
+          <AddReviewForm />
+        </div>
+      </Fragment>
     )
   }
 }
