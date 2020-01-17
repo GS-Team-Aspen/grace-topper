@@ -15,7 +15,7 @@ const {
 
 const orderStatuses = ['shipped', 'delivered', 'cancelled']
 
-const rng = num => Math.floor(Math.random() * num + 1)
+const rng = num => Math.floor(Math.random() * num)
 
 async function seed() {
   await db.sync({force: true})
@@ -129,7 +129,7 @@ async function seed() {
 
   const cartItemsFramework = []
   carts.forEach(cart => {
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 10; i++) {
       cartItemsFramework.push(
         OrderItem.create({
           quantity: faker.random.number({min: 1, max: 2000}),
