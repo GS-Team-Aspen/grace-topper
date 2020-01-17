@@ -17,7 +17,6 @@ const SingleItemDetails = props => {
   const reviewsAvgRating = ratingAver(review)
   const reviewDec = reviewsAvgRating - Math.floor(reviewsAvgRating)
   const wholeReview = Math.ceil(reviewsAvgRating)
-  console.log(typeof reviewsAvgRating)
 
   const createStarArr = num => {
     const starArr = []
@@ -75,13 +74,3 @@ const SingleItemDetails = props => {
 }
 
 export default SingleItemDetails
-
-// {typeof reviewsAvgRating == 'number' ? createStarArr(Math.floor(reviewArr)).map(i => {
-// 	return (
-// 		<span key={i}>
-// 			<i className="star icon" />
-// 		</span>
-// 	)
-// }) : 'No Ratings'
-// }
-// {reviewDec > .25 && reviewDec < .75 ? 'halfstar'  :  'no halfstar' }
