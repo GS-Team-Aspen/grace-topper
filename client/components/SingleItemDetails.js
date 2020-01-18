@@ -75,9 +75,7 @@ export const SingleItemDetails = props => {
             type="submit"
             id="add-cart-item"
             className="ui label submit-button"
-            onClick={() => {
-              add() && console.log('clicked')
-            }}
+            onClick={() => add()}
           >
             <i className="plus square icon" />
             Add to Cart
