@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const Op = require('sequelize').Op
 const {Item, Category, Review} = require('../db/models')
+const paginateFilter = require('../paginateFilter')
 module.exports = router
 
 //GET all items
