@@ -1,14 +1,10 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
-import {fetchCart} from './../store/cart'
-import CheckoutCartSummary from './CheckoutCartSummary'
 
 //ready to add?
 //fetchCart: map state
 //getUser: map state
 //purchase shifts status to shipped
-
-//CartCheckout & CartCheckoutCard components
 
 //get/post users: FORM - firstName, lastName, email; if logged in, already in record
 //get/post address: FORM - address; logged in vs guest
@@ -55,35 +51,12 @@ class CheckoutForm extends Component {
   }
 
   render() {
-    console.log('CHECKOUT', this.props)
+    //console.log('CHECKOUT', this.props)
+    const {cart, user} = this.props
     return (
-      <div className="centered-parent">
-        <div className="ui segment checkout-form" id="segment-checkout-form">
-          <h3 id="checkout-header">Checkout</h3>
-          <CheckoutCartSummary />
-          <div id="segment-checkout-user">
-            <h4 className="ui dividing header" id="checkout-user-divider">
-              Customer Information
-            </h4>
-            <div className="user-info">
-              <div>Kristen Andersen</div>
-              <div>523 S. Plymouth Ct., Chicago, IL 60605</div>
-              <div>kristen.andersen@gmail.com</div>
-
-              <button
-                type="submit"
-                id="edit-user-details"
-                className="ui label submit-button"
-
-                //    links to Add/Update User page
-              >
-                <i className="pen square icon" />
-                Edit
-              </button>
-            </div>
-          </div>
-
-          <form className="ui form" onSubmit={this.handleSubmit}>
+      <form className="ui form" id="checkout-form" onSubmit={this.handleSubmit}>
+        <Fragment>
+          <Fragment>
             <h4 className="ui dividing header">Shipping Information</h4>
             <div className="field" id="name-wrapper">
               <label>Name</label>
@@ -108,6 +81,8 @@ class CheckoutForm extends Component {
                 </div>
               </div>
             </div>
+          </Fragment>
+          <Fragment>
             <div className="field" id="address-wrapper">
               <label>Address</label>
               <div className="two fields">
@@ -152,64 +127,8 @@ class CheckoutForm extends Component {
                 />
               </div>
             </div>
-
-            <h4 className="ui dividing header">Billing Information</h4>
-
-            <div className="fields">
-              <div className="seven wide field">
-                <label>Card Number</label>
-                <input
-                  type="text"
-                  name="card[number]"
-                  maxLength="16"
-                  placeholder="Card #"
-                />
-              </div>
-              <div className="three wide field">
-                <label>CVC</label>
-                <input
-                  type="text"
-                  name="card[cvc]"
-                  maxLength="3"
-                  placeholder="CVC"
-                />
-              </div>
-              <div className="six wide field">
-                <div className="two fields">
-                  <div className="field">
-                    <label>Expiration</label>
-                    <select
-                      className="ui fluid search dropdown"
-                      name="card[expire-month]"
-                    >
-                      <option value="">Month</option>
-                      <option value="1">January</option>
-                      <option value="2">February</option>
-                      <option value="3">March</option>
-                      <option value="4">April</option>
-                      <option value="5">May</option>
-                      <option value="6">June</option>
-                      <option value="7">July</option>
-                      <option value="8">August</option>
-                      <option value="9">September</option>
-                      <option value="10">October</option>
-                      <option value="11">November</option>
-                      <option value="12">December</option>
-                    </select>
-                  </div>
-                  <div className="field">
-                    <label>Year</label>
-                    <input
-                      type="text"
-                      name="card[expire-year]"
-                      maxLength="4"
-                      placeholder="4 digits"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
+          </Fragment>
+          <Fragment>
             <h4 className="ui dividing header">Email Address</h4>
             <div id="email-wrapper">
               <div className="ten wide field">
@@ -223,24 +142,82 @@ class CheckoutForm extends Component {
               </div>
             </div>
             <div className="ui divider" />
+          </Fragment>
+        </Fragment>
 
-            <button
-              className="ui right floated button"
-              id="order-submit-button"
-              type="submit"
-            >
-              Submit Order
-            </button>
-          </form>
+        <h4 className="ui dividing header">Billing Information</h4>
+
+        <div className="fields">
+          <div className="seven wide field">
+            <label>Card Number</label>
+            <input
+              type="text"
+              name="card[number]"
+              maxLength="16"
+              placeholder="Card #"
+            />
+          </div>
+          <div className="three wide field">
+            <label>CVC</label>
+            <input
+              type="text"
+              name="card[cvc]"
+              maxLength="3"
+              placeholder="CVC"
+            />
+          </div>
+          <div className="six wide field">
+            <div className="two fields">
+              <div className="field">
+                <label>Expiration</label>
+                <select
+                  className="ui fluid search dropdown"
+                  name="card[expire-month]"
+                >
+                  <option value="">Month</option>
+                  <option value="1">January</option>
+                  <option value="2">February</option>
+                  <option value="3">March</option>
+                  <option value="4">April</option>
+                  <option value="5">May</option>
+                  <option value="6">June</option>
+                  <option value="7">July</option>
+                  <option value="8">August</option>
+                  <option value="9">September</option>
+                  <option value="10">October</option>
+                  <option value="11">November</option>
+                  <option value="12">December</option>
+                </select>
+              </div>
+              <div className="field">
+                <label>Year</label>
+                <input
+                  type="text"
+                  name="card[expire-year]"
+                  maxLength="4"
+                  placeholder="4 digits"
+                />
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+
+        <button
+          className="ui right floated button"
+          id="order-submit-button"
+          type="submit"
+        >
+          Submit Order
+        </button>
+      </form>
     )
   }
 }
 
 const mapStateToProps = state => {
   return {
-    currState: state
+    user: state.user,
+    cart: state.cart
   }
 }
 

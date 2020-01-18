@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CheckoutCartSummary = () => {
+const CheckoutCartSumm = () => {
   return (
     <div>
       <table className="ui table">
@@ -50,4 +50,4 @@ const CheckoutCartSummary = () => {
   )
 }
 
-export default CheckoutCartSummary
+export default CheckoutCartSumm

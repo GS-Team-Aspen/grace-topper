@@ -214,6 +214,10 @@ button#add-review.ui.label:hover {
 .checkout-form {
   font-family: 'Open Sans', sans-serif;
   font-size: 0.9rem;
+  margin-top: 10px;
+}
+#checkout-form {
+  padding-top: 30px;
 }
 
 #checkout-header {
