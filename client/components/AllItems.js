@@ -17,7 +17,7 @@ class AllItems extends Component {
             this.props.items.map(item => {
               return (
                 <div key={item.id}>
-                  <ItemCard {...item} />
+                  <ItemCard {...item} user={this.props.user} />
                 </div>
               )
             })
@@ -32,7 +32,8 @@ class AllItems extends Component {
 
 const mapStateToProps = state => {
   return {
-    items: state.items
+    items: state.items,
+    user: state.user
   }
 }
 
