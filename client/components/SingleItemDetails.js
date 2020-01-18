@@ -45,7 +45,24 @@ const SingleItemDetails = props => {
           <div className="item-desc">{description}</div>
           <div className="item-price">{`$${price}`}</div>
           <div className="item-rating">
-            {`Average Rating: ${reviewsAvgRating}`}
+            {reviewsAvgRating > 0 ? (
+              createStarArr(wholeReview).map(i => {
+                return (
+                  <span key={i}>
+                    <i className="star icon" />
+                  </span>
+                )
+              })
+            ) : (
+              <h1>No Reviews</h1>
+            )}
+            {reviewDec > 0.25 && reviewDec < 0.75 ? (
+              <span>
+                <i className="half star icon" />
+              </span>
+            ) : (
+              ''
+            )}{' '}
           </div>
 
           <div id="button-wrapper">
