@@ -17,19 +17,13 @@ const SingleItemDetails = props => {
   }
 
   const reviewsAvgRating = ratingAver(review)
+  const reviewDec = reviewsAvgRating - Math.floor(reviewsAvgRating)
+  const wholeReview = Math.ceil(reviewsAvgRating)
 
-  const createStarArrDecimal = num => {
-    const integer = Math.floor(num)
-    const decimal = num - integer
+  const createStarArr = num => {
     const starArr = []
-    for (let i = 1; i <= integer; i++) {
+    for (let i = 1; i < num; i++) {
       starArr.push(i)
-    }
-    //9 as last item signals need for half star
-    if (decimal > 0.25 || decimal < 0.75) {
-      starArr.push(9)
-    } else {
-      starArr.push(8)
     }
     return starArr
   }
@@ -94,5 +88,3 @@ const SingleItemDetails = props => {
     </Fragment>
   )
 }
-
-export default SingleItemDetails
