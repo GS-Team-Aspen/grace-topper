@@ -1,4 +1,5 @@
-/* const limit = 21
+/* const paginateFilter = require('/paginateFilter')
+ * const limit = 21
  * const page = 5
  * const itemsSearch = {
  *     limit,
