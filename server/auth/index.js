@@ -46,7 +46,7 @@ router.post('/login', async (req, res, next) => {
             const oldItem = userCart.items.filter(
               oldItem => oldItem.id === item.id
             )
-            if (oldItem.length !== 1) {
+            if (oldItem.length === 1) {
               //theoretically want to add quantities to new orderItem so it has updated quantity, right now cannot update orderItem no matter what is tried
               return oldItem[0].update({
                 quantity: oldItem[0].quantity + item.quantity
