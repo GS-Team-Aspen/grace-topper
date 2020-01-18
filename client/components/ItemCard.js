@@ -5,7 +5,6 @@ const ItemCard = props => {
   const {id, name, imageUrl} = props
   const price = props.type === 'order' ? props.orderItem.salePrice : props.price
   const quantity = props.type === 'order' ? `x${props.orderItem.quantity}` : ''
-  console.log(props, 'in itemcard')
 
   return (
     //hover on product card
@@ -22,14 +21,25 @@ const ItemCard = props => {
           {/* Add to Cart button goes here */}
         </div>
       </Link>
-      <button
-        type="submit"
-        className="ui label submit-button"
-        //   onClick={() => ADD TO CART (id)}
-      >
-        <i className="minus square icon" />
-        Admin Remove Item
-      </button>
+      {props.user.admin ? (
+        <button
+          type="submit"
+          className="ui label submit-button"
+          //   onClick={() => removeItem (id)}
+        >
+          <i className="minus square icon" />
+          Admin Remove Item
+        </button>
+      ) : (
+        <button
+          type="submit"
+          className="ui label submit-button"
+          //   onClick={() => additem (id)}
+        >
+          <i className="minus plus icon" />
+          Add to Cart
+        </button>
+      )}
     </div>
   )
 }

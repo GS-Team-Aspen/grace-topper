@@ -12,7 +12,7 @@ const SingleOrder = props => {
     <div>
       {props.order.items ? (
         props.order.items.map(item => (
-          <ItemCard {...item} type="order" key={item.id} />
+          <ItemCard {...item} user={props.user} type="order" key={item.id} />
         ))
       ) : (
         <h2>Loading...</h2>
