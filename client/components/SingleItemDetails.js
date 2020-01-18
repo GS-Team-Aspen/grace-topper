@@ -5,7 +5,7 @@ import {addToCart} from '../store/cart'
 // **Add Review button only displays if User is logged in
 
 // **Need to get Category by itemId (for label)
-const SingleItemDetails = props => {
+export const SingleItemDetails = props => {
   const {imageUrl, name, description, price, review, add, id} = props
 
   const ratingAver = arr => {
