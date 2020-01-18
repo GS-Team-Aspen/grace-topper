@@ -1,48 +1,55 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import CheckoutCartSummCard from './CheckoutCartSummCard'
 
-const CheckoutCartSumm = () => {
+const CheckoutCartSumm = ({items}) => {
+  const numberWithCommas = num => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  }
+
+  const orderTotal = itemsArr => {
+    let result = 0
+    itemsArr.forEach(item => {
+      result += item.price * item.orderItem.quantity
+    })
+    return result
+  }
+
   return (
     <div>
       <table className="ui table">
         <thead>
           <tr>
-            <th className="seven wide">Item</th>
-            <th className="three wide center aligned">Unit Price</th>
-            <th className="one wide center aligned" />
-            <th className="two wide center aligned">Qty</th>
-            <th className="three wide center aligned">Item Cost</th>
+            <th className="five wide">Item</th>
+            <th className="three wide right aligned">Unit Price</th>
+            <th className="two wide right aligned" />
+            <th className="three wide right aligned">Qty</th>
+            <th className="three wide right aligned">Item Cost</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Urban Sombrero</td>
-            <td className="center aligned">$75</td>
-            <td className="center aligned">x</td>
-            <td className="center aligned">2</td>
-            <td className="center aligned">$150</td>
-          </tr>
-          <tr>
-            <td>Brown Derby</td>
-            <td className="center aligned">$25</td>
-            <td className="center aligned">x</td>
-            <td className="center aligned">3</td>
-            <td className="center aligned">$75</td>
-          </tr>
-          <tr>
-            <td>Top Hat</td>
-            <td className="center aligned">$100</td>
-            <td className="center aligned">x</td>
-            <td className="center aligned">4</td>
-            <td className="center aligned">$400</td>
-          </tr>
+          {items[0].orderItem ? (
+            items.map(item => {
+              const itemTotal = item.price * item.orderItem.quantity
+              return (
+                <tr key={item.id}>
+                  <CheckoutCartSummCard {...item} totalItem={itemTotal} />
+                </tr>
+              )
+            })
+          ) : (
+            <div />
+          )}
         </tbody>
         <tfoot>
           <tr>
             <th>Total Cost</th>
-            <th className="center aligned" />
-            <th className="center aligned" />
-            <th className="center aligned" />
-            <th className="center aligned">$625</th>
+            <th className="right aligned" />
+            <th className="right aligned" />
+            <th className="right aligned" />
+            <th className="right aligned">{`$${numberWithCommas(
+              orderTotal(items)
+            )}`}</th>
           </tr>
         </tfoot>
       </table>
@@ -50,4 +57,10 @@ const CheckoutCartSumm = () => {
   )
 }
 
-export default CheckoutCartSumm
+const mapStateToProps = state => {
+  return {
+    cart: state.cart
+  }
+}
+
+export default connect(mapStateToProps)(CheckoutCartSumm)

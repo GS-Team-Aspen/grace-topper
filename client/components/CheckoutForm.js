@@ -10,9 +10,10 @@ import {connect} from 'react-redux'
 //get/post address: FORM - address; logged in vs guest
 //get/how posted? orderItems: quantity, salePrice, itemId (orderId auto assigned)
 //to orders: status = carted, userId
-//need format, destination of CC info
 
 //IF User info is in database, load user info component; else: load
+//User Address should be accessed from state
+//need format, destination of CC info
 
 class CheckoutForm extends Component {
   constructor() {
@@ -51,8 +52,8 @@ class CheckoutForm extends Component {
   }
 
   render() {
-    //console.log('CHECKOUT', this.props)
     const {cart, user} = this.props
+
     return (
       <form className="ui form" id="checkout-form" onSubmit={this.handleSubmit}>
         <Fragment>
@@ -141,7 +142,6 @@ class CheckoutForm extends Component {
                 />
               </div>
             </div>
-            <div className="ui divider" />
           </Fragment>
         </Fragment>
 

@@ -1,7 +1,7 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
-const CheckoutUserSumm = props => {
-  const {firstName, lastName, email} = props
+const CheckoutUserSumm = ({firstName, lastName, email}) => {
   return (
     <div id="segment-checkout-user">
       <h4 className="ui dividing header" id="checkout-user-divider">
@@ -29,4 +29,10 @@ const CheckoutUserSumm = props => {
   )
 }
 
-export default CheckoutUserSumm
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(CheckoutUserSumm)

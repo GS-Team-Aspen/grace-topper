@@ -63,18 +63,18 @@ class CheckoutWrap extends Component {
       <div className="centered-parent">
         <div className="ui segment checkout-form" id="segment-checkout-form">
           <h3 id="checkout-header">Checkout</h3>
-          {cart.length ? (
+          {cart.id ? (
             <CheckoutCartSumm {...cart} />
           ) : (
             <div style={{textAlign: 'center'}}>Your Cart is empty!</div>
           )}
 
-          {cart.length && !user.name === 'Guest' ? (
+          {cart.id && (user.name !== 'Guest' || user.name !== 'admin') ? (
             <CheckoutUserSumm {...user} />
           ) : (
             <div />
           )}
-          {cart.length ? <CheckoutForm {...user} /> : <div />}
+          {cart.id ? <CheckoutForm /> : <div />}
         </div>
       </div>
     )
