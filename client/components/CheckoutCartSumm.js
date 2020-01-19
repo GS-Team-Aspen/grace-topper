@@ -2,12 +2,6 @@ import React from 'react'
 import CheckoutCartSummCard from './CheckoutCartSummCard'
 
 const CheckoutCartSumm = ({items}) => {
-  //const {orderItem} = items
-
-  const numberWithCommas = num => {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-  }
-
   const orderTotal = itemsArr => {
     let result = 0
     itemsArr.forEach(item => {
@@ -48,9 +42,12 @@ const CheckoutCartSumm = ({items}) => {
             <th className="right aligned" />
             <th className="right aligned" />
             <th className="right aligned" />
-            <th className="right aligned">{`$${numberWithCommas(
-              orderTotal(items)
-            )}`}</th>
+            <th className="right aligned">
+              {orderTotal(items).toLocaleString(undefined, {
+                style: 'currency',
+                currency: 'USD'
+              })}
+            </th>
           </tr>
         </tfoot>
       </table>
