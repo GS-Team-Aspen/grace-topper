@@ -1,8 +1,9 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import CheckoutCartSummCard from './CheckoutCartSummCard'
 
 const CheckoutCartSumm = ({items}) => {
+  //const {orderItem} = items
+
   const numberWithCommas = num => {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   }
@@ -57,10 +58,4 @@ const CheckoutCartSumm = ({items}) => {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    cart: state.cart
-  }
-}
-
-export default connect(mapStateToProps)(CheckoutCartSumm)
+export default CheckoutCartSumm

@@ -11,15 +11,14 @@ const CheckoutUserSumm = ({firstName, lastName, email}) => {
         <div>
           {firstName} {lastName}
         </div>
-        <div>NEED ADDRESS</div>
+        <div>[NEED ADDRESS]</div>
         <div>{email}</div>
 
         <button
           type="submit"
           id="edit-user-details"
           className="ui label submit-button"
-
-          //    links to Add/Update User page
+          //**button links to Add/Update User page
         >
           <i className="pen square icon" />
           Edit

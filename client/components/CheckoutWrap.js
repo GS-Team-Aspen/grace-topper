@@ -1,84 +1,44 @@
-import React, {Component, Fragment} from 'react'
+import React, {Fragment} from 'react'
 import {connect} from 'react-redux'
-import {fetchCart} from './../store/cart'
-
 import CheckoutCartSumm from './CheckoutCartSumm'
 import CheckoutUserSumm from './CheckoutUserSumm'
 import CheckoutForm from './CheckoutForm'
 
-//ready to add?
-//fetchCart: map state
-//getUser: map state
-//purchase shifts status to shipped
+//CheckoutWrap holds all components on checkout page
+// Conditions:
+// If cart is empty, renders "Your Cart is empty!" & no other components
+// If something's in cart -
+// If user is logged in, CheckoutUserSumm component displays (Customer Information section)
+// More conditions in CheckoutForm component
 
-//CartCheckout & CartCheckoutCard components
+const CheckoutWrap = props => {
+  const {cart, user} = props
+  return (
+    <div className="centered-parent">
+      <div className="ui segment checkout-form" id="segment-checkout-form">
+        <h3 id="checkout-header">Checkout</h3>
+        {cart.items ? (
+          <Fragment>
+            {cart.items.length ? (
+              <CheckoutCartSumm {...cart} />
+            ) : (
+              <div style={{textAlign: 'center'}}>Your Cart is empty!</div>
+            )}
 
-//get/post users: FORM - firstName, lastName, email; if logged in, already in record
-//get/post address: FORM - address; logged in vs guest
-//get/how posted? orderItems: quantity, salePrice, itemId (orderId auto assigned)
-//to orders: status = carted, userId
-//need format, destination of CC info
+            {cart.items.length && user.firstName === 'admin' ? (
+              <CheckoutUserSumm {...user} />
+            ) : (
+              <div />
+            )}
 
-//IF User info is in database, load user info component; else: load
-
-class CheckoutWrap extends Component {
-  constructor() {
-    super()
-    this.state = {
-      firstName: '',
-      lastName: '',
-      address: {
-        street: '',
-        city: '',
-        state: '',
-        zipCode: 0
-      },
-      email: ''
-    }
-
-    //**also to collect: cc info */
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-  handleChange(evt) {
-    this.setState({
-      [evt.target.name]: evt.target.value
-    })
-  }
-  handleSubmit(evt) {
-    evt.preventDefault()
-    //
-    this.props.postOrder(this.state)
-    this.setState({
-      firstName: '',
-      lastName: '',
-      address: {street: '', city: '', state: '', zipCode: 0},
-      email: ''
-    })
-  }
-
-  render() {
-    const {cart, user} = this.props
-    return (
-      <div className="centered-parent">
-        <div className="ui segment checkout-form" id="segment-checkout-form">
-          <h3 id="checkout-header">Checkout</h3>
-          {cart.id ? (
-            <CheckoutCartSumm {...cart} />
-          ) : (
-            <div style={{textAlign: 'center'}}>Your Cart is empty!</div>
-          )}
-
-          {cart.id && (user.name !== 'Guest' || user.name !== 'admin') ? (
-            <CheckoutUserSumm {...user} />
-          ) : (
-            <div />
-          )}
-          {cart.id ? <CheckoutForm /> : <div />}
-        </div>
+            {cart.items.length ? <CheckoutForm /> : <div />}
+          </Fragment>
+        ) : (
+          <div />
+        )}
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 const mapStateToProps = state => {
