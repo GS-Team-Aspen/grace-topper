@@ -1,35 +1,33 @@
 import React, {Component} from 'react'
 
 import {connect} from 'react-redux'
-import {addReview} from '../store/review'
-
+import {setReview} from '../store/item'
 
 //item & user ids are sent with description & rating
 
 class AddReviewForm extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       description: '',
-
       rating: ''
-
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
+
   handleChange(evt) {
     this.setState({
       [evt.target.name]: evt.target.value
     })
   }
+
   handleSubmit(evt) {
     evt.preventDefault()
 
     const userId = this.props.currUser.id
-    const itemId = this.props.currItem.id
-    console.log('FORM VARS', userId, itemId, this.state)
+    const itemId = this.props.itemId
     this.props.postReview(userId, itemId, this.state)
 
     this.setState({
@@ -39,15 +37,12 @@ class AddReviewForm extends Component {
   }
 
   render() {
-
-    const currUser = this.props.currUser
-
+    const {currUser} = this.props
 
     return (
       <div className="ui segment" id="review-form">
         <h4 className="ui reviews-header">Add Review</h4>
         <div className="ui divider" />
-
 
         <div className="review-cust">
           {currUser ? (
@@ -69,14 +64,12 @@ class AddReviewForm extends Component {
           </div>
           <div className="field sixteen wide">
             <div className="field four wide">
-
               <select
                 className="ui fluid search dropdown"
                 name="rating"
                 value={this.state.rating}
                 onChange={this.handleChange}
               >
-
                 <option value="">Rating</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -100,7 +93,6 @@ class AddReviewForm extends Component {
   }
 }
 
-
 const mapStateToProps = state => {
   return {
     currUser: state.user,
@@ -111,7 +103,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     postReview: (userId, itemId, review) =>
-      dispatch(addReview(userId, itemId, review))
+      dispatch(setReview(userId, itemId, review))
   }
 }
 
