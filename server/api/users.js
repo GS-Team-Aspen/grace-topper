@@ -7,7 +7,7 @@ router.get('/', async (req, res, next) => {
   //Authenticate that the user is an admin in order to access all users
   try {
     const users = await User.findAll({
-      attributes: ['id', 'email', 'admin', 'firstName', 'lastName'],
+      attributes: ['id', 'email', 'userType', 'firstName', 'lastName'],
       include: [
         {
           //Confirm naming of address model
@@ -26,7 +26,7 @@ router.get('/:id', async (req, res, next) => {
   //Authenticate - only admin. User shoudl use /me for their user page
   try {
     const user = await User.findByPk(req.params.id, {
-      include: [Order]
+      include: [Order, Address]
     })
     res.json(user)
   } catch (error) {
