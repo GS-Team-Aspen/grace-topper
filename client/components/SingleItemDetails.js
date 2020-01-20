@@ -5,7 +5,9 @@ import React, {Fragment} from 'react'
 
 // **Need to get Category by itemId (for label)
 export const SingleItemDetails = props => {
-  const {imageUrl, name, description, review, add, currUser} = props
+  console.log(props.category, 'props')
+
+  const {imageUrl, name, description, review, add, currUser, category} = props
   const price = props.price
     ? props.price.toLocaleString(undefined, {
         style: 'currency',
@@ -43,7 +45,7 @@ export const SingleItemDetails = props => {
           <div className="item-desc">{description}</div>
           <div className="item-price">{price}</div>
           <div className="ui basic label mini" id="item-cat">
-            Category
+            {category ? category.name : 'Category'}
           </div>
           <div className="item-rating">
             {avgRating > 0 ? (
