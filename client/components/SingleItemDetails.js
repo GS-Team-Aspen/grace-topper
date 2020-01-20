@@ -5,9 +5,15 @@ import React, {Fragment} from 'react'
 
 // **Need to get Category by itemId (for label)
 export const SingleItemDetails = props => {
-  const {imageUrl, name, description, price, review, add, currUser} = props
+  const {imageUrl, name, description, review, add, currUser} = props
+  const price = props.price
+    ? props.price.toLocaleString(undefined, {
+        style: 'currency',
+        currency: 'USD'
+      })
+    : ''
 
-  const ratingAver = arr => {
+  const ratingAvg = arr => {
     let ratingNums = 0
     for (let i = 0; i < arr.length; i++) {
       ratingNums += arr[i].rating
@@ -15,13 +21,12 @@ export const SingleItemDetails = props => {
     return ratingNums / arr.length
   }
 
-  const reviewsAvgRating = ratingAver(review)
-  const reviewDec = reviewsAvgRating - Math.floor(reviewsAvgRating)
-  const wholeReview = Math.ceil(reviewsAvgRating)
+  const avgRating = ratingAvg(review)
+  const reviewDec = avgRating - Math.floor(avgRating)
 
   const createStarArr = num => {
     const starArr = []
-    for (let i = 1; i < num; i++) {
+    for (let i = 0; i < num; i++) {
       starArr.push(i)
     }
     return starArr
@@ -36,13 +41,13 @@ export const SingleItemDetails = props => {
         <div className="item-details">
           <div className="target-name">{name}</div>
           <div className="item-desc">{description}</div>
-          <div className="item-price">{`$${price}.00`}</div>
+          <div className="item-price">{price}</div>
           <div className="ui basic label mini" id="item-cat">
             Category
           </div>
           <div className="item-rating">
-            {reviewsAvgRating > 0 ? (
-              createStarArr(wholeReview).map(i => {
+            {avgRating > 0 ? (
+              createStarArr(Math.floor(avgRating)).map(i => {
                 return (
                   <span key={i}>
                     <i className="star icon star-yellow" />
@@ -58,7 +63,7 @@ export const SingleItemDetails = props => {
               </span>
             ) : (
               ''
-            )}{' '}
+            )}
           </div>
 
           {currUser.firstName !== 'Guest' ? (

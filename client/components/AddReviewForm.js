@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {addReview} from '../store/singleReview'
+import {addReview} from '../store/review'
 
 //item & user ids are sent with description & rating
 
