@@ -52,7 +52,7 @@ class CheckoutForm extends Component {
     return (
       <div>
         <form className="ui form" onSubmit={this.handleSubmit}>
-          {user.firstName !== 'admin' ? (
+          {user.userType === 'guest' ? (
             <Fragment>
               <Fragment>
                 <h4 className="ui dividing header" id="shipping-top">

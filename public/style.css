@@ -266,9 +266,9 @@ button#add-review.ui.label:hover {
   width: 96%;
 }
 
-/* #edit-user-details {
-  margin: 20px auto;
-} */
+#edit-user-details a {
+  color: #6a6969;
+}
 button#edit-user-details.ui.label {
   border: 1px solid #e8e8e8;
   color: #6a6969;
