@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {addReview} from '../store/review'
 
-//loads user name
-//"postReview"
 //item & user ids are sent with description & rating
 
 class AddReviewForm extends Component {
@@ -9,7 +9,7 @@ class AddReviewForm extends Component {
     super()
     this.state = {
       description: '',
-      raing: 0
+      rating: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -22,8 +22,10 @@ class AddReviewForm extends Component {
   }
   handleSubmit(evt) {
     evt.preventDefault()
-    //
-    this.props.postReview(this.state)
+    const userId = this.props.currUser.id
+    const itemId = this.props.currItem.id
+    console.log('FORM VARS', userId, itemId, this.state)
+    this.props.postReview(userId, itemId, this.state)
     this.setState({
       description: '',
       rating: ''
@@ -31,12 +33,20 @@ class AddReviewForm extends Component {
   }
 
   render() {
+    const currUser = this.props.currUser
+
     return (
       <div className="ui segment" id="review-form">
         <h4 className="ui reviews-header">Add Review</h4>
         <div className="ui divider" />
 
-        <div className="review-cust">Customer: Kristen Andersen</div>
+        <div className="review-cust">
+          {currUser ? (
+            `Customer: ${currUser.firstName} ${currUser.lastName}`
+          ) : (
+            <span />
+          )}
+        </div>
         <form className="ui form" onSubmit={this.handleSubmit}>
           <div className="field sixteen wide">
             <textarea
@@ -49,7 +59,12 @@ class AddReviewForm extends Component {
           </div>
           <div className="field sixteen wide">
             <div className="field four wide">
-              <select className="ui fluid search dropdown" name="rating">
+              <select
+                className="ui fluid search dropdown"
+                name="rating"
+                value={this.state.rating}
+                onChange={this.handleChange}
+              >
                 <option value="">Rating</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -73,4 +88,18 @@ class AddReviewForm extends Component {
   }
 }
 
-export default AddReviewForm
+const mapStateToProps = state => {
+  return {
+    currUser: state.user,
+    currItem: state.singleItem
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    postReview: (userId, itemId, review) =>
+      dispatch(addReview(userId, itemId, review))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddReviewForm)
