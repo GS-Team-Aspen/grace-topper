@@ -44,7 +44,7 @@ class SingleItem extends Component {
 const mapStateToProps = state => {
   return {
     item: state.singleItem,
-    reviews: state.review,
+    reviews: state.reviews,
     orderId: state.cart.id,
     currUser: state.user
   }

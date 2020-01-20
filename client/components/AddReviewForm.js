@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {addReview} from '../store/singleReview'
+import {addReview} from '../store/review'
 
 //item & user ids are sent with description & rating
 
@@ -15,7 +15,6 @@ class AddReviewForm extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-
   handleChange(evt) {
     this.setState({
       [evt.target.name]: evt.target.value
