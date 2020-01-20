@@ -3,18 +3,21 @@ const Op = require('sequelize').Op
 const {Order, OrderItem, User, Item} = require('../db/models')
 const isAdmin = require('./middleware/isAdmin')
 const isUser = require('./middleware/isUser')
+const paginate = require('./middleware/paginate')
 module.exports = router
 
-//GET all orders--see if additional models should be included
-router.get('/', isAdmin, async (req, res, next) => {
+//GET all orders or the current user
+router.get('/', isUser, async (req, res, next) => {
   try {
     const orders = await Order.findAll({
       include: [User, Item],
       where: {
-        status: {[Op.not]: 'carted'}
+        status: {[Op.not]: 'carted'},
+        userId: req.user.id
       }
     })
-    res.json(orders)
+    //Testing by using page 1, limit 10, and only returning the array
+    res.json(paginate(orders, 1, 10).data)
   } catch (error) {
     next(error)
   }
