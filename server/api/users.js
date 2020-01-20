@@ -26,7 +26,7 @@ router.get('/:id', async (req, res, next) => {
   //Authenticate - only admin. User shoudl use /me for their user page
   try {
     const user = await User.findByPk(req.params.id, {
-      include: [Order]
+      include: [Order, Address]
     })
     res.json(user)
   } catch (error) {
