@@ -23,6 +23,7 @@ class SingleItem extends Component {
         <Fragment>
           <SingleItemDetails
             {...this.props.item}
+            currUser={this.props.currUser}
             review={reviews}
             add={quantity =>
               this.props.addCart(

@@ -30,7 +30,6 @@ class ReviewWrap extends Component {
 
     const reviews = rev(this.props)
     const {currUser} = this.props
-    //console.log('REV WRAP', reviews)
     return (
       <Fragment>
         <div className="single-item">
@@ -53,7 +52,7 @@ class ReviewWrap extends Component {
         </div>
         <div className="single-item">
           {/* Will need to edit this verification line */}
-          {currUser.firstName === 'admin' ? <AddReviewForm /> : ''}
+          {currUser.firstName !== 'Guest' ? <AddReviewForm /> : ''}
         </div>
       </Fragment>
     )
