@@ -23,6 +23,7 @@ class SingleItem extends Component {
         <Fragment>
           <SingleItemDetails
             {...this.props.item}
+            currUser={this.props.currUser}
             review={reviews}
             add={quantity =>
               this.props.addCart(
@@ -33,7 +34,7 @@ class SingleItem extends Component {
             }
           />
 
-          <ReviewWrap {...reviews} />
+          <ReviewWrap {...reviews} currUser={this.props.currUser} />
         </Fragment>
       </div>
     )
@@ -44,7 +45,8 @@ const mapStateToProps = state => {
   return {
     item: state.singleItem,
     reviews: state.review,
-    orderId: state.cart.id
+    orderId: state.cart.id,
+    currUser: state.user
   }
 }
 
