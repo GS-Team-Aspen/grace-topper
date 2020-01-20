@@ -7,15 +7,8 @@ export const setReview = review => ({type: SET_REVIEW, review})
 export const addReview = (userId, itemId, review) => {
   return async dispatch => {
     try {
-      const response = await axios.post(
-        '../api/reviews',
-        userId,
-        itemId,
-        review
-      )
-      const {data} = response
-      const action = setReview(data)
-      dispatch(action)
+      const {data} = await axios.post('/api/reviews', {userId, itemId, review})
+      dispatch(setReview(data))
     } catch (err) {
       console.log(err)
     }

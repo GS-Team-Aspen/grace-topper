@@ -52,7 +52,8 @@ class ReviewWrap extends Component {
           </div>
         </div>
         <div className="single-item">
-          {currUser.firstName === 'admin' ? <div /> : <AddReviewForm />}
+          {/* Will need to edit this verification line */}
+          {currUser.firstName === 'admin' ? <AddReviewForm /> : ''}
         </div>
       </Fragment>
     )
