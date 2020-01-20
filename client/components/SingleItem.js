@@ -18,11 +18,11 @@ class SingleItem extends Component {
   render() {
     //**can't access Categories down to name
     const reviews = this.props.reviews
-    //itemId.category ?
     return (
       <div className="centered-parent">
         <SingleItemDetails
           {...this.props.item}
+          currUser={this.props.currUser}
           review={reviews}
           add={quantity =>
             this.props.addCart(this.props.item.id, this.props.orderId, quantity)
@@ -32,7 +32,7 @@ class SingleItem extends Component {
           }
         />
 
-        <ReviewWrap {...reviews} />
+        <ReviewWrap {...reviews} currUser={this.props.currUser} />
       </div>
     )
   }
@@ -41,8 +41,9 @@ class SingleItem extends Component {
 const mapStateToProps = state => {
   return {
     item: state.singleItem,
-    reviews: state.review,
-    orderId: state.cart.id
+    reviews: state.reviews,
+    orderId: state.cart.id,
+    currUser: state.user
   }
 }
 

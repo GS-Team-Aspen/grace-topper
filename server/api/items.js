@@ -28,7 +28,6 @@ router.get('/', async (req, res, next) => {
 //GET specific item
 router.get('/:id', async (req, res, next) => {
   try {
-    console.log('HERE IN GET ROUTE')
     const item = await Item.findByPk(req.params.id, {
       //Unsure if this is the proper format
       include: [
