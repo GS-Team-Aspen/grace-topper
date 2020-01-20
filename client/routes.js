@@ -12,6 +12,7 @@ import SingleItem from './components/SingleItem'
 import Orders from './components/Orders'
 import SingleOrder from './components/SingleOrder'
 import CheckoutWrap from './components/CheckoutWrap'
+import UpdateUser from './components/UpdateUser'
 
 /**
  * COMPONENT
@@ -28,6 +29,7 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
+
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/checkout" component={CheckoutWrap} />
@@ -36,10 +38,12 @@ class Routes extends Component {
         <Route exact path="/orders" component={Orders} />
         <Route path="/cart" component={Cart} />
         <Route exact path="/items" component={AllItems} />
+
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route path="/users/:id" component={UpdateUser} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
