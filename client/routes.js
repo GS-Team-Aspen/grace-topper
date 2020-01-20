@@ -4,9 +4,6 @@ import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, Cart} from './components'
 import {me} from './store'
-import {fetchItems} from './store/item'
-
-//new Grace Topper components:
 import AllItems from './components/AllItems'
 import SingleItem from './components/SingleItem'
 import Orders from './components/Orders'
@@ -19,7 +16,6 @@ import CheckoutWrap from './components/CheckoutWrap'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
-    this.props.loadItems()
   }
 
   render() {
@@ -63,7 +59,6 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    loadItems: () => dispatch(fetchItems()),
     loadInitialData() {
       dispatch(me())
     }
