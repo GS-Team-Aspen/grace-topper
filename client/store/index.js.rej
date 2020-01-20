@@ -1,6 +1,0 @@
-diff a/client/store/index.js b/client/store/index.js	(rejected hunks)
-@@ -22,2 +22,2 @@ const reducer = combineReducers({
--    cart,
--    categories
-+  cart,
-+  categories

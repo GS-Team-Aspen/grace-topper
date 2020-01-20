@@ -1,6 +1,0 @@
-diff a/server/db/models/category.js b/server/db/models/category.js	(rejected hunks)
-@@ -7,2 +7,2 @@ module.exports = db.define('category', {
--      allowNull: false,
--      unique: true,
-+    allowNull: false,
-+    unique: true,
