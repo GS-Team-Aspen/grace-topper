@@ -19,6 +19,4 @@ Order.addHook('beforeUpdate', order => {
   }
 })
 
-// Order.addHook('beforeUpdate')
-
 module.exports = Order
