@@ -1,14 +1,16 @@
 import axios from 'axios'
 
-export const GET_ITEMS = 'GET_ITEMS'
+const GET_ITEMS = 'GET_ITEMS'
 const DELETE_ITEM = 'DELETE_ITEM'
 const ADD_ITEM = 'ADD_ITEM'
+const ADD_REVIEW = 'ADD_REVIEW'
 
-export const getItems = items => ({type: GET_ITEMS, items})
+const getItems = items => ({type: GET_ITEMS, items})
 const deleteItem = itemId => ({type: DELETE_ITEM, itemId})
 const addItem = item => ({type: ADD_ITEM, item})
+const addReview = item => ({type: ADD_REVIEW, item})
 
-const initialState = {}
+const initialState = []
 
 export const fetchItems = () => {
   return async dispatch => {
@@ -33,6 +35,17 @@ export const removeItem = (itemId, history) => {
   }
 }
 
+export const setReview = (userId, itemId, review) => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.post('/api/reviews', {userId, itemId, review})
+      dispatch(addReview(data))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
 export const makeItem = itemInfo => {
   return async dispatch => {
     try {
@@ -52,6 +65,8 @@ export const itemsReducer = (state = initialState, action) => {
       return [...state, action.item]
     case DELETE_ITEM:
       return state.filter(item => item.id !== action.itemId)
+    case ADD_REVIEW:
+      return [...state.filter(item => item.id !== action.item.id), action.item]
     default:
       return state
   }

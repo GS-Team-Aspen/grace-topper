@@ -29,8 +29,8 @@ class ProductManagement extends React.Component {
   }
 
   handleAddCategory(event) {
-    this.props.setCategory(this.state.addCategory)
-    this.setState({category: ''})
+    this.props.setCategory(this.state.categoryName)
+    this.setState({categoryName: ''})
   }
 
   handleAddItem(event) {
@@ -74,10 +74,10 @@ class ProductManagement extends React.Component {
         <h1>Product Management</h1>
         <h3>Create Category:</h3>
         <input
-          name="addCategory"
+          name="categoryName"
           type="text"
           onChange={this.handleChange}
-          value={this.state.addCategory}
+          value={this.state.categoryName}
         />
         <div onClick={this.handleAddCategory}>Add Category</div>
         <h3>Categories</h3>

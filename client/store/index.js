@@ -17,7 +17,7 @@ const reducer = combineReducers({
   items,
   singleItem,
   category,
-  reviews,
+  review,
   orders,
   singleOrder,
   cart,

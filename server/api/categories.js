@@ -37,7 +37,6 @@ router.delete('/delete', async (req, res, next) => {
     const category = await Category.findByPk(req.body.categoryId, {
       include: [Item]
     })
-    console.log(category)
     await category.destroy()
     await Promise.all(
       category.items.map(item => item.update({categoryId: null}))
