@@ -4,7 +4,7 @@ import {fetchItemReviews} from './../store/review'
 import {addToCart} from './../store/cart'
 //import {fetchCategory} from './../store/category'
 import {connect} from 'react-redux'
-import SingleItemDetails from './SingleItemDetails'
+import {SingleItemDetails} from './SingleItemDetails'
 import ReviewWrap from './ReviewWrap'
 
 class SingleItem extends Component {
