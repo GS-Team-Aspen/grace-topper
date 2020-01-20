@@ -9,13 +9,22 @@ module.exports = router
 //GET all orders or the current user
 router.get('/', isUser, async (req, res, next) => {
   try {
-    const orders = await Order.findAll({
-      include: [User, Item],
-      where: {
-        status: {[Op.not]: 'carted'},
-        userId: req.user.id
-      }
-    })
+    // For now, admins will get all orders, regardless of user. Maybe move this into a different route for admins to manage other users' orders?
+    const orders =
+      req.user.userType === 'admin'
+        ? await Order.findAll({
+            include: [User, Item],
+            where: {
+              status: {[Op.not]: 'carted'}
+            }
+          })
+        : await Order.findAll({
+            include: [User, Item],
+            where: {
+              status: {[Op.not]: 'carted'},
+              userId: req.user.id
+            }
+          })
     //Testing by using page 1, limit 10, and only returning the array
     res.json(paginate(orders, 1, 10).data)
   } catch (error) {
