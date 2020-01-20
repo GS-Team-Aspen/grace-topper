@@ -214,7 +214,11 @@ button#add-review.ui.label:hover {
 .checkout-form {
   font-family: 'Open Sans', sans-serif;
   font-size: 0.9rem;
+  margin-top: 10px;
 }
+/* #checkout-form {
+  padding-top: 30px;
+} */
 
 #checkout-header {
   font-family: 'Raleway', sans-serif;
@@ -237,10 +241,15 @@ button#add-review.ui.label:hover {
   font-weight: 600;
 }
 
+/* adds space bw Shipping Info & Cart table (Guest view) */
+#shipping-top {
+  margin-top: 2rem;
+}
+
 .user-info {
   text-align: center;
   line-height: 1.5rem;
-  margin: 30px;
+  margin-top: 20px;
 }
 
 #checkout-user-divider {
