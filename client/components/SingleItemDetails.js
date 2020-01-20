@@ -1,12 +1,11 @@
 //top portion of SingleItem page with photo & item details
 import React, {Fragment} from 'react'
-import {addToCart} from '../store/cart'
 
 // **Add Review button only displays if User is logged in
 
 // **Need to get Category by itemId (for label)
-const SingleItemDetails = props => {
-  const {imageUrl, name, description, price, review, add, id} = props
+export const SingleItemDetails = props => {
+  const {imageUrl, name, description, price, review, add, currUser} = props
 
   const ratingAver = arr => {
     let ratingNums = 0
@@ -17,19 +16,13 @@ const SingleItemDetails = props => {
   }
 
   const reviewsAvgRating = ratingAver(review)
+  const reviewDec = reviewsAvgRating - Math.floor(reviewsAvgRating)
+  const wholeReview = Math.ceil(reviewsAvgRating)
 
-  const createStarArrDecimal = num => {
-    const integer = Math.floor(num)
-    const decimal = num - integer
+  const createStarArr = num => {
     const starArr = []
-    for (let i = 1; i <= integer; i++) {
+    for (let i = 1; i < num; i++) {
       starArr.push(i)
-    }
-    //9 as last item signals need for half star
-    if (decimal > 0.25 || decimal < 0.75) {
-      starArr.push(9)
-    } else {
-      starArr.push(8)
     }
     return starArr
   }
@@ -43,30 +36,49 @@ const SingleItemDetails = props => {
         <div className="item-details">
           <div className="target-name">{name}</div>
           <div className="item-desc">{description}</div>
-          <div className="item-price">{`$${price}`}</div>
+          <div className="item-price">{`$${price}.00`}</div>
+          <div className="ui basic label mini" id="item-cat">
+            Category
+          </div>
           <div className="item-rating">
-            {`Average Rating: ${reviewsAvgRating}`}
+            {reviewsAvgRating > 0 ? (
+              createStarArr(wholeReview).map(i => {
+                return (
+                  <span key={i}>
+                    <i className="star icon star-yellow" />
+                  </span>
+                )
+              })
+            ) : (
+              <h5 style={{fontStyle: 'oblique'}}>No Reviews</h5>
+            )}
+            {reviewDec > 0.25 && reviewDec < 0.75 ? (
+              <span>
+                <i className="half star icon star-yellow" />
+              </span>
+            ) : (
+              ''
+            )}{' '}
           </div>
 
-          <div id="button-wrapper">
-            <a href="#review-form">
-              <button
-                type="button"
-                id="add-review"
-                className="ui label submit-button"
-              >
-                <i className="pen square icon" />
-                Add Review
-              </button>
-            </a>
-          </div>
+          {currUser.firstName !== 'Guest' ? (
+            <div id="button-wrapper">
+              <a href="#review-form">
+                <button type="button" id="add-review" className="ui label">
+                  <i className="pen square icon" />
+                  Add Review
+                </button>
+              </a>
+            </div>
+          ) : (
+            ''
+          )}
+
           <button
             type="submit"
             id="add-cart-item"
             className="ui label submit-button"
-            onClick={() => {
-              add() && console.log('clicked')
-            }}
+            onClick={() => add()}
           >
             <i className="plus square icon" />
             Add to Cart
@@ -77,5 +89,3 @@ const SingleItemDetails = props => {
     </Fragment>
   )
 }
-
-export default SingleItemDetails
