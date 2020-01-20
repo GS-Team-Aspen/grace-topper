@@ -1,0 +1,6 @@
+diff a/client/components/AllItems.js b/client/components/AllItems.js	(rejected hunks)
+@@ -36,3 +36 @@ const mapDispatch = dispatch => {
+-  return {
+-
+-  }
++  return {}

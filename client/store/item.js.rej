@@ -1,0 +1,17 @@
+diff a/client/store/item.js b/client/store/item.js	(rejected hunks)
+@@ -37,8 +37,7 @@ export const makeItem = itemInfo => {
+-    return async dispatch => {
+-	try {
+-	    console.log(itemInfo)
+-	    const {data} = await axios.post('/api/items', {itemInfo})
+-	    dispatch(addItem(data))
+-	} catch (err) {
+-	    console.error(err)
+-	}
++  return async dispatch => {
++    try {
++      console.log(itemInfo)
++      const {data} = await axios.post('/api/items', {itemInfo})
++      dispatch(addItem(data))
++    } catch (err) {
++      console.error(err)

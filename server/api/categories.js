@@ -31,7 +31,6 @@ router.post('/add', async (req, res, next) => {
     next(error)
   }
 })
-
 //DELETE a category and remove association to it from items
 router.delete('/delete', async (req, res, next) => {
   try {

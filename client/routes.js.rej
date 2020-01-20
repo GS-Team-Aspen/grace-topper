@@ -1,0 +1,11 @@
+diff a/client/routes.js b/client/routes.js	(rejected hunks)
+@@ -39 +39 @@ class Routes extends Component {
+-	<Route path='/admin/productManagement' component={ProductManagement} />
++        <Route path="/admin/productManagement" component={ProductManagement} />
+@@ -68,3 +68,3 @@ const mapDispatch = dispatch => {
+-	dispatch(me())
+-	dispatch(fetchItems())
+-	dispatch(fetchCategories())
++      dispatch(me())
++      dispatch(fetchItems())
++      dispatch(fetchCategories())

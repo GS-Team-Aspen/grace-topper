@@ -1,0 +1,46 @@
+diff a/server/api/categories.js b/server/api/categories.js	(rejected hunks)
+@@ -9,5 +9,5 @@ router.get('/', async (req, res, next) => {
+-    try {
+-	res.json(await Category.findAll())
+-    } catch (error) {
+-	next(error)
+-    }
++  try {
++    res.json(await Category.findAll())
++  } catch (error) {
++    next(error)
++  }
+@@ -28,5 +28,5 @@ router.post('/add', async (req, res, next) => {
+-    try {
+-	res.json(await Category.create({name: req.body.categoryName}))
+-    } catch (error) {
+-	next(error)
+-    }    
++  try {
++    res.json(await Category.create({name: req.body.categoryName}))
++  } catch (error) {
++    next(error)
++  }
+@@ -37,9 +37,13 @@ router.delete('/delete', async (req, res, next) => {
+-    try {
+-	const category = await Category.findByPk(req.body.categoryId, {include: [Item]})
+-	console.log(category);
+-	await category.destroy()
+-	await Promise.all(category.items.map(item => item.update({categoryId: null})))
+-	res.status(204).end()
+-    } catch (error) {
+-	next(error)
+-    }
++  try {
++    const category = await Category.findByPk(req.body.categoryId, {
++      include: [Item]
++    })
++    console.log(category)
++    await category.destroy()
++    await Promise.all(
++      category.items.map(item => item.update({categoryId: null}))
++    )
++    res.status(204).end()
++  } catch (error) {
++    next(error)
++  }

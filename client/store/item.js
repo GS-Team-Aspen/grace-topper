@@ -36,7 +36,6 @@ export const removeItem = (itemId, history) => {
 export const makeItem = itemInfo => {
   return async dispatch => {
     try {
-      console.log(itemInfo)
       const {data} = await axios.post('/api/items', {itemInfo})
       dispatch(addItem(data))
     } catch (err) {
@@ -44,6 +43,7 @@ export const makeItem = itemInfo => {
     }
   }
 }
+
 export const itemsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ITEMS:

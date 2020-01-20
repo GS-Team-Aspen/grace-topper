@@ -1,0 +1,21 @@
+diff a/client/store/categories.js b/client/store/categories.js	(rejected hunks)
+@@ -36,2 +36,2 @@ export const setCategory = categoryName => async dispatch => {
+-      console.log(categoryName)
+-      const {data} = await axios.post(`/api/categories/add`, {categoryName})
++    console.log(categoryName)
++    const {data} = await axios.post(`/api/categories/add`, {categoryName})
+@@ -59,7 +59,7 @@ export default function(state = initialState, action) {
+-      case SET_CATEGORIES:
+-	  return action.categories
+-      case ADD_CATEGORY:
+-	  return [...state, action.category]
+-      case REMOVE_CATEGORY:
+-	  return state.filter(category => category.id !== action.categoryId)
+-      default:
++    case SET_CATEGORIES:
++      return action.categories
++    case ADD_CATEGORY:
++      return [...state, action.category]
++    case REMOVE_CATEGORY:
++      return state.filter(category => category.id !== action.categoryId)
++    default:

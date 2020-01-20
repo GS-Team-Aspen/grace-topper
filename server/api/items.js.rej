@@ -1,0 +1,25 @@
+diff a/server/api/items.js b/server/api/items.js	(rejected hunks)
+@@ -48,7 +48,11 @@ router.post('/', async (req, res, next) => {
+-    try {
+-	const categories = await Promise.all(req.body.itemInfo.categories.map(category => Category.findByPk(category.id)))
+-	console.log(categories)
+-	delete req.body.itemInfo.categories
+-	const item = await Item.create(req.body.itemInfo)
+-	await Promise.all(categories.map(category => item.addCategory(category)))
+-	res.status(201).json(item)
++  try {
++    const categories = await Promise.all(
++      req.body.itemInfo.categories.map(category =>
++        Category.findByPk(category.id)
++      )
++    )
++    console.log(categories)
++    delete req.body.itemInfo.categories
++    const item = await Item.create(req.body.itemInfo)
++    await Promise.all(categories.map(category => item.addCategory(category)))
++    res.status(201).json(item)
+@@ -78,2 +82,2 @@ router.delete('/', async (req, res, next) => {
+-      console.log(req.body)
+-      await Item.destroy({
++    console.log(req.body)
++    await Item.destroy({
