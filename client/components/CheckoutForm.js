@@ -55,7 +55,6 @@ class CheckoutForm extends Component {
   }
 
   render() {
-    console.log('CHECKOUT', this.props)
     return (
       <div className="centered-parent">
         <div className="ui segment checkout-form" id="segment-checkout-form">

@@ -1,6 +1,6 @@
 //Reviews for a specific item; bottom portion of SingleItem page
 import React, {Component, Fragment} from 'react'
-import {fetchItemReviews} from './../store/review'
+import {fetchItemReviews} from '../store/review'
 import {connect} from 'react-redux'
 import ReviewCard from './ReviewCard'
 import AddReviewForm from './AddReviewForm'
@@ -13,22 +13,24 @@ class ReviewWrap extends Component {
   //   const itemId = Number(this.props.itemId)
   //   this.props.loadReviews(itemId)
   // }
-  //**need to access Review info for a specific item, from global state */
-  //**need to access user name associated with userId */
-  //**could use userId to get a total # of their reviews (to display by their name in ReviewCard) */
 
   render() {
+    //changes 'reviews' props from obj of objs to an arr of objs, so .map can iterate over it
+    //'rev' func was written before currUser needed to be brought in to ReviewWrap to control whether AddReviewForm component renders. Given some limitations, the best way I could find to modify 'rev' to exclude currUser was to remove currUser from the returned arr, since currUser will be last.
+    //in current v of db, condition should be: currUser.firstName === 'admin' || currUser.firstName === 'Guest', but I need to see form for dev
+
     const rev = nestObj => {
       const nestArr = Object.entries(nestObj)
       let result = []
       for (let i = 0; i < nestArr.length; i++) {
         result.push(nestArr[i][1])
       }
-      return result
+      return result.slice(0, -1)
     }
 
     const reviews = rev(this.props)
-
+    const {currUser} = this.props
+    //console.log('REV WRAP', reviews)
     return (
       <Fragment>
         <div className="single-item">
@@ -50,8 +52,7 @@ class ReviewWrap extends Component {
           </div>
         </div>
         <div className="single-item">
-          {/* only displays if user is logged in: */}
-          <AddReviewForm />
+          {currUser.firstName === 'admin' ? <div /> : <AddReviewForm />}
         </div>
       </Fragment>
     )
@@ -60,7 +61,7 @@ class ReviewWrap extends Component {
 
 // const mapStateToProps = state => {
 //   return {
-//     reviews: state.review
+//     user: state.user
 //   }
 // }
 
@@ -71,3 +72,5 @@ class ReviewWrap extends Component {
 // }
 
 export default ReviewWrap
+
+//export default connect(mapStateToProps)(ReviewWrap)

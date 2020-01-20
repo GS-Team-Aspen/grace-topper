@@ -19,3 +19,15 @@ router.get('/:id', async (req, res, next) => {
     next(err)
   }
 })
+
+//post new review
+router.post('/', async (req, res, next) => {
+  try {
+    console.log('REQ BODY', req.body)
+    // const review = await Review.create(req.body)
+    // res.status(201)
+    // res.json(review)
+  } catch (err) {
+    next(err)
+  }
+})
