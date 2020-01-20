@@ -67,8 +67,9 @@ export const updateUser = (id, user) => {
   return async dispatch => {
     try {
       const {data} = await axios.put(`/api/users/${id}`, user)
+      console.log('data inside thunk', data)
       dispatch(putUser(data))
-      //dispatch(fetchSingleStudent(data[1].id));
+      dispatch(getUser(data || defaultUser))
     } catch (err) {
       console.log('Err updating user: ', err)
     }

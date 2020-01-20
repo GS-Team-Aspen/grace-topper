@@ -5,7 +5,7 @@ import {updateUser} from '../store/user'
 //**To do:
 //Address of logged-in user needs to be accessed from state
 
-//must get id of user from props, bc URL = users/me
+//must get id of user from props, bc URL = /users/me
 
 class UpdateUser extends Component {
   constructor() {
