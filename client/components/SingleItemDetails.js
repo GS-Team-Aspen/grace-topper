@@ -71,13 +71,24 @@ export const SingleItemDetails = props => {
               </button>
             </a>
           </div>
+
+          <div id="button-wrapper">
+            <a href="#review-form">
+              <button
+                type="button"
+                id="add-review"
+                className="ui label submit-button"
+              >
+                <i className="pen square icon" />
+                Add Review
+              </button>
+            </a>
+          </div>
           <button
             type="submit"
             id="add-cart-item"
             className="ui label submit-button"
-            onClick={() => {
-              add() && console.log('clicked')
-            }}
+            onClick={() => add()}
           >
             <i className="plus square icon" />
             Add to Cart
