@@ -214,6 +214,10 @@ button#add-review.ui.label:hover {
   width: 75px;
 }
 
+.cart-item {
+  width: 400px;
+}
+
 /* checkout page */
 #segment-checkout-form,
 #segment-checkout-user {
@@ -285,4 +289,12 @@ input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+/* Product Management */
+.category-holder {
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
+  padding-bottom: 5px;
 }

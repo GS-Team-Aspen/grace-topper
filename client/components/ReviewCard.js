@@ -14,7 +14,7 @@ const ReviewCard = props => {
   //   this doesn't handle non-integers (half-stars)
   const createStarArr = num => {
     const starArr = []
-    for (let i = 1; i < num; i++) {
+    for (let i = 0; i < num; i++) {
       starArr.push(i)
     }
     return starArr
@@ -33,11 +33,10 @@ const ReviewCard = props => {
         )}
         <div className="review-date">{formatDate(createdAt)}</div>
         <div className="review-rating">
-          <i className="star icon" />
           {createStarArr(rating).map(el => {
             return (
               <span key={el}>
-                <i className="star icon" />
+                <i className="star icon star-yellow" />
               </span>
             )
           })}

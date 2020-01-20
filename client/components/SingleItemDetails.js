@@ -3,14 +3,17 @@ import React, {Fragment} from 'react'
 
 // **Add Review button only displays if User is logged in
 
-// **Add Review button only displays if User is logged in
-
-// **Need to get Category by itemId (for label)
-
 export const SingleItemDetails = props => {
-  console.log(props.category, 'props')
-
-  const {imageUrl, name, description, review, add, currUser, category} = props
+  const {
+    imageUrl,
+    name,
+    description,
+    reviews,
+    add,
+    currUser,
+    categories,
+    remove
+  } = props
   const price = props.price
     ? props.price.toLocaleString(undefined, {
         style: 'currency',
@@ -26,7 +29,7 @@ export const SingleItemDetails = props => {
     return ratingNums / arr.length
   }
 
-  const avgRating = ratingAvg(review)
+  const avgRating = ratingAvg(reviews)
   const reviewDec = avgRating - Math.floor(avgRating)
 
   const createStarArr = num => {
@@ -48,9 +51,15 @@ export const SingleItemDetails = props => {
           <div className="item-desc">{description}</div>
 
           <div className="item-price">{price}</div>
-          <div className="ui basic label mini" id="item-cat">
-            {category ? category.name : 'Category'}
-          </div>
+          {categories.map(category => (
+            <div
+              key={category.id}
+              className="ui basic label mini"
+              id="item-cat"
+            >
+              {category.name}
+            </div>
+          ))}
           <div className="item-rating">
             {avgRating > 0 ? (
               createStarArr(Math.floor(avgRating)).map(i => {
@@ -71,18 +80,30 @@ export const SingleItemDetails = props => {
               ''
             )}
           </div>
-          {currUser.firstName !== 'Guest' ? (
-            <div id="button-wrapper">
-              <a href="#review-form">
-                <button type="button" id="add-review" className="ui label">
-                  <i className="pen square icon" />
-                  Add Review
-                </button>
-              </a>
-            </div>
-          ) : (
-            ''
-          )}
+
+          <div className="button-holder" id="button-wrapper">
+            {currUser.userType === 'admin' ? (
+              <button
+                type="button"
+                id="remove-item"
+                className="ui red label submit-button"
+                onClick={remove}
+              >
+                Delete Item
+              </button>
+            ) : null}
+            {currUser.userType !== 'guest' ? (
+              <div id="button-wrapper">
+                <a href="#review-form">
+                  <button type="button" id="add-review" className="ui label">
+                    <i className="pen square icon" />
+                    Add Review
+                  </button>
+                </a>
+              </div>
+            ) : null}
+          </div>
+
           <button
             type="submit"
             id="add-cart-item"

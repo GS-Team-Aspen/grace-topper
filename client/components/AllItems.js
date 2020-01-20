@@ -4,10 +4,6 @@ import {fetchItems} from './../store/item'
 import {connect} from 'react-redux'
 
 class AllItems extends Component {
-  componentDidMount() {
-    this.props.loadItems()
-  }
-
   //needs onSubmit: add to cart to send as props
   render() {
     return (
@@ -37,9 +33,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatch = dispatch => {
-  return {
-    loadItems: () => dispatch(fetchItems())
-  }
+  return {}
 }
 
 export default connect(mapStateToProps, mapDispatch)(AllItems)
