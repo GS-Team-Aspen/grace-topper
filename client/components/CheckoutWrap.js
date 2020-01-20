@@ -13,7 +13,6 @@ import CheckoutForm from './CheckoutForm'
 
 const CheckoutWrap = props => {
   const {cart, user} = props
-  console.log('CHECKOUTWRAP', user)
   return (
     <div className="centered-parent">
       <div className="ui segment checkout-form" id="segment-checkout-form">
@@ -26,7 +25,7 @@ const CheckoutWrap = props => {
               <div style={{textAlign: 'center'}}>Your Cart is empty!</div>
             )}
 
-            {cart.items.length && user.firstName !== 'Guest' ? (
+            {cart.items.length && user.userType !== 'guest' ? (
               <CheckoutUserSumm {...user} />
             ) : (
               <div />
