@@ -198,6 +198,8 @@ button#add-review.ui.label:hover {
 /* cart */
 .button-holder {
   display: flex;
+  justify-content: space-around;
+  padding-bottom: 5px;
 }
 
 .quantity-input {
