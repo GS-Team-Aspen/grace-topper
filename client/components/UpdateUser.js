@@ -4,7 +4,8 @@ import {updateUser} from '../store/user'
 
 //**To do:
 //Address of logged-in user needs to be accessed from state
-//need format/back end for CC info; may replace CC input fields with Stripe components
+
+//must get id of user from props, bc URL = users/me
 
 class UpdateUser extends Component {
   constructor() {
@@ -31,8 +32,7 @@ class UpdateUser extends Component {
   }
   handleSubmit(evt) {
     evt.preventDefault()
-    const userId = this.props.match.params.id
-    console.log('USERID!', userId)
+    const userId = this.props.user.id
     this.props.updateUser(userId, this.state)
     this.setState({
       firstName: '',
@@ -44,7 +44,7 @@ class UpdateUser extends Component {
 
   render() {
     const {user} = this.props
-    console.log('user form props', user)
+
     return (
       <div>
         <div className="centered-parent">
