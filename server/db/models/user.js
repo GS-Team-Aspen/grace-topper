@@ -41,10 +41,13 @@ const User = db.define('user', {
       notEmpty: true
     }
   },
-  admin: {
-    type: Sequelize.BOOLEAN,
+  userType: {
+    type: Sequelize.STRING,
     allowNull: false,
-    defaultValue: false
+    defaultValue: 'user',
+    validate: {
+      isIn: [['guest', 'admin', 'user']]
+    }
   },
   sessionId: {
     type: Sequelize.STRING,

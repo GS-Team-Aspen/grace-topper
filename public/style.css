@@ -110,9 +110,18 @@ body {
   font-size: 1.1rem;
 }
 
+#item-cat {
+  margin-bottom: 10px;
+}
+
+.star-yellow {
+  color: #fde350;
+}
+
 /* button */
 #add-cart-item {
   padding: 15px;
+  margin-top: 10px;
 }
 .submit-button:hover {
   background-color: rgba(0, 0, 0, 0.2);
@@ -140,7 +149,6 @@ button#add-review.ui.label {
   border: 1px solid #e8e8e8;
   color: #6a6969;
   background-color: white;
-  margin-bottom: 10px;
   border-radius: 0.28571429rem;
 }
 .icon-padding {
@@ -149,7 +157,7 @@ button#add-review.ui.label {
 
 #button-wrapper {
   width: 100%;
-  margin-left: 0;
+  margin: 7px 5px 0 0;
 }
 
 /* same as other outlined buttons */
@@ -198,6 +206,8 @@ button#add-review.ui.label:hover {
 /* cart */
 .button-holder {
   display: flex;
+  justify-content: space-around;
+  padding-bottom: 5px;
 }
 
 .quantity-input {
