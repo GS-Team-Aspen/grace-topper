@@ -5,7 +5,7 @@ import OrderCard from './OrderCard'
 
 const Orders = props => {
   useEffect(() => {
-    props.fetchOrders()
+    props.fetchOrders(props.user)
   }, [])
 
   return (

@@ -43,9 +43,7 @@ router.post('/login', async (req, res, next) => {
       } else {
         await Promise.all(
           oldUserCart.items.map(item => {
-            const oldItem = userCart.items.filter(
-              oldItem => oldItem.id === item.id
-            )
+            const oldItem = userCart.items.filter(temp => temp.id === item.id)
             if (oldItem.length === 1) {
               //theoretically want to add quantities to new orderItem so it has updated quantity, right now cannot update orderItem no matter what is tried
               return oldItem[0].update({
@@ -98,7 +96,8 @@ router.get('/me', async (req, res) => {
           sessionId: req.session.id,
           firstName: 'Guest',
           lastName: 'User',
-          email: `${req.session.id}@guestmail.com`
+          email: `${req.session.id}@guestmail.com`,
+          userType: 'guest'
         }
       })
   res.json(user[0])
