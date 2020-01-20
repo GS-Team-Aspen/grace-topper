@@ -4,18 +4,14 @@ export const GET_ITEMS = 'GET_ITEMS'
 
 export const getItems = items => ({type: GET_ITEMS, items})
 
-const initialState = {}
+const initialState = []
 
-export const fetchItems = () => {
-  return async dispatch => {
-    try {
-      const response = await axios.get('../api/items')
-      const items = response.data
-      const action = getItems(items)
-      dispatch(action)
-    } catch (err) {
-      console.log(err)
-    }
+export const fetchItems = (page, limit) => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/items?page=${page}&limit=${limit}`)
+    dispatch(getItems(data))
+  } catch (err) {
+    console.log(err)
   }
 }
 

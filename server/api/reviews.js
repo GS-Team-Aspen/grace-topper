@@ -14,8 +14,7 @@ router.get('/:id', async (req, res, next) => {
         }
       ]
     })
-    //Testing with page 1, limit 10 and only sending the data
-    res.json(paginate(reviews, 1, 10).data)
+    res.json(paginate(reviews, req.query.page, req.query.limit).data)
   } catch (err) {
     next(err)
   }

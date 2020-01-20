@@ -1,63 +1,60 @@
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 import ItemCard from './ItemCard'
 import {fetchItems} from './../store/item'
 import {fetchCategories} from '../store/categories'
 import {connect} from 'react-redux'
 
-class AllItems extends Component {
-  componentDidMount() {
-    this.props.loadItems()
-    this.props.loadCategories()
-  }
+const AllItems = props => {
+  const [page, setPage] = useState(1)
+  const [limit, setLimit] = useState(10)
 
-  //needs onSubmit: add to cart to send as props
-  render() {
-    return (
+  useEffect(() => {
+    props.fetchItems(page, limit)
+    props.fetchCategories()
+  }, [])
+
+  return (
+    <div>
       <div>
-        <div>
-          <select className="ui dropdown">
-            <option value="0">Display All</option>
-            {this.props.categories.length
-              ? this.props.categories.map(category => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))
-              : ''}
-          </select>
-        </div>
-        <div className="centered-parent">
-          <div className="custom-card-list ui cards">
-            {this.props.items.length ? (
-              this.props.items.map(item => {
-                return (
-                  <div key={item.id}>
-                    <ItemCard {...item} />
-                  </div>
-                )
-              })
-            ) : (
-              <div> No Items</div>
-            )}
-          </div>
+        <select className="ui dropdown">
+          <option value="0">Display All</option>
+          {props.categories.length
+            ? props.categories.map(category => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))
+            : ''}
+        </select>
+      </div>
+
+      <div className="centered-parent">
+        <div className="custom-card-list ui cards">
+          {props.items.length ? (
+            props.items.map(item => {
+              return (
+                <div key={item.id}>
+                  <ItemCard {...item} />
+                </div>
+              )
+            })
+          ) : (
+            <div> No Items</div>
+          )}
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
-const mapStateToProps = state => {
-  return {
-    items: state.items,
-    categories: state.categories
-  }
+const mapState = state => ({
+  items: state.items,
+  categories: state.categories
+})
+
+const mapDispatch = {
+  fetchItems,
+  fetchCategories
 }
 
-const mapDispatch = dispatch => {
-  return {
-    loadItems: () => dispatch(fetchItems()),
-    loadCategories: () => dispatch(fetchCategories())
-  }
-}
-
-export default connect(mapStateToProps, mapDispatch)(AllItems)
+export default connect(mapState, mapDispatch)(AllItems)

@@ -20,8 +20,7 @@ router.get('/', async (req, res, next) => {
         }
       }
     })
-    //Testing with page 1, limit 10 and only sending the data
-    res.json(paginate(items, 1, 10).data)
+    res.json(paginate(items, req.query.page, req.query.limit).data)
   } catch (err) {
     next(err)
   }
@@ -31,7 +30,6 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const item = await Item.findByPk(req.params.id, {
-      //Unsure if this is the proper format
       include: [
         {
           model: Category

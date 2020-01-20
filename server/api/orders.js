@@ -25,8 +25,7 @@ router.get('/', isUser, async (req, res, next) => {
               userId: req.user.id
             }
           })
-    //Testing by using page 1, limit 10, and only returning the array
-    res.json(paginate(orders, 1, 10).data)
+    res.json(paginate(orders, req.query.page, req.query.limit).data)
   } catch (error) {
     next(error)
   }

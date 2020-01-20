@@ -1,11 +1,14 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {connect} from 'react-redux'
 import {fetchOrders} from '../store/orders'
 import OrderCard from './OrderCard'
 
 const Orders = props => {
+  const [page, setPage] = useState(1)
+  const [limit, setLimit] = useState(10)
+
   useEffect(() => {
-    props.fetchOrders(props.user)
+    props.fetchOrders(props.user, page, limit)
   }, [])
 
   return (
