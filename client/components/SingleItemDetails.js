@@ -6,7 +6,7 @@ import {addToCart} from '../store/cart'
 
 // **Need to get Category by itemId (for label)
 export const SingleItemDetails = props => {
-  const {imageUrl, name, description, price, review, add, id} = props
+  const {imageUrl, name, description, price, review, add, id, remove} = props
 
   const ratingAver = arr => {
     let ratingNums = 0
@@ -70,6 +70,14 @@ export const SingleItemDetails = props => {
                 Add Review
               </button>
             </a>
+            <button
+              type="button"
+              id="remove-item"
+              className="ui label submit-button"
+              onClick={remove}
+            >
+              Delete Item
+            </button>
           </div>
           <button
             type="submit"

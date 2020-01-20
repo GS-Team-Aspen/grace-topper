@@ -1,7 +1,8 @@
 import React, {Component, Fragment} from 'react'
-import {fetchSingleItem} from './../store/singleItem'
-import {fetchItemReviews} from './../store/review'
-import {addToCart} from './../store/cart'
+import {fetchSingleItem} from '../store/singleItem'
+import {removeItem} from '../store/item'
+import {fetchItemReviews} from '../store/review'
+import {addToCart} from '../store/cart'
 //import {fetchCategory} from './../store/category'
 import {connect} from 'react-redux'
 import {SingleItemDetails} from './SingleItemDetails'
@@ -20,21 +21,18 @@ class SingleItem extends Component {
     //itemId.category ?
     return (
       <div className="centered-parent">
-        <Fragment>
-          <SingleItemDetails
-            {...this.props.item}
-            review={reviews}
-            add={quantity =>
-              this.props.addCart(
-                this.props.item.id,
-                this.props.orderId,
-                quantity
-              )
-            }
-          />
+        <SingleItemDetails
+          {...this.props.item}
+          review={reviews}
+          add={quantity =>
+            this.props.addCart(this.props.item.id, this.props.orderId, quantity)
+          }
+          remove={() =>
+            this.props.deleteItem(this.props.item.id, this.props.history)
+          }
+        />
 
-          <ReviewWrap {...reviews} />
-        </Fragment>
+        <ReviewWrap {...reviews} />
       </div>
     )
   }
@@ -53,7 +51,8 @@ const mapDispatchToProps = dispatch => {
     loadSingleItem: id => dispatch(fetchSingleItem(id)),
     loadReviews: id => dispatch(fetchItemReviews(id)),
     addCart: (itemId, orderId, quantity) =>
-      dispatch(addToCart(itemId, orderId, quantity))
+      dispatch(addToCart(itemId, orderId, quantity)),
+    deleteItem: (itemId, history) => dispatch(removeItem(itemId, history))
   }
 }
 

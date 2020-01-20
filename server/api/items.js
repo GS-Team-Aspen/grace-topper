@@ -46,9 +46,16 @@ router.get('/:id', async (req, res, next) => {
 //Create a new product - ADMIN ONLY
 router.post('/', async (req, res, next) => {
   try {
-    const item = await Item.create(req.body)
-    res.status(201)
-    res.json(item)
+    const categories = await Promise.all(
+      req.body.itemInfo.categories.map(category =>
+        Category.findByPk(category.id)
+      )
+    )
+    console.log(categories)
+    delete req.body.itemInfo.categories
+    const item = await Item.create(req.body.itemInfo)
+    await Promise.all(categories.map(category => item.addCategory(category)))
+    res.status(201).json(item)
   } catch (error) {
     next(error)
   }
@@ -70,11 +77,12 @@ router.put('/:id', async (req, res, next) => {
 })
 
 //DELETE item as an admin
-router.delete('/:id', async (req, res, next) => {
+router.delete('/', async (req, res, next) => {
   try {
+    console.log(req.body)
     await Item.destroy({
       where: {
-        id: req.params.id
+        id: req.body.itemId
       }
     })
     res.status(204).end()

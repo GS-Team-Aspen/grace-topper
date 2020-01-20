@@ -45,7 +45,7 @@ async function seed() {
       zipCode: faker.address.zipCode('#####')
     })
     categoriesFramework.push({
-      name: faker.commerce.productMaterial()
+      name: faker.commerce.productMaterial() + i
     })
 
     cartsFramework.push({
@@ -158,7 +158,7 @@ async function seed() {
     orders.map((order, i) => order.setUser(users[rng(users.length)]))
   )
   await Promise.all(
-    items.map((item, i) => item.setCategory(categories[rng(categories.length)]))
+    items.map((item, i) => item.addCategory(categories[rng(categories.length)]))
   )
   console.log(`seeded successfully`)
 }
