@@ -206,6 +206,10 @@ button#add-review.ui.label:hover {
   width: 75px;
 }
 
+.cart-item {
+  width: 400px;
+}
+
 /* checkout page */
 #segment-checkout-form,
 #segment-checkout-user {
