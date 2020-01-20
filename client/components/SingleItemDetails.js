@@ -3,7 +3,10 @@ import React, {Fragment} from 'react'
 
 // **Add Review button only displays if User is logged in
 
+// **Add Review button only displays if User is logged in
+
 // **Need to get Category by itemId (for label)
+
 export const SingleItemDetails = props => {
   console.log(props.category, 'props')
 
@@ -14,6 +17,7 @@ export const SingleItemDetails = props => {
         currency: 'USD'
       })
     : ''
+
 
   const ratingAvg = arr => {
     let ratingNums = 0
@@ -43,6 +47,7 @@ export const SingleItemDetails = props => {
         <div className="item-details">
           <div className="target-name">{name}</div>
           <div className="item-desc">{description}</div>
+
           <div className="item-price">{price}</div>
           <div className="ui basic label mini" id="item-cat">
             {category ? category.name : 'Category'}
@@ -67,7 +72,6 @@ export const SingleItemDetails = props => {
               ''
             )}
           </div>
-
           {currUser.firstName !== 'Guest' ? (
             <div id="button-wrapper">
               <a href="#review-form">
@@ -80,7 +84,6 @@ export const SingleItemDetails = props => {
           ) : (
             ''
           )}
-
           <button
             type="submit"
             id="add-cart-item"
