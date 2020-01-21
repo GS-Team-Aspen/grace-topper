@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
 
 import {connect} from 'react-redux'
-import {setReview} from '../store/item'
-
+import {setReview} from '../store/singleItem'
 //item & user ids are sent with description & rating
 
 class AddReviewForm extends Component {
