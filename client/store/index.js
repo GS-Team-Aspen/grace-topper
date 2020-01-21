@@ -8,7 +8,6 @@ import orders from './orders'
 import singleOrder from './singleOrder'
 import {itemsReducer as items} from './item'
 import {singleItemReducer as singleItem} from './singleItem'
-import {categoryReducer as category} from './category'
 import {reviewsReducer as review} from './review'
 import categories from './categories'
 
@@ -16,7 +15,6 @@ const reducer = combineReducers({
   user,
   items,
   singleItem,
-  category,
   review,
   orders,
   singleOrder,

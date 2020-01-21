@@ -1,5 +1,4 @@
 import axios from 'axios'
-import history from '../history'
 
 export const GET_SINGLE_ITEM = 'GET_SINGLE_ITEM'
 
