@@ -14,7 +14,7 @@ export const fetchOrders = (user, page, limit) => async dispatch => {
       `/api/orders?page=${page}&limit=${limit}`,
       user
     )
-    dispatch(getOrders(data.data))
+    dispatch(getOrders(data))
   } catch (err) {
     console.log(err)
   }
