@@ -15,10 +15,10 @@ const ItemCard = props => {
       <Link to={`/items/${id}`}>
         <div className="ui card">
           <div className="image">
-            <img src={imageUrl} />
+            <img src="../../items/yellow-pet-cap.jpg" />
           </div>
           <div className="extra content">
-            <span className="target-name">{`${name} ${quantity}`}</span>
+            <span className="target-name-card">{`${name} ${quantity}`}</span>
             <span className="right floated">{price}</span>
           </div>
           {/* Add to Cart button goes here */}

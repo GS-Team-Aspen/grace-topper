@@ -18,7 +18,6 @@ export const SingleItemDetails = props => {
       })
     : ''
 
-
   const ratingAvg = arr => {
     let ratingNums = 0
     for (let i = 0; i < arr.length; i++) {
@@ -42,7 +41,10 @@ export const SingleItemDetails = props => {
     <Fragment>
       <div className="single-item">
         <div className="item-image">
-          <img src={imageUrl} />
+          <img
+            className="ui fluid image"
+            src="../../items/yellow-pet-cap.jpg"
+          />
         </div>
         <div className="item-details">
           <div className="target-name">{name}</div>
