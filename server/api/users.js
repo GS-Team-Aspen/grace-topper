@@ -38,16 +38,21 @@ router.get('/:id', async (req, res, next) => {
 //Admin should be able to promote other users to admins
 router.put('/:id', async (req, res, next) => {
   try {
-    const {firstName, lastName, email, password} = req.body
-    const updatedUser = await User.update(
-      {firstName, lastName, email, password},
-      {
-        where: {id: req.params.id},
-        returning: true,
-        plain: true
-      }
-    )
-    res.json(updatedUser)
+    console.log(req.body, 'req.body')
+
+    const updatedUser = await User.update(req.body.user, {
+      where: {id: req.params.id},
+      returning: true,
+      plain: true
+    })
+    const address = await Address.update(req.body.address, {
+      where: {userId: req.params.id},
+      returning: true,
+      plain: true
+    })
+    console.log(address[1], 'the address')
+
+    res.json({...updatedUser, address})
   } catch (error) {
     next(error)
   }

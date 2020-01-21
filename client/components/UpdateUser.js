@@ -9,21 +9,21 @@ import {updateUser} from '../store/user'
 const initialState = {
   firstName: '',
   lastName: '',
-  email: ''
-  //   address: {
-  //     street: '',
-  //     city: '',
-  //     state: '',
-  //     zipCode: 0
-  //   },
+  email: '',
+  address: {
+    street: '',
+    city: '',
+    state: '',
+    zipCode: '00000'
+  }
 }
 
 class UpdateUser extends Component {
   constructor() {
     super()
     this.state = initialState
-
-    this.handleChange = this.handleChange.bind(this)
+    this.handleUserChange = this.handleUserChange.bind(this)
+    this.handleAddressChange = this.handleAddressChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -31,14 +31,22 @@ class UpdateUser extends Component {
     !this.state.loaded && this.setState({...this.props.user, loaded: true})
   }
 
-  handleChange(evt) {
+  handleUserChange(evt) {
     this.setState({
       [evt.target.name]: evt.target.value
     })
-    console.log(this.state, 'state')
   }
+
+  handleAddressChange(evt) {
+    this.setState({
+      address: {[evt.target.name]: evt.target.value}
+    })
+  }
+
   handleSubmit(evt) {
     evt.preventDefault()
+    console.log(this.state, 'submitted state')
+
     this.props.updateUser(this.props.user.id, this.state)
   }
 
@@ -55,7 +63,16 @@ class UpdateUser extends Component {
                 <div>
                   {user.firstName} {user.lastName}
                 </div>
-                <div>[NEED ADDRESS]</div>
+                {user.address && (
+                  <Fragment>
+                    <div>{user.address.street}</div>
+                    <div>
+                      {`${user.address.city}, ${user.address.state} ${
+                        user.address.zipCode
+                      }`}
+                    </div>
+                  </Fragment>
+                )}
                 <div>{user.email}</div>
               </div>
             </Fragment>
@@ -78,7 +95,7 @@ class UpdateUser extends Component {
                           name="firstName"
                           placeholder={`${user.firstName}`}
                           value={this.state.firstName}
-                          onChange={this.handleChange}
+                          onChange={this.handleUserChange}
                         />
                       </div>
                       <div className="eight wide field">
@@ -88,13 +105,13 @@ class UpdateUser extends Component {
                           name="lastName"
                           placeholder={`${user.lastName}`}
                           value={this.state.lastName}
-                          onChange={this.handleChange}
+                          onChange={this.handleUserChange}
                         />
                       </div>
                     </div>
                   </div>
                 </Fragment>
-                {/* <Fragment>
+                <Fragment>
                   <div className="field" id="address-wrapper">
                     <label>Address</label>
                     <div className="two fields">
@@ -102,10 +119,10 @@ class UpdateUser extends Component {
                         <input
                           className="user-input"
                           type="text"
-                          name="address"
+                          name="street"
                           placeholder="USER STREET ADDRESS"
                           value={this.state.address.street}
-                          onChange={this.handleChange}
+                          onChange={this.handleAddressChange}
                         />
                       </div>
                       <div className="four wide field">
@@ -115,7 +132,7 @@ class UpdateUser extends Component {
                           name="city"
                           placeholder="USER CITY"
                           value={this.state.address.city}
-                          onChange={this.handleChange}
+                          onChange={this.handleAddressChange}
                         />
                       </div>
                     </div>
@@ -128,7 +145,7 @@ class UpdateUser extends Component {
                           name="state"
                           placeholder="USER STATE"
                           value={this.state.address.state}
-                          onChange={this.handleChange}
+                          onChange={this.handleAddressChange}
                         />
                       </div>
                       <div className="four wide field">
@@ -137,13 +154,13 @@ class UpdateUser extends Component {
                           type="number"
                           name="zip"
                           placeholder="USER ZIP"
-                          value={this.state.address.zip}
-                          onChange={this.handleChange}
+                          value={this.state.address.zipCode}
+                          onChange={this.handleAddressChange}
                         />
                       </div>
                     </div>
                   </div>
-                </Fragment> */}
+                </Fragment>
                 <Fragment>
                   <div className="field" id="email-wrapper">
                     <label>Email Address</label>
@@ -154,7 +171,7 @@ class UpdateUser extends Component {
                           name="email"
                           placeholder={`${user.email}`}
                           value={this.state.email}
-                          onChange={this.handleChange}
+                          onChange={this.handleUserChange}
                         />
                       </div>
                     </div>
