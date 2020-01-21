@@ -1,8 +1,10 @@
 import axios from 'axios'
 
-export const GET_SINGLE_ITEM = 'GET_SINGLE_ITEM'
+const GET_SINGLE_ITEM = 'GET_SINGLE_ITEM'
+const ADD_REVIEW = 'ADD_REVIEW'
 
-export const getSingleItem = item => ({type: GET_SINGLE_ITEM, item})
+const getSingleItem = item => ({type: GET_SINGLE_ITEM, item})
+const addReview = item => ({type: ADD_REVIEW, item})
 
 const initialState = {}
 
@@ -19,9 +21,22 @@ export const fetchSingleItem = id => {
   }
 }
 
+export const setReview = (userId, itemId, review) => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.post('/api/reviews', {userId, itemId, review})
+      dispatch(addReview(data))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
 export const singleItemReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SINGLE_ITEM:
+      return action.item
+    case ADD_REVIEW:
       return action.item
     default:
       return state
