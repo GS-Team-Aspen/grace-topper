@@ -12,7 +12,8 @@ export const SingleItemDetails = props => {
     add,
     currUser,
     categories,
-    remove
+    remove,
+    stock
   } = props
   const price = props.price
     ? props.price.toLocaleString(undefined, {
@@ -49,8 +50,9 @@ export const SingleItemDetails = props => {
         <div className="item-details">
           <div className="target-name">{name}</div>
           <div className="item-desc">{description}</div>
-
-          <div className="item-price">{price}</div>
+          <div className="item-price">
+            {price} {stock} left
+          </div>
           {categories.map(category => (
             <div
               key={category.id}

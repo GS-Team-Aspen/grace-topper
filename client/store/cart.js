@@ -40,6 +40,15 @@ export const addToCart = (itemId, orderId, quantity = 1) => async dispatch => {
   }
 }
 
+export const setQuantities = orderId => async dispatch => {
+  try {
+    const {data} = await axios.post('/api/orders/cart/setQuantities', {orderId})
+    dispatch(setCart(data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const changeItemQuantity = (
   orderId,
   itemId,
@@ -59,11 +68,14 @@ export const changeItemQuantity = (
 
 export const purchase = (userId, orderId) => async dispatch => {
   try {
-    const {data} = await axios.put('/api/orders/cart/purchase', {
+    const res = await axios.put('/api/orders/cart/purchase', {
       userId,
       orderId
     })
-    dispatch(setCart(data[0]))
+    if (res.status !== 208) {
+      res.data[0].items = []
+      dispatch(setCart(res.data[0]))
+    }
   } catch (err) {
     console.error(err)
   }

@@ -32,7 +32,7 @@ for (let i = 0; i < 10; i++) {
     email: faker.internet.email(),
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
-    password: faker.internet.password(),
+    password: 'cat',
     userType: 'user'
   })
   addressFramework.push({
