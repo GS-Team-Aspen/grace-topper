@@ -1,7 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
-const CheckoutUserSumm = ({firstName, lastName, email}) => {
+const CheckoutUserSumm = ({firstName, lastName, email, id}) => {
   return (
     <div id="segment-checkout-user">
       <h4 className="ui dividing header" id="checkout-user-divider">
@@ -14,14 +15,11 @@ const CheckoutUserSumm = ({firstName, lastName, email}) => {
         <div>[NEED ADDRESS]</div>
         <div>{email}</div>
 
-        <button
-          type="submit"
-          id="edit-user-details"
-          className="ui label submit-button"
-          //**button links to Add/Update User page
-        >
-          <i className="pen square icon" />
-          Edit
+        <button type="submit" className="ui label" id="edit-user-details">
+          <Link to={`/users/${id}`}>
+            Edit
+            <i className="pen square icon icon-padding" />
+          </Link>
         </button>
       </div>
     </div>

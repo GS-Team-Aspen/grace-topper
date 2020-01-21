@@ -49,11 +49,11 @@ class CheckoutForm extends Component {
 
   render() {
     const {user} = this.props
-    //console.log('form props', user.firstName)
+
     return (
       <div>
         <form className="ui form" onSubmit={this.handleSubmit}>
-          {user.firstName !== 'admin' ? (
+          {user.userType === 'guest' ? (
             <Fragment>
               <Fragment>
                 <h4 className="ui dividing header" id="shipping-top">
@@ -107,7 +107,6 @@ class CheckoutForm extends Component {
                     </div>
                   </div>
                 </div>
-
                 <div className="two fields">
                   <div className="two wide field">
                     <input
@@ -148,7 +147,6 @@ class CheckoutForm extends Component {
             <span />
           )}
           <h4 className="ui dividing header">Billing Information</h4>
-
           <div className="fields">
             <div className="seven wide field">
               <label>Card Number</label>

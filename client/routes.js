@@ -2,9 +2,10 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, Cart} from './components'
+import {Login, Signup, UserHome, Cart, ProductManagement} from './components'
 import {me} from './store'
 import {fetchItems} from './store/item'
+import {fetchCategories} from './store/categories'
 
 //new Grace Topper components:
 import AllItems from './components/AllItems'
@@ -20,7 +21,6 @@ import UpdateUser from './components/UpdateUser'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
-    this.props.loadItems()
   }
 
   render() {
@@ -38,7 +38,7 @@ class Routes extends Component {
         <Route exact path="/orders" component={Orders} />
         <Route path="/cart" component={Cart} />
         <Route exact path="/items" component={AllItems} />
-
+        <Route path="/admin/productManagement" component={ProductManagement} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -60,16 +60,17 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id,
+    isLoggedIn: state.user.userType !== 'guest',
     userId: state.user.id
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    loadItems: () => dispatch(fetchItems()),
-    loadInitialData() {
+    loadInitialData: () => {
       dispatch(me())
+      dispatch(fetchItems())
+      dispatch(fetchCategories())
     }
   }
 }

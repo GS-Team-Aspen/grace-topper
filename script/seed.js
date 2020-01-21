@@ -36,7 +36,7 @@ async function seed() {
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
       password: faker.internet.password(),
-      admin: false
+      userType: 'user'
     })
     addressFramework.push({
       street: `${faker.address.streetAddress()} ${faker.address.streetName()}`,
@@ -45,7 +45,7 @@ async function seed() {
       zipCode: faker.address.zipCode('#####')
     })
     categoriesFramework.push({
-      name: faker.commerce.productMaterial()
+      name: faker.commerce.productMaterial() + i
     })
 
     cartsFramework.push({
@@ -82,7 +82,7 @@ async function seed() {
       lastName: 'admin',
       email: 'admin@email.com',
       password: 'admin',
-      admin: true
+      userType: 'admin'
     }),
     ...userFramework.map(user => User.create(user))
   ])
@@ -158,7 +158,7 @@ async function seed() {
     orders.map((order, i) => order.setUser(users[rng(users.length)]))
   )
   await Promise.all(
-    items.map((item, i) => item.setCategory(categories[rng(categories.length)]))
+    items.map((item, i) => item.addCategory(categories[rng(categories.length)]))
   )
   console.log(`seeded successfully`)
 }
