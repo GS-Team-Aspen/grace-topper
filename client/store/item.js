@@ -1,5 +1,4 @@
 import axios from 'axios'
-import {fetchSingleItem} from './singleItem'
 
 const GET_ITEMS = 'GET_ITEMS'
 const DELETE_ITEM = 'DELETE_ITEM'
