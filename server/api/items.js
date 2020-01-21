@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const Op = require('sequelize').Op
-const {Item, Category, Review} = require('../db/models')
+const paginate = require('./middleware/paginate')
+const {Item, Category, Review, User} = require('../db/models')
+const isAdmin = require('./middleware/isAdmin')
 module.exports = router
 
 //GET all items
@@ -8,18 +10,14 @@ router.get('/', async (req, res, next) => {
   try {
     const items = await Item.findAll({
       attributes: ['id', 'name', 'price', 'imageUrl'],
-      include: [
-        {
-          model: Category
-        }
-      ],
+      include: [Category, Review],
       where: {
         stock: {
           [Op.gt]: 0
         }
       }
     })
-    res.json(items)
+    res.json(paginate(items, req.query.page, req.query.limit))
   } catch (err) {
     next(err)
   }
@@ -29,10 +27,16 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const item = await Item.findByPk(req.params.id, {
-      //Unsure if this is the proper format
       include: [
+        Category,
         {
-          model: Category
+          model: Review,
+          include: [
+            {
+              model: User,
+              attributes: ['firstName', 'lastName']
+            }
+          ]
         }
       ]
     })
@@ -43,11 +47,17 @@ router.get('/:id', async (req, res, next) => {
 })
 
 //Create a new product - ADMIN ONLY
-router.post('/', async (req, res, next) => {
+router.post('/', isAdmin, async (req, res, next) => {
   try {
-    const item = await Item.create(req.body)
-    res.status(201)
-    res.json(item)
+    const categories = await Promise.all(
+      req.body.itemInfo.categories.map(category =>
+        Category.findByPk(category.id)
+      )
+    )
+    delete req.body.itemInfo.categories
+    const item = await Item.create(req.body.itemInfo)
+    await Promise.all(categories.map(category => item.addCategory(category)))
+    res.status(201).json(item)
   } catch (error) {
     next(error)
   }
@@ -55,25 +65,28 @@ router.post('/', async (req, res, next) => {
 
 //Update item information - ADMIN ONLY
 //Add functionality to update categories
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isAdmin, async (req, res, next) => {
   try {
-    const updatedItem = await Item.update(req.body, {
-      where: {id: req.params.id},
-      returning: true,
-      plain: true
-    })
-    res.json(updatedItem)
+    const updatedItem = await Item.update(
+      req.body,
+      {
+        where: {id: req.params.id},
+        returning: true,
+        plain: true
+      }
+    )
+    res.json(updatedItem[1])
   } catch (error) {
     next(error)
   }
 })
 
 //DELETE item as an admin
-router.delete('/:id', async (req, res, next) => {
+router.delete('/', isAdmin, async (req, res, next) => {
   try {
     await Item.destroy({
       where: {
-        id: req.params.id
+        id: req.body.itemId
       }
     })
     res.status(204).end()

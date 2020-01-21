@@ -1,20 +1,40 @@
 import axios from 'axios'
 
-export const GET_ITEMS = 'GET_ITEMS'
+const GET_ITEMS = 'GET_ITEMS'
 
-export const getItems = items => ({type: GET_ITEMS, items})
+const getItems = items => ({type: GET_ITEMS, items})
 
-const initialState = {}
+const initialState = {
+  count: null,
+  data: []
+}
 
-export const fetchItems = () => {
+export const fetchItems = (page, limit) => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/items?page=${page}&limit=${limit}`)
+    dispatch(getItems(data))
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const removeItem = (itemId, history) => {
   return async dispatch => {
     try {
-      const response = await axios.get('../api/items')
-      const items = response.data
-      const action = getItems(items)
-      dispatch(action)
+      await axios.delete('/api/items', {data: {itemId}})
+      history.push('/items')
     } catch (err) {
-      console.log(err)
+      console.error(err)
+    }
+  }
+}
+
+export const makeItem = itemInfo => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.post('/api/items', {itemInfo})
+    } catch (err) {
+      console.error(err)
     }
   }
 }
