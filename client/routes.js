@@ -9,6 +9,7 @@ import SingleItem from './components/SingleItem'
 import Orders from './components/Orders'
 import SingleOrder from './components/SingleOrder'
 import CheckoutWrap from './components/CheckoutWrap'
+import {fetchCategories} from './store/categories'
 
 /**
  * COMPONENT
@@ -62,6 +63,7 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
+      dispatch(fetchCategories())
     }
   }
 }
