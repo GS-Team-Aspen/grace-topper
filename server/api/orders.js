@@ -1,18 +1,31 @@
 const router = require('express').Router()
 const Op = require('sequelize').Op
 const {Order, OrderItem, User, Item} = require('../db/models')
+//const isAdmin = require('./middleware/isAdmin')
+const isUser = require('./middleware/isUser')
+const paginate = require('./middleware/paginate')
 module.exports = router
 
-//GET all orders--see if additional models should be included
-router.get('/', async (req, res, next) => {
+//GET all orders or the current user
+router.get('/', isUser, async (req, res, next) => {
   try {
-    const orders = await Order.findAll({
-      include: [User, Item],
-      where: {
-        status: {[Op.not]: 'carted'}
-      }
-    })
-    res.json(orders)
+    // For now, admins will get all orders, regardless of user. Maybe move this into a different route for admins to manage other users' orders?
+    const orders =
+      req.user.userType === 'admin'
+        ? await Order.findAll({
+            include: [User, Item],
+            where: {
+              status: {[Op.not]: 'carted'}
+            }
+          })
+        : await Order.findAll({
+            include: [User, Item],
+            where: {
+              status: {[Op.not]: 'carted'},
+              userId: req.user.id
+            }
+          })
+    res.json(paginate(orders, req.query.page, req.query.limit))
   } catch (error) {
     next(error)
   }
@@ -64,7 +77,6 @@ router.get('/cart/:userId', async (req, res, next) => {
 //update quantity of an item in a cart
 router.put('/cart/changeQuantity', async (req, res, next) => {
   try {
-    console.log(req.body)
     const orderItem = await OrderItem.findOne({
       where: {
         orderId: req.body.orderId,
@@ -83,16 +95,29 @@ router.put('/cart/changeQuantity', async (req, res, next) => {
 //update the carts status to shipped and set a new cart up for a user
 router.put('/cart/purchase', async (req, res, next) => {
   try {
-    const cart = await Order.findByPk(req.body.orderId)
-    await cart.update({status: 'shipped'})
-    const newCart = await Order.findOrCreate({
-      where: {
-        userId: req.body.userId,
-        status: 'carted'
-      },
-      include: [Item]
-    })
-    res.json(newCart)
+    const cart = await Order.findByPk(req.body.orderId, {include: [Item]})
+    let valid = true
+    for (let i = 0; i < cart.items.length; i++) {
+      const item = cart.items[i]
+      item.stock -= item.orderItem.quantity
+      if (item.stock < 0) {
+        valid = false
+        res.status(208).end()
+        break
+      }
+    }
+    if (valid) {
+      await Promise.all(cart.items.map(item => item.save()))
+      await cart.update({status: 'shipped'})
+      const newCart = await Order.findOrCreate({
+        where: {
+          userId: req.body.userId,
+          status: 'carted'
+        },
+        include: [Item]
+      })
+      res.json(newCart)
+    }
   } catch (error) {
     next(error)
   }
@@ -110,11 +135,29 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+//ADD item to cart; will not ADD if there is already that item in cart
 router.post('/cart/add', async (req, res, next) => {
   try {
     await OrderItem.findOrCreate({where: {...req.body}})
     const cart = await Order.findByPk(req.body.orderId, {include: [Item]})
     res.status(201)
+    res.json(cart)
+  } catch (error) {
+    next(error)
+  }
+})
+
+//SET quantities in cart to less than or equal stock of item
+router.post('/cart/setQuantities', async (req, res, next) => {
+  try {
+    const cart = await Order.findByPk(req.body.orderId, {include: [Item]})
+    cart.items = await Promise.all(
+      cart.items.map(item => {
+        if (item.orderItem.quantity > item.stock)
+          return item.orderItem.update({quantity: item.stock})
+        return item
+      })
+    )
     res.json(cart)
   } catch (error) {
     next(error)

@@ -8,20 +8,18 @@ import orders from './orders'
 import singleOrder from './singleOrder'
 import {itemsReducer as items} from './item'
 import {singleItemReducer as singleItem} from './singleItem'
-import {categoryReducer as category} from './category'
 import {reviewsReducer as review} from './review'
-import {singleReviewReducer as singleReview} from './singleReview'
+import categories from './categories'
 
 const reducer = combineReducers({
   user,
   items,
   singleItem,
-  category,
   review,
-  singleReview,
   orders,
   singleOrder,
-  cart
+  cart,
+  categories
 })
 
 const middleware = composeWithDevTools(

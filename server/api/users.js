@@ -7,7 +7,7 @@ router.get('/', async (req, res, next) => {
   //Authenticate that the user is an admin in order to access all users
   try {
     const users = await User.findAll({
-      attributes: ['id', 'email', 'admin', 'firstName', 'lastName'],
+      attributes: ['id', 'email', 'userType', 'firstName', 'lastName'],
       include: [
         {
           //Confirm naming of address model
@@ -26,7 +26,7 @@ router.get('/:id', async (req, res, next) => {
   //Authenticate - only admin. User shoudl use /me for their user page
   try {
     const user = await User.findByPk(req.params.id, {
-      include: [Order]
+      include: [Order, Address]
     })
     res.json(user)
   } catch (error) {
@@ -38,16 +38,17 @@ router.get('/:id', async (req, res, next) => {
 //Admin should be able to promote other users to admins
 router.put('/:id', async (req, res, next) => {
   try {
-    const {firstName, lastName, email, password} = req.body
-    const updatedUser = await User.update(
-      {firstName, lastName, email, password},
-      {
-        where: {id: req.params.id},
-        returning: true,
-        plain: true
-      }
-    )
-    res.json(updatedUser)
+    const updatedUser = await User.update(req.body.user, {
+      where: {id: req.params.id},
+      returning: true,
+      plain: true
+    })
+    const address = await Address.update(req.body.address, {
+      where: {userId: req.params.id},
+      returning: true,
+      plain: true
+    })
+    res.json({...updatedUser, address})
   } catch (error) {
     next(error)
   }

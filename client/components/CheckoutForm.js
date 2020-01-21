@@ -26,25 +26,18 @@ class CheckoutForm extends Component {
     }
 
     this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handlePurchase = this.handlePurchase.bind(this)
   }
+
   handleChange(evt) {
     this.setState({
       [evt.target.name]: evt.target.value
     })
   }
-  handleSubmit(evt) {
-    evt.preventDefault()
-    const userId = this.props.user.id
-    const orderId = this.props.cart.id
-    console.log('USERID!', userId, 'ORDERID!', orderId)
-    this.props.placeOrder(userId, orderId)
-    this.setState({
-      firstName: '',
-      lastName: '',
-      address: {street: '', city: '', state: '', zipCode: 0},
-      email: ''
-    })
+
+  handlePurchase(event) {
+    event.preventDefault()
+    this.props.purchase(this.props.user.id, this.props.cart.id)
   }
 
   render() {
@@ -52,7 +45,7 @@ class CheckoutForm extends Component {
     return (
       <div>
         <form className="ui form" onSubmit={this.handleSubmit}>
-          {user.firstName !== 'admin' ? (
+          {user.userType === 'guest' ? (
             <Fragment>
               <Fragment>
                 <h4 className="ui dividing header" id="shipping-top">
@@ -106,7 +99,6 @@ class CheckoutForm extends Component {
                     </div>
                   </div>
                 </div>
-
                 <div className="two fields">
                   <div className="two wide field">
                     <input
@@ -147,7 +139,6 @@ class CheckoutForm extends Component {
             <span />
           )}
           <h4 className="ui dividing header">Billing Information</h4>
-
           <div className="fields">
             <div className="seven wide field">
               <label>Card Number</label>
@@ -207,6 +198,7 @@ class CheckoutForm extends Component {
             className="ui right floated button"
             id="order-submit-button"
             type="submit"
+            onClick={this.handlePurchase}
           >
             Submit Order
           </button>
@@ -225,7 +217,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    placeOrder: (userId, orderId) => dispatch(purchase(userId, orderId))
+    purchase: (userId, orderId) => dispatch(purchase(userId, orderId))
   }
 }
 

@@ -25,7 +25,7 @@ const CheckoutWrap = props => {
               <div style={{textAlign: 'center'}}>Your Cart is empty!</div>
             )}
 
-            {cart.items.length && user.firstName === 'admin' ? (
+            {cart.items.length && user.userType !== 'guest' ? (
               <CheckoutUserSumm {...user} />
             ) : (
               <div />

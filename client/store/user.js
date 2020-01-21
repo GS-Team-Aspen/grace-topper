@@ -62,6 +62,19 @@ export const logout = () => async dispatch => {
   }
 }
 
+export const updateUser = (id, user) => async dispatch => {
+  try {
+    const {data} = await axios.put(`/api/users/${id}`, {
+      user,
+      address: user.address
+    })
+
+    dispatch(getUser({...data[1], address: data.address[1]} || defaultUser))
+  } catch (err) {
+    console.log('Err updating user: ', err)
+  }
+}
+
 /**
  * REDUCER
  */
