@@ -19,9 +19,14 @@ class EditItem extends Component {
   onUpdate(evt) {
     evt.preventDefault()
     this.props.editItem(this.props.currItem.id, this.state)
+    this.setState({
+      quantity: '',
+      price: ''
+    })
   }
 
   render() {
+    console.log(this.props, 'edit item')
     //set up conditional to only display if user is admin
     return (
       <form onSubmit={this.onUpdate}>
@@ -33,6 +38,7 @@ class EditItem extends Component {
             name="quantity"
             value={this.state.quantity}
             onChange={this.handleChange}
+            placeholder={`${this.props.currItem.stock}`}
           />
         </label>
         <br />
@@ -43,6 +49,7 @@ class EditItem extends Component {
             name="price"
             value={this.state.price}
             onChange={this.handleChange}
+            placeholder={`${this.props.currItem.price}`}
           />
         </label>
         <br />

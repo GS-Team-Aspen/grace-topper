@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {fetchSingleItem} from './singleItem'
 
 export const GET_ITEMS = 'GET_ITEMS'
 export const EDIT_ITEM = 'EDIT_ITEM'
@@ -29,6 +30,7 @@ export const modItem = (id, state) => {
       const editedItem = response.data
       const action = editItem(editedItem)
       dispatch(action)
+      dispatch(fetchSingleItem(id))
     } catch (err) {
       console.log(err)
     }
@@ -40,9 +42,10 @@ export const itemsReducer = (state = initialState, action) => {
     case GET_ITEMS:
       return action.items
     case EDIT_ITEM:
-      console.log('in item store', state)
+      console.log('in item store', action.items[1])
       console.log('first index', state[0])
-      return state.filter(item => item.id === action.items.id)
+      const filterItems = state.filter(item => item.id !== action.items[1].id)
+      return [...filterItems, action.items[1]]
     default:
       return state
   }
