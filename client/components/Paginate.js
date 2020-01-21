@@ -10,7 +10,7 @@ const Paginate = props => {
     <Pagination
       className="paginate"
       defaultActivePage={1}
-      totalPages={props.count / props.limit}
+      totalPages={Math.ceil(props.count / props.limit)}
       onPageChange={handlePaginationChange}
       firstItem={null}
       lastItem={null}

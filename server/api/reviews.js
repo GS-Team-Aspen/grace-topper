@@ -27,12 +27,11 @@ router.post('/', isUser, async (req, res, next) => {
     const review = await Review.create(req.body.review)
     await review.setUser(await User.findByPk(req.body.userId))
     await review.setItem(await Item.findByPk(req.body.itemId))
-    console.log(
-      await Item.findByPk(req.body.itemId, {include: [Category, Review]})
+    res.status(201).json(
+      await Item.findByPk(req.body.itemId, {
+        include: [Category, {model: Review, include: User}]
+      })
     )
-    res
-      .status(201)
-      .json(await Item.findByPk(req.body.itemId, {include: [Category, Review]}))
   } catch (err) {
     next(err)
   }
