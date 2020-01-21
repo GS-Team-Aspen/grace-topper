@@ -53,7 +53,6 @@ export const modItem = (id, state) => {
       const response = await axios.put(`../api/items/${id}`, state)
       const editedItem = response.data
       const action = editItem(editedItem)
-      dispatch(action)
       dispatch(fetchSingleItem(id))
     } catch (err) {
       console.log(err)
