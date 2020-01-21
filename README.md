@@ -1,3 +1,12 @@
+# STRIPE v2 BRANCH
+
+Basic implementation of Stripe payment, not integrated with our team's database, or other checkout form elements.
+
+Follows this tutorial (recommended by Chris C.: https://youtu.be/lkA4rmo7W6k)
+
+Stripe's React documentation uses a different library:
+https://stripe.com/docs/recipes/elements-react#using-stripe-elements-in-react
+
 # Boilermaker
 
 _Good things come in pairs_

@@ -5,7 +5,7 @@ const isAdmin = require('./middleware/isAdmin')
 const isUser = require('./middleware/isUser')
 const paginate = require('./middleware/paginate')
 module.exports = router
-const stripe = require('stripe')('sk_test_4MAoLZhPzOgqpP8ez7xcOeus009Tgns2XU')
+const stripe = require('stripe')('SECRET_GOES_HERE')
 const uuid = require('uuid/v4')
 
 //GET all orders or the current user
@@ -112,6 +112,7 @@ router.put('/cart/purchase', async (req, res, next) => {
   }
 })
 
+// for stripe implementation
 router.post('/checkout', async (req, res) => {
   console.log('Request:', req.body)
 

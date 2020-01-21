@@ -13,6 +13,8 @@ import {toast} from 'react-toastify'
 //Address of logged-in user needs to be accessed from state
 //need format/back end for CC info; may replace CC input fields with Stripe components
 
+//CC input fields removed bc I was attempting to implement Stripe
+
 class CheckoutForm extends Component {
   constructor() {
     super()
@@ -60,7 +62,7 @@ class CheckoutForm extends Component {
       console.log({token, addresses})
       const response = await axios.post('/api/orders/checkout', {
         token
-        // product
+        //product
       })
       const {status} = response.data
       if (status === 'success') {
@@ -72,7 +74,7 @@ class CheckoutForm extends Component {
 
     // dummy bc can't access cart
     const amount = 42
-    const name = 'Urban Sombrero'
+    const name = 'Kristen A'
 
     return (
       <div>
@@ -173,9 +175,9 @@ class CheckoutForm extends Component {
           <h4 className="ui dividing header">Billing Information</h4>
           <div className="fields">
             <StripeCheckout
-              stripeKey="pk_test_LRFcEN1LwrCMSWoV74R5OAzr00ms1mgNSq"
+              stripeKey="TEST_API_KEY_GOES_HERE"
               token={handleToken}
-              // shippingAddress="123 Fake St."
+              shippingAddress="123 Fake St."
               amount={{amount} * 100}
               name={name}
             />
