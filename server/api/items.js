@@ -56,12 +56,17 @@ router.post('/', async (req, res, next) => {
 //Update item information - ADMIN ONLY
 //Add functionality to update categories
 router.put('/:id', async (req, res, next) => {
+  console.log('in items api:', req.params.id, req.body)
   try {
-    const updatedItem = await Item.update(req.body, {
-      where: {id: req.params.id},
-      returning: true,
-      plain: true
-    })
+    const updatedItem = await Item.update(
+      {stock: req.body.quantity, price: req.body.price},
+      {
+        where: {id: req.params.id},
+        returning: true,
+        plain: true
+      }
+    )
+    console.log(updatedItem)
     res.json(updatedItem)
   } catch (error) {
     next(error)

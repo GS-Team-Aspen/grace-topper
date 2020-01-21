@@ -6,6 +6,7 @@ import {addToCart} from './../store/cart'
 import {connect} from 'react-redux'
 import {SingleItemDetails} from './SingleItemDetails'
 import ReviewWrap from './ReviewWrap'
+import EditItem from './EditItem'
 
 class SingleItem extends Component {
   componentDidMount() {
@@ -35,6 +36,7 @@ class SingleItem extends Component {
           />
 
           <ReviewWrap {...reviews} currUser={this.props.currUser} />
+          <EditItem />
         </Fragment>
       </div>
     )
