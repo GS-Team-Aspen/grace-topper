@@ -42,40 +42,44 @@ class SingleOrder extends Component {
     console.log(this.props.match.params.orderId, this.state)
     return (
       <div>
-        <form className="ui form" onSubmit={this.handleSubmit}>
-          <div className="field sixteen wide">
-            <div className="field four wide">
-              <select
-                className="ui fluid search dropdown"
-                name="status"
-                value={this.state.status}
-                onChange={this.handleChange}
-              >
-                <option value="delivered">delivered</option>
-                <option value="shipped">shipped</option>
-                <option value="cancelled">cancelled</option>
-              </select>
+        {this.props.user.userType === 'admin' ? (
+          <form className="ui form" onSubmit={this.handleSubmit}>
+            <div className="field sixteen wide">
+              <div className="field four wide">
+                <select
+                  className="ui fluid search dropdown"
+                  name="status"
+                  value={this.state.status}
+                  onChange={this.handleChange}
+                >
+                  <option value="delivered">delivered</option>
+                  <option value="shipped">shipped</option>
+                  <option value="cancelled">cancelled</option>
+                </select>
+              </div>
             </div>
-          </div>
-          <button
-            className="ui right floated button"
-            id="order-submit-button"
-            type="submit"
-          />
-        </form>
-        <div>
-          {this.props.order.items ? (
-            <div>
-              {this.props.order.items.map(item => (
-                <ItemCard {...item} type="order" key={item.id} />
-              ))}
+            <button
+              className="ui right floated button"
+              id="order-submit-button"
+              type="submit"
+            >
+              Edit Status
+            </button>
+          </form>
+        ) : (
+          <div />
+        )}
+        {this.props.order.items ? (
+          <div>
+            {this.props.order.items.map(item => (
+              <ItemCard {...item} type="order" key={item.id} />
+            ))}
 
-              <h2>Total: {this.orderTotal()}</h2>
-            </div>
-          ) : (
-            <h2>Loading...</h2>
-          )}
-        </div>
+            <h2>Total: {this.orderTotal()}</h2>
+          </div>
+        ) : (
+          <h2>Loading...</h2>
+        )}
       </div>
     )
   }
