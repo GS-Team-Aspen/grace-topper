@@ -3,7 +3,7 @@ import React from 'react'
 import ReviewCard from './ReviewCard'
 import AddReviewForm from './AddReviewForm'
 
-export default ({reviews, itemId, currUser}) => (
+const ReviewWrap = ({reviews, itemId, currUser}) => (
   <React.Fragment>
     <div className="single-item">
       <div id="review-list">
@@ -27,3 +27,5 @@ export default ({reviews, itemId, currUser}) => (
     </div>
   </React.Fragment>
 )
+
+export default ReviewWrap

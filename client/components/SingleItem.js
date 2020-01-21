@@ -2,22 +2,28 @@ import React from 'react'
 import {removeItem} from '../store/item'
 import {addToCart} from '../store/cart'
 import {connect} from 'react-redux'
+import {fetchSingleItem} from '../store/singleItem'
 import {SingleItemDetails} from './SingleItemDetails'
 import ReviewWrap from './ReviewWrap'
 
 const SingleItem = ({
-  items,
+  item,
   match,
   currUser,
   addCart,
   deleteItem,
   history,
-  orderId
+  orderId,
+  fetchItem
 }) => {
-  const item = items
-    ? items.find(item => item.id === Number(match.params.id))
-    : null
-  if (!item) return <div>Loading...</div>
+  React.useEffect(() => {
+    const fetchData = async () => {
+      await fetchItem(match.params.id)
+    }
+    fetchData()
+  }, [])
+
+  if (!item.name) return <div>Loading...</div>
   return (
     <div className="centered-parent">
       <SingleItemDetails
@@ -34,8 +40,7 @@ const SingleItem = ({
 
 const mapStateToProps = state => {
   return {
-    items: state.items,
-    reviews: state.reviews,
+    item: state.singleItem,
     orderId: state.cart.id,
     currUser: state.user
   }
@@ -46,7 +51,8 @@ const mapDispatchToProps = dispatch => {
     getSingleItem: item => dispatch(fetchSingleItem(item)),
     addCart: (itemId, orderId, quantity) =>
       dispatch(addToCart(itemId, orderId, quantity)),
-    deleteItem: (itemId, history) => dispatch(removeItem(itemId, history))
+    deleteItem: (itemId, history) => dispatch(removeItem(itemId, history)),
+    fetchItem: itemId => dispatch(fetchSingleItem(itemId))
   }
 }
 

@@ -33,7 +33,6 @@ export const fetchCategories = () => async dispatch => {
 
 export const setCategory = categoryName => async dispatch => {
   try {
-    console.log(categoryName)
     const {data} = await axios.post(`/api/categories/add`, {categoryName})
     dispatch(addCategory(data))
   } catch (error) {
@@ -43,7 +42,7 @@ export const setCategory = categoryName => async dispatch => {
 
 export const deleteCategory = categoryId => async dispatch => {
   try {
-    const {data} = await axios.delete('/api/categories/delete', {
+    await axios.delete('/api/categories/delete', {
       data: {categoryId}
     })
     dispatch(removeCategory(categoryId))

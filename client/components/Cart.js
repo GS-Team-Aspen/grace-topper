@@ -32,7 +32,7 @@ const ItemCard = props => {
             onClick={() =>
               changeQuantity(
                 item.id,
-                parseInt(item.orderItem.quantity) - 1,
+                parseInt(item.orderItem.quantity, 10) - 1,
                 item.stock
               )
             }
@@ -50,7 +50,7 @@ const ItemCard = props => {
             onClick={() =>
               changeQuantity(
                 item.id,
-                parseInt(item.orderItem.quantity) + 1,
+                parseInt(item.orderItem.quantity, 10) + 1,
                 item.stock
               )
             }
@@ -107,7 +107,11 @@ class Cart extends React.Component {
             .reduce((a, c) => a + c.price * c.orderItem.quantity, 0)
             .toLocaleString(undefined, {style: 'currency', currency: 'USD'})}
         </h3>
-        <button className="ui green button" onClick={this.handlePurchase}>
+        <button
+          type="purchase-button"
+          className="ui green button"
+          onClick={this.handlePurchase}
+        >
           Purchase Cart
         </button>
         {cart.map(item => (

@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const Op = require('sequelize').Op
 const {Order, OrderItem, User, Item} = require('../db/models')
-const isAdmin = require('./middleware/isAdmin')
+//const isAdmin = require('./middleware/isAdmin')
 const isUser = require('./middleware/isUser')
 const paginate = require('./middleware/paginate')
 module.exports = router
