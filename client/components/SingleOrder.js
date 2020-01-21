@@ -13,6 +13,10 @@ class SingleOrder extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  componentDidMount() {
+    this.props.getSingleOrder(this.props.match.params.orderId)
+  }
+
   handleChange(ev) {
     this.setState({
       [ev.target.name]: ev.target.value
@@ -22,10 +26,7 @@ class SingleOrder extends Component {
   handleSubmit(ev) {
     ev.preventDefault()
 
-    this.props.modOrder(this.props.order.id, this.state.status)
-    this.setState({
-      status: ''
-    })
+    this.props.editOrder(this.props.match.params.orderId, this.state)
   }
 
   orderTotal = () => {
@@ -38,7 +39,7 @@ class SingleOrder extends Component {
   }
 
   render() {
-    console.log(this.props)
+    console.log(this.props.match.params.orderId, this.state)
     return (
       <div>
         <form className="ui form" onSubmit={this.handleSubmit}>
@@ -47,16 +48,20 @@ class SingleOrder extends Component {
               <select
                 className="ui fluid search dropdown"
                 name="status"
-                value=""
+                value={this.state.status}
                 onChange={this.handleChange}
               >
-                <option value="status" />
+                <option value="delivered">delivered</option>
                 <option value="shipped">shipped</option>
                 <option value="cancelled">cancelled</option>
-                <option value="delivered">delivered</option>
               </select>
             </div>
           </div>
+          <button
+            className="ui right floated button"
+            id="order-submit-button"
+            type="submit"
+          />
         </form>
         <div>
           {this.props.order.items ? (
@@ -81,9 +86,11 @@ const mapState = state => ({
   user: state.user
 })
 
-const mapDispatch = dispatch => ({
-  getOrder: orderId => dispatch(fetchOrder(orderId)),
-  modOrder: (orderId, status) => dispatch(modOrder(orderId, status))
-})
+const mapDispatch = dispatch => {
+  return {
+    getSingleOrder: id => dispatch(fetchOrder(id)),
+    editOrder: (id, status) => dispatch(modOrder(id, status))
+  }
+}
 
 export default connect(mapState, mapDispatch)(SingleOrder)
