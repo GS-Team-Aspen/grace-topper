@@ -1,52 +1,47 @@
-import React, {Component, Fragment} from 'react'
-import {fetchSingleItem} from './../store/singleItem'
-import {fetchItemReviews} from './../store/review'
-import {addToCart} from './../store/cart'
-//import {fetchCategory} from './../store/category'
+import React from 'react'
+import {removeItem} from '../store/item'
+import {addToCart} from '../store/cart'
 import {connect} from 'react-redux'
+import {fetchSingleItem} from '../store/singleItem'
 import {SingleItemDetails} from './SingleItemDetails'
 import ReviewWrap from './ReviewWrap'
 import EditItem from './EditItem'
 
-class SingleItem extends Component {
-  componentDidMount() {
-    const id = Number(this.props.match.params.id)
-    this.props.loadSingleItem(id)
-    this.props.loadReviews(id)
-  }
+const SingleItem = ({
+  item,
+  match,
+  currUser,
+  addCart,
+  deleteItem,
+  history,
+  orderId,
+  fetchItem
+}) => {
+  React.useEffect(() => {
+    const fetchData = async () => {
+      await fetchItem(match.params.id)
+    }
+    fetchData()
+  }, [])
 
-  render() {
-    //**can't access Categories down to name
-    const reviews = this.props.reviews
-    //itemId.category ?
-    return (
-      <div className="centered-parent">
-        <Fragment>
-          <SingleItemDetails
-            {...this.props.item}
-            currUser={this.props.currUser}
-            review={reviews}
-            add={quantity =>
-              this.props.addCart(
-                this.props.item.id,
-                this.props.orderId,
-                quantity
-              )
-            }
-          />
-
-          <ReviewWrap {...reviews} currUser={this.props.currUser} />
-          <EditItem />
-        </Fragment>
-      </div>
-    )
-  }
+  if (!item.name) return <div>Loading...</div>
+  return (
+    <div className="centered-parent">
+      <SingleItemDetails
+        {...item}
+        currUser={currUser}
+        add={quantity => addCart(item.id, orderId, quantity)}
+        remove={() => deleteItem(item.id, history)}
+      />
+      <ReviewWrap itemId={item.id} reviews={item.reviews} currUser={currUser} />
+      <EditItem />
+    </div>
+  )
 }
 
 const mapStateToProps = state => {
   return {
     item: state.singleItem,
-    reviews: state.review,
     orderId: state.cart.id,
     currUser: state.user
   }
@@ -54,10 +49,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadSingleItem: id => dispatch(fetchSingleItem(id)),
-    loadReviews: id => dispatch(fetchItemReviews(id)),
+    getSingleItem: item => dispatch(fetchSingleItem(item)),
     addCart: (itemId, orderId, quantity) =>
-      dispatch(addToCart(itemId, orderId, quantity))
+      dispatch(addToCart(itemId, orderId, quantity)),
+    deleteItem: (itemId, history) => dispatch(removeItem(itemId, history)),
+    fetchItem: itemId => dispatch(fetchSingleItem(itemId))
   }
 }
 

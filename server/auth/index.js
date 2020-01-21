@@ -96,7 +96,8 @@ router.get('/me', async (req, res) => {
           sessionId: req.session.id,
           firstName: 'Guest',
           lastName: 'User',
-          email: `${req.session.id}@guestmail.com`
+          email: `${req.session.id}@guestmail.com`,
+          userType: 'guest'
         }
       })
   res.json(user[0])

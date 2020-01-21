@@ -1,18 +1,31 @@
 const router = require('express').Router()
 const Op = require('sequelize').Op
 const {Order, OrderItem, User, Item} = require('../db/models')
+//const isAdmin = require('./middleware/isAdmin')
+const isUser = require('./middleware/isUser')
+const paginate = require('./middleware/paginate')
 module.exports = router
 
-//GET all orders--see if additional models should be included
-router.get('/', async (req, res, next) => {
+//GET all orders or the current user
+router.get('/', isUser, async (req, res, next) => {
   try {
-    const orders = await Order.findAll({
-      include: [User, Item],
-      where: {
-        status: {[Op.not]: 'carted'}
-      }
-    })
-    res.json(orders)
+    // For now, admins will get all orders, regardless of user. Maybe move this into a different route for admins to manage other users' orders?
+    const orders =
+      req.user.userType === 'admin'
+        ? await Order.findAll({
+            include: [User, Item],
+            where: {
+              status: {[Op.not]: 'carted'}
+            }
+          })
+        : await Order.findAll({
+            include: [User, Item],
+            where: {
+              status: {[Op.not]: 'carted'},
+              userId: req.user.id
+            }
+          })
+    res.json(paginate(orders, req.query.page, req.query.limit))
   } catch (error) {
     next(error)
   }
@@ -64,7 +77,6 @@ router.get('/cart/:userId', async (req, res, next) => {
 //update quantity of an item in a cart
 router.put('/cart/changeQuantity', async (req, res, next) => {
   try {
-    console.log(req.body)
     const orderItem = await OrderItem.findOne({
       where: {
         orderId: req.body.orderId,

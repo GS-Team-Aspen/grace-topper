@@ -1,11 +1,27 @@
 //top portion of SingleItem page with photo & item details
 import React, {Fragment} from 'react'
 
-// **Need to get Category by itemId (for label)
-export const SingleItemDetails = props => {
-  const {imageUrl, name, description, price, review, add, currUser} = props
+// **Add Review button only displays if User is logged in
 
-  const ratingAver = arr => {
+export const SingleItemDetails = props => {
+  const {
+    imageUrl,
+    name,
+    description,
+    reviews,
+    add,
+    currUser,
+    categories,
+    remove
+  } = props
+  const price = props.price
+    ? props.price.toLocaleString(undefined, {
+        style: 'currency',
+        currency: 'USD'
+      })
+    : ''
+
+  const ratingAvg = arr => {
     let ratingNums = 0
     for (let i = 0; i < arr.length; i++) {
       ratingNums += arr[i].rating
@@ -13,13 +29,12 @@ export const SingleItemDetails = props => {
     return ratingNums / arr.length
   }
 
-  const reviewsAvgRating = ratingAver(review)
-  const reviewDec = reviewsAvgRating - Math.floor(reviewsAvgRating)
-  const wholeReview = Math.ceil(reviewsAvgRating)
+  const avgRating = ratingAvg(reviews)
+  const reviewDec = avgRating - Math.floor(avgRating)
 
   const createStarArr = num => {
     const starArr = []
-    for (let i = 1; i < num; i++) {
+    for (let i = 0; i < num; i++) {
       starArr.push(i)
     }
     return starArr
@@ -34,13 +49,20 @@ export const SingleItemDetails = props => {
         <div className="item-details">
           <div className="target-name">{name}</div>
           <div className="item-desc">{description}</div>
-          <div className="item-price">{`$${price}.00`}</div>
-          <div className="ui basic label mini" id="item-cat">
-            Category
-          </div>
+
+          <div className="item-price">{price}</div>
+          {categories.map(category => (
+            <div
+              key={category.id}
+              className="ui basic label mini"
+              id="item-cat"
+            >
+              {category.name}
+            </div>
+          ))}
           <div className="item-rating">
-            {reviewsAvgRating > 0 ? (
-              createStarArr(wholeReview).map(i => {
+            {avgRating > 0 ? (
+              createStarArr(Math.floor(avgRating)).map(i => {
                 return (
                   <span key={i}>
                     <i className="star icon star-yellow" />
@@ -56,21 +78,31 @@ export const SingleItemDetails = props => {
               </span>
             ) : (
               ''
-            )}{' '}
+            )}
           </div>
 
-          {currUser.firstName !== 'Guest' ? (
-            <div id="button-wrapper">
-              <a href="#review-form">
-                <button type="button" id="add-review" className="ui label">
-                  <i className="pen square icon" />
-                  Add Review
-                </button>
-              </a>
-            </div>
-          ) : (
-            ''
-          )}
+          <div className="button-holder" id="button-wrapper">
+            {currUser.userType === 'admin' ? (
+              <button
+                type="button"
+                id="remove-item"
+                className="ui red label submit-button"
+                onClick={remove}
+              >
+                Delete Item
+              </button>
+            ) : null}
+            {currUser.userType !== 'guest' ? (
+              <div id="button-wrapper">
+                <a href="#review-form">
+                  <button type="button" id="add-review" className="ui label">
+                    <i className="pen square icon" />
+                    Add Review
+                  </button>
+                </a>
+              </div>
+            ) : null}
+          </div>
 
           <button
             type="submit"
