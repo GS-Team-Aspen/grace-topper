@@ -5,13 +5,11 @@ const GET_ITEMS = 'GET_ITEMS'
 const DELETE_ITEM = 'DELETE_ITEM'
 const ADD_ITEM = 'ADD_ITEM'
 const ADD_REVIEW = 'ADD_REVIEW'
-const EDIT_ITEM = 'EDIT_ITEM'
 
 const getItems = items => ({type: GET_ITEMS, items})
 const deleteItem = itemId => ({type: DELETE_ITEM, itemId})
 const addItem = item => ({type: ADD_ITEM, item})
 const addReview = item => ({type: ADD_REVIEW, item})
-export const editItem = items => ({type: EDIT_ITEM, items})
 
 const initialState = []
 
@@ -47,19 +45,6 @@ export const setReview = (userId, itemId, review) => {
   }
 }
 
-export const modItem = (id, state) => {
-  return async dispatch => {
-    try {
-      const response = await axios.put(`../api/items/${id}`, state)
-      const editedItem = response.data
-      const action = editItem(editedItem)
-      dispatch(fetchSingleItem(id))
-    } catch (err) {
-      console.log(err)
-    }
-  }
-}
-
 export const makeItem = itemInfo => {
   return async dispatch => {
     try {
@@ -75,9 +60,6 @@ export const itemsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ITEMS:
       return action.items
-    case EDIT_ITEM:
-      const filterItems = state.filter(item => item.id !== action.items.id)
-      return [...filterItems, action.items[1]]
     case ADD_ITEM:
       return [...state, action.item]
     case DELETE_ITEM:

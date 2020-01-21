@@ -19,6 +19,18 @@ export const fetchSingleItem = id => {
   }
 }
 
+export const modItem = (id, state) => {
+  return async dispatch => {
+    try {
+      const response = await axios.put(`../api/items/${id}`, state)
+      const editedItem = response.data
+      dispatch(fetchSingleItem(id))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
 export const singleItemReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SINGLE_ITEM:
