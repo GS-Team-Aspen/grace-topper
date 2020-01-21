@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 
 a {
@@ -10,26 +10,50 @@ label {
   display: block;
 }
 
-nav a {
-  display: inline-block;
-  margin: 1em;
+.navbar {
+  display: flex;
+  /* justify-content: flex-end; */
+  align-items: center;
+  padding: 5px 15px;
+  background-color: black;
+  border-bottom: 2px solid #d4d4d5;
 }
+
+.navbar > img {
+  width: 25%;
+}
+
+/* .nav-wrapper {
+  float: right;
+} */
 
 nav {
   display: flex;
   justify-content: space-between;
 }
 
+nav a {
+  display: inline-block;
+  font-weight: 600;
+  margin: 1em;
+}
+
 form div {
   margin: 1em;
   display: inline-block;
+  letter-spacing: 0.25rem;
 }
 
-/* custom css below */
-
-body {
-  font-family: 'Raleway', sans-serif;
+.home-image {
+  width: 100vw;
 }
+
+.home-image > img {
+  width: 100%;
+  opacity: 50%;
+}
+
+/* pages */
 
 .centered-parent {
   display: flex;
