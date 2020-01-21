@@ -45,8 +45,6 @@ class UpdateUser extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault()
-    console.log(this.state, 'submitted state')
-
     this.props.updateUser(this.props.user.id, this.state)
   }
 
