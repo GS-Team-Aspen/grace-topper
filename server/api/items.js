@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const Op = require('sequelize').Op
+const paginate = require('./middleware/paginate')
 const {Item, Category, Review} = require('../db/models')
 const isAdmin = require('./middleware/isAdmin')
 module.exports = router
@@ -16,7 +17,7 @@ router.get('/', async (req, res, next) => {
         }
       }
     })
-    res.json(items)
+    res.json(paginate(items, req.query.page, req.query.limit))
   } catch (err) {
     next(err)
   }
@@ -26,7 +27,6 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const item = await Item.findByPk(req.params.id, {
-      //Unsure if this is the proper format
       include: [Category, Review]
     })
     res.json(item)

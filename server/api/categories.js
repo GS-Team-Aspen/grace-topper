@@ -1,7 +1,5 @@
-//as of 1/16, not using this -Kristen
-
 const router = require('express').Router()
-const {Item, Category, Review} = require('../db/models')
+const {Category} = require('../db/models')
 module.exports = router
 
 //GET all categories

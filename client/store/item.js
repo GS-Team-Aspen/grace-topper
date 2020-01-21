@@ -12,14 +12,12 @@ const addReview = item => ({type: ADD_REVIEW, item})
 
 const initialState = []
 
-export const fetchItems = () => {
-  return async dispatch => {
-    try {
-      const {data} = await axios.get('/api/items')
-      dispatch(getItems(data))
-    } catch (err) {
-      console.log(err)
-    }
+export const fetchItems = (page, limit) => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/items?page=${page}&limit=${limit}`)
+    dispatch(getItems(data))
+  } catch (err) {
+    console.log(err)
   }
 }
 
