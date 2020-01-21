@@ -1,8 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import {makeItem} from '../store/item'
-import {fetchCategories, setCategory, deleteCategory} from '../store/categories'
+import {setCategory, deleteCategory} from '../store/categories'
 
 class ProductManagement extends React.Component {
   constructor(props) {
@@ -28,7 +27,7 @@ class ProductManagement extends React.Component {
     this.setState({[event.target.name]: event.target.value})
   }
 
-  handleAddCategory(event) {
+  handleAddCategory() {
     this.props.setCategory(this.state.categoryName)
     this.setState({categoryName: ''})
   }
@@ -37,8 +36,8 @@ class ProductManagement extends React.Component {
     event.preventDefault()
     const item = {
       name: this.state.itemName,
-      price: parseInt(this.state.itemPrice),
-      stock: parseInt(this.state.itemStock),
+      price: parseInt(this.state.itemPrice, 10),
+      stock: parseInt(this.state.itemStock, 10),
       description: this.state.itemDescription,
       imageUrl: this.state.itemImageUrl,
       categories: this.state.itemCategories
@@ -57,14 +56,14 @@ class ProductManagement extends React.Component {
   }
 
   addCategoryToItem(category) {
-    this.setState({itemCategories: [...this.state.itemCategories, category]})
+    const categories = this.state.itemCategories
+    this.setState({itemCategories: [...categories, category]})
   }
 
   removeCategoryFromItem(cat) {
+    const categories = this.state.itemCategories
     this.setState({
-      itemCategories: this.state.itemCategories.filter(
-        category => category !== cat
-      )
+      itemCategories: categories.filter(category => category !== cat)
     })
   }
 
@@ -85,6 +84,7 @@ class ProductManagement extends React.Component {
           <div key={category.id} className="category-holder">
             <div>{category.name}</div>
             <button
+              type="remove-category-button"
               className="ui tiny button"
               onClick={() => this.props.deleteCategory(category.id)}
             >
@@ -135,9 +135,9 @@ class ProductManagement extends React.Component {
           />
           <div>
             Item Categories:
-            {this.state.itemCategories.map((category, i) => (
+            {this.state.itemCategories.map(category => (
               <div
-                key={i}
+                key={category.id}
                 onClick={() => this.removeCategoryFromItem(category)}
               >
                 {category.name}

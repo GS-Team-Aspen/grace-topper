@@ -17,64 +17,64 @@ const orderStatuses = ['shipped', 'delivered', 'cancelled']
 
 const rng = num => Math.floor(Math.random() * num)
 
+const userFramework = []
+const addressFramework = []
+const categoriesFramework = []
+const reviewsFramework = []
+const itemsFramework = []
+const orderItemsFramework = []
+const ordersFramework = []
+const cartsFramework = []
+
+for (let i = 0; i < 10; i++) {
+  userFramework.push({
+    email: faker.internet.email(),
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    password: faker.internet.password(),
+    userType: 'user'
+  })
+  addressFramework.push({
+    street: `${faker.address.streetAddress()} ${faker.address.streetName()}`,
+    city: faker.address.city(),
+    state: faker.address.state(),
+    zipCode: faker.address.zipCode('#####')
+  })
+  categoriesFramework.push({
+    name: faker.commerce.productMaterial() + i
+  })
+
+  cartsFramework.push({
+    status: 'carted'
+  })
+
+  for (let j = 0; j < 10; j++) {
+    itemsFramework.push({
+      name: faker.commerce.product(),
+      imageUrl: faker.image.fashion(),
+      description: faker.lorem.sentence(),
+      price: faker.commerce.price(),
+      stock: faker.random.number({min: 1, max: 2000})
+    })
+    reviewsFramework.push({
+      rating: faker.random.number({min: 1, max: 5}),
+      description: faker.lorem.paragraph()
+    })
+    ordersFramework.push({
+      status: orderStatuses[Math.floor(Math.random() * orderStatuses.length)]
+    })
+    orderItemsFramework.push({
+      quantity: faker.random.number({min: 1, max: 2000}),
+      salePrice: faker.commerce.price(),
+      orderId: i + 1,
+      itemId: j + 1
+    })
+  }
+}
+
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
-
-  const userFramework = []
-  const addressFramework = []
-  const categoriesFramework = []
-  const reviewsFramework = []
-  const itemsFramework = []
-  const orderItemsFramework = []
-  const ordersFramework = []
-  const cartsFramework = []
-
-  for (let i = 0; i < 10; i++) {
-    userFramework.push({
-      email: faker.internet.email(),
-      firstName: faker.name.firstName(),
-      lastName: faker.name.lastName(),
-      password: faker.internet.password(),
-      userType: 'user'
-    })
-    addressFramework.push({
-      street: `${faker.address.streetAddress()} ${faker.address.streetName()}`,
-      city: faker.address.city(),
-      state: faker.address.state(),
-      zipCode: faker.address.zipCode('#####')
-    })
-    categoriesFramework.push({
-      name: faker.commerce.productMaterial() + i
-    })
-
-    cartsFramework.push({
-      status: 'carted'
-    })
-
-    for (let j = 0; j < 10; j++) {
-      itemsFramework.push({
-        name: faker.commerce.product(),
-        imageUrl: faker.image.fashion(),
-        description: faker.lorem.sentence(),
-        price: faker.commerce.price(),
-        stock: faker.random.number({min: 1, max: 2000})
-      })
-      reviewsFramework.push({
-        rating: faker.random.number({min: 1, max: 5}),
-        description: faker.lorem.paragraph()
-      })
-      ordersFramework.push({
-        status: orderStatuses[Math.floor(Math.random() * orderStatuses.length)]
-      })
-      orderItemsFramework.push({
-        quantity: faker.random.number({min: 1, max: 2000}),
-        salePrice: faker.commerce.price(),
-        orderId: i + 1,
-        itemId: j + 1
-      })
-    }
-  }
 
   const users = await Promise.all([
     User.create({
@@ -118,7 +118,7 @@ async function seed() {
   console.log(`seeded ${orders.length} orders`)
 
   const orderItems = await Promise.all(
-    orderItemsFramework.map(orderItems => OrderItem.create(orderItems))
+    orderItemsFramework.map(orderItem => OrderItem.create(orderItem))
   )
 
   console.log(`seeded ${orderItems.length} orderItems`)
@@ -127,7 +127,6 @@ async function seed() {
     cartsFramework.map(cart => Order.create(cart))
   )
 
-  const cartItemsFramework = []
   carts.forEach(cart => {
     for (let i = 0; i < 10; i++) {
       cartItemsFramework.push(
@@ -140,7 +139,7 @@ async function seed() {
       )
     }
   })
-  const cartItems = await Promise.all(cartItemsFramework)
+  await Promise.all(cartItemsFramework)
 
   console.log(`seeded ${carts.length} carts`)
 
@@ -149,16 +148,16 @@ async function seed() {
   await Promise.all(addresses.map((address, i) => address.setUser(users[i])))
 
   await Promise.all(
-    reviews.map((review, i) => review.setUser(users[rng(users.length)]))
+    reviews.map(review => review.setUser(users[rng(users.length)]))
   )
   await Promise.all(
-    reviews.map((review, i) => review.setItem(items[rng(items.length)]))
+    reviews.map(review => review.setItem(items[rng(items.length)]))
   )
   await Promise.all(
-    orders.map((order, i) => order.setUser(users[rng(users.length)]))
+    orders.map(order => order.setUser(users[rng(users.length)]))
   )
   await Promise.all(
-    items.map((item, i) => item.addCategory(categories[rng(categories.length)]))
+    items.map(item => item.addCategory(categories[rng(categories.length)]))
   )
   console.log(`seeded successfully`)
 }
