@@ -2,11 +2,9 @@ import axios from 'axios'
 
 // Constants
 export const GET_ORDER = 'GET_ORDER'
-export const EDIT_ORDER = 'EDIT_ORDER'
 
 //Action Creators
 export const getOrder = order => ({type: GET_ORDER, order})
-export const editOrder = order => ({type: EDIT_ORDER, order})
 
 //Thunk Creators
 //Add way to prevent user from viewing other users' orders. Should only be able to view own. Unless they are an admin
