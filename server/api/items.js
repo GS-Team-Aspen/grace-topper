@@ -68,13 +68,14 @@ router.post('/', isAdmin, async (req, res, next) => {
 router.put('/:id', isAdmin, async (req, res, next) => {
   try {
     const updatedItem = await Item.update(
-      {stock: req.body.quantity, price: req.body.price},
+      {...req.body},
       {
         where: {id: req.params.id},
         returning: true,
         plain: true
       }
     )
+    console.log(updatedItem[1])
     res.json(updatedItem[1])
   } catch (error) {
     next(error)

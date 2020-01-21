@@ -34,7 +34,9 @@ const SingleItem = ({
         remove={() => deleteItem(item.id, history)}
       />
       <ReviewWrap itemId={item.id} reviews={item.reviews} currUser={currUser} />
-      <EditItem />
+      {currUser.userType === 'admin' ? (
+        <EditItem currUser={currUser} item={item} />
+      ) : null}
     </div>
   )
 }
