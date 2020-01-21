@@ -38,7 +38,6 @@ router.get('/:id', async (req, res, next) => {
 //Admin should be able to promote other users to admins
 router.put('/:id', async (req, res, next) => {
   try {
-    console.log('USER PUT REQ.BODY', req.body)
     const {firstName, lastName, email, password} = req.body
     const updatedUser = await User.update(
       {firstName, lastName, email, password},

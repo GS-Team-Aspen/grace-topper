@@ -6,40 +6,40 @@ import {updateUser} from '../store/user'
 //Address of logged-in user needs to be accessed from state
 
 //must get id of user from props, bc URL = /users/me
+const initialState = {
+  firstName: '',
+  lastName: '',
+  email: ''
+  //   address: {
+  //     street: '',
+  //     city: '',
+  //     state: '',
+  //     zipCode: 0
+  //   },
+}
 
 class UpdateUser extends Component {
   constructor() {
     super()
-    this.state = {
-      firstName: '',
-      lastName: '',
-      //   address: {
-      //     street: '',
-      //     city: '',
-      //     state: '',
-      //     zipCode: 0
-      //   },
-      email: ''
-    }
+    this.state = initialState
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
+
+  componentDidUpdate() {
+    !this.state.loaded && this.setState({...this.props.user, loaded: true})
+  }
+
   handleChange(evt) {
     this.setState({
       [evt.target.name]: evt.target.value
     })
+    console.log(this.state, 'state')
   }
   handleSubmit(evt) {
     evt.preventDefault()
-    const userId = this.props.user.id
-    this.props.updateUser(userId, this.state)
-    this.setState({
-      firstName: '',
-      lastName: '',
-      //address: {street: '', city: '', state: '', zipCode: 0},
-      email: ''
-    })
+    this.props.updateUser(this.props.user.id, this.state)
   }
 
   render() {
