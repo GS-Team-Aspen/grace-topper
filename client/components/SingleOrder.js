@@ -1,4 +1,4 @@
-import React, {useEffect, Component} from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchOrder, modOrder} from '../store/singleOrder'
 import ItemCard from './ItemCard'
@@ -39,7 +39,6 @@ class SingleOrder extends Component {
   }
 
   render() {
-    console.log(this.props.match.params.orderId, this.state)
     return (
       <div>
         {this.props.user.userType === 'admin' ? (
