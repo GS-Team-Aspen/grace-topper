@@ -9,6 +9,7 @@ import SingleItem from './components/SingleItem'
 import Orders from './components/Orders'
 import SingleOrder from './components/SingleOrder'
 import CheckoutWrap from './components/CheckoutWrap'
+import UpdateUser from './components/UpdateUser'
 import {fetchCategories} from './store/categories'
 
 /**
@@ -38,6 +39,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route path="/user" component={UpdateUser} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

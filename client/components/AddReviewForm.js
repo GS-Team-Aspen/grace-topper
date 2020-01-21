@@ -15,7 +15,6 @@ class AddReviewForm extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-
   handleChange(evt) {
     this.setState({
       [evt.target.name]: evt.target.value
@@ -24,11 +23,9 @@ class AddReviewForm extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault()
-
     const userId = this.props.currUser.id
     const itemId = this.props.itemId
     this.props.postReview(userId, itemId, this.state)
-
     this.setState({
       description: '',
       rating: ''
@@ -50,7 +47,6 @@ class AddReviewForm extends Component {
             <span />
           )}
         </div>
-
         <form className="ui form" onSubmit={this.handleSubmit}>
           <div className="field sixteen wide">
             <textarea

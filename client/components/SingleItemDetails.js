@@ -50,7 +50,6 @@ export const SingleItemDetails = props => {
         <div className="item-details">
           <div className="target-name">{name}</div>
           <div className="item-desc">{description}</div>
-
           <div className="item-price">
             {price} {stock} left
           </div>

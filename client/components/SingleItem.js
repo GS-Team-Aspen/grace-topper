@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import {fetchSingleItem} from '../store/singleItem'
 import {SingleItemDetails} from './SingleItemDetails'
 import ReviewWrap from './ReviewWrap'
+import EditItem from './EditItem'
 
 const SingleItem = ({
   item,
@@ -32,8 +33,10 @@ const SingleItem = ({
         add={quantity => addCart(item.id, orderId, quantity)}
         remove={() => deleteItem(item.id, history)}
       />
-
       <ReviewWrap itemId={item.id} reviews={item.reviews} currUser={currUser} />
+      {currUser.userType === 'admin' ? (
+        <EditItem currUser={currUser} item={item} />
+      ) : null}
     </div>
   )
 }

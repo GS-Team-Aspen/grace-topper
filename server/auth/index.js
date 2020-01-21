@@ -2,14 +2,17 @@ const router = require('express').Router()
 const User = require('../db/models/user')
 const Order = require('../db/models/order')
 const Item = require('../db/models/item')
-const OrderItem = require('../db/models/orderItem')
 const Address = require('../db/models/address')
+const OrderItem = require('../db/models/orderItem')
 
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
   try {
-    const user = await User.findOne({where: {email: req.body.email}})
+    const user = await User.findOne({
+      where: {email: req.body.email},
+      include: [Address]
+    })
     if (!user) {
       console.log('No such user found:', req.body.email)
       res.status(401).send('Wrong username and/or password')
@@ -22,6 +25,9 @@ router.post('/login', async (req, res, next) => {
           {
             model: Order,
             include: [Item]
+          },
+          {
+            model: Address
           }
         ]
       })
@@ -92,7 +98,7 @@ router.post('/logout', (req, res) => {
 
 router.get('/me', async (req, res) => {
   const user = req.user
-    ? [req.user]
+    ? [await User.findByPk(req.user.id, {include: [Address]})]
     : await User.findOrCreate({
         where: {
           sessionId: req.session.id,
@@ -100,7 +106,8 @@ router.get('/me', async (req, res) => {
           lastName: 'User',
           email: `${req.session.id}@guestmail.com`,
           userType: 'guest'
-        }
+        },
+        include: [Address]
       })
   res.json(user[0])
 })
