@@ -67,14 +67,11 @@ router.post('/', isAdmin, async (req, res, next) => {
 //Add functionality to update categories
 router.put('/:id', isAdmin, async (req, res, next) => {
   try {
-    const updatedItem = await Item.update(
-      req.body,
-      {
-        where: {id: req.params.id},
-        returning: true,
-        plain: true
-      }
-    )
+    const updatedItem = await Item.update(req.body, {
+      where: {id: req.params.id},
+      returning: true,
+      plain: true
+    })
     res.json(updatedItem[1])
   } catch (error) {
     next(error)
