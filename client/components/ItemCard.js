@@ -15,7 +15,7 @@ const ItemCard = props => {
       <Link to={`/items/${id}`}>
         <div className="ui card">
           <div className="image">
-            <img src="../../items/yellow-pet-cap.jpg" />
+            <img src="../../items/placeholder-img.png" />
           </div>
           <div className="extra content">
             <span className="target-name-card">{`${name} ${quantity}`}</span>
