@@ -25,6 +25,7 @@ const itemsFramework = []
 const orderItemsFramework = []
 const ordersFramework = []
 const cartsFramework = []
+const cartItemsFramework = []
 
 for (let i = 0; i < 10; i++) {
   userFramework.push({
