@@ -45,7 +45,7 @@ export const SingleItemDetails = props => {
     <Fragment>
       <div className="single-item">
         <div className="item-image">
-          <img src={imageUrl} />
+          <img className="ui fluid image" src={imageUrl} />
         </div>
         <div className="item-details">
           <div className="target-name">{name}</div>

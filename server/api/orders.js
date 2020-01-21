@@ -37,7 +37,6 @@ router.get('/:id', async (req, res, next) => {
     const order = await Order.findByPk(req.params.id, {
       include: [User, Item]
     })
-
     res.json(order)
   } catch (error) {
     next(error)
@@ -52,7 +51,7 @@ router.get('/orderHistory/:userId', async (req, res, next) => {
         userId: req.params.userId
       }
     })
-    res.json(orders)
+    res.json(orders[0])
   } catch (error) {
     next(error)
   }
@@ -118,6 +117,27 @@ router.put('/cart/purchase', async (req, res, next) => {
       })
       res.json(newCart)
     }
+  } catch (error) {
+    next(error)
+  }
+})
+
+//edits the order's status
+router.put('/:id', async (req, res, next) => {
+  console.log('inorderapi', req.body)
+  try {
+    const order = await Order.findByPk(req.params.id, {
+      include: [User, Item]
+    })
+    const changedOrder = await order.update(
+      {status: req.body.status},
+      {
+        where: {id: req.params.id},
+        returning: true,
+        plain: true
+      }
+    )
+    res.json(changedOrder)
   } catch (error) {
     next(error)
   }

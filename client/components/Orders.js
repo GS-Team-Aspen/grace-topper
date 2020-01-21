@@ -15,7 +15,6 @@ const Orders = props => {
     },
     [page]
   )
-
   return (
     <div>
       <div>

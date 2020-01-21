@@ -23,13 +23,12 @@ export const fetchSingleItem = id => {
   }
 }
 
-
 export const modItem = (id, state) => {
   return async dispatch => {
     try {
       const {data} = await axios.put(`/api/items/${id}`, state)
       dispatch(changeItem(data))
-          } catch (err) {
+    } catch (err) {
       console.log(err)
     }
   }
