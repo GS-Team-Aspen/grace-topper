@@ -9,9 +9,11 @@ const initialState = {
   data: []
 }
 
-export const fetchItems = (page, limit) => async dispatch => {
+export const fetchItems = (page, limit, category, search) => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/items?page=${page}&limit=${limit}`)
+    const {data} = await axios.get(
+      `/api/items?page=${page}&limit=${limit}&category=${category}&search=${search.toLowerCase()}`
+    )
     dispatch(getItems(data))
   } catch (err) {
     console.log(err)
