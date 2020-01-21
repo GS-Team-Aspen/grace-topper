@@ -20,7 +20,7 @@ router.get('/', async (req, res, next) => {
         }
       }
     })
-    res.json(paginate(items, req.query.page, req.query.limit).data)
+    res.json(paginate(items, req.query.page, req.query.limit))
   } catch (err) {
     next(err)
   }

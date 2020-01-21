@@ -14,7 +14,7 @@ router.get('/:id', async (req, res, next) => {
         }
       ]
     })
-    res.json(paginate(reviews, req.query.page, req.query.limit).data)
+    res.json(paginate(reviews, req.query.page, req.query.limit))
   } catch (err) {
     next(err)
   }
