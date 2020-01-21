@@ -29,7 +29,8 @@ class EditItem extends Component {
     console.log(this.props, 'edit item')
     //set up conditional to only display if user is admin
     return (
-      <form onSubmit={this.onUpdate}>
+      <form className="ui form" onSubmit={this.onUpdate}>
+        <h1> Admin Edit Item </h1>
         <br />
         <label>
           Quantity:
