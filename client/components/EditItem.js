@@ -6,7 +6,6 @@ import {modItem} from '../store/singleItem'
 class EditItem extends Component {
   constructor(props) {
     super(props)
-    this.loaded = false
     this.state = {
       name: props.item.name,
       description: props.item.description,
