@@ -51,7 +51,6 @@ export const modItem = (id, state) => {
   return async dispatch => {
     try {
       const response = await axios.put(`../api/items/${id}`, state)
-      console.log(response, 'in item store')
       const editedItem = response.data
       const action = editItem(editedItem)
       dispatch(action)
@@ -78,7 +77,7 @@ export const itemsReducer = (state = initialState, action) => {
     case GET_ITEMS:
       return action.items
     case EDIT_ITEM:
-      const filterItems = state.filter(item => item.id !== action.items[1].id)
+      const filterItems = state.filter(item => item.id !== action.items.id)
       return [...filterItems, action.items[1]]
     case ADD_ITEM:
       return [...state, action.item]

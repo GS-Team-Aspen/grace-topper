@@ -26,36 +26,43 @@ class EditItem extends Component {
   }
 
   render() {
-    console.log(this.props, 'edit item')
+    const {currUser} = this.props
     //set up conditional to only display if user is admin
+
     return (
-      <form className="ui form" onSubmit={this.onUpdate}>
-        <h1> Admin Edit Item </h1>
-        <br />
-        <label>
-          Quantity:
-          <input
-            type="text"
-            name="quantity"
-            value={this.state.quantity}
-            onChange={this.handleChange}
-            placeholder={`${this.props.currItem.stock}`}
-          />
-        </label>
-        <br />
-        <label>
-          Price:
-          <input
-            type="text"
-            name="price"
-            value={this.state.price}
-            onChange={this.handleChange}
-            placeholder={`${this.props.currItem.price}`}
-          />
-        </label>
-        <br />
-        <button type="submit">edit</button>
-      </form>
+      <div>
+        {currUser.userType === 'admin' ? (
+          <form className="ui form" onSubmit={this.onUpdate}>
+            <h1> Admin Edit Item </h1>
+            <br />
+            <label>
+              Quantity:
+              <input
+                type="text"
+                name="quantity"
+                value={this.state.quantity}
+                onChange={this.handleChange}
+                placeholder={`${this.props.currItem.stock}`}
+              />
+            </label>
+            <br />
+            <label>
+              Price:
+              <input
+                type="text"
+                name="price"
+                value={this.state.price}
+                onChange={this.handleChange}
+                placeholder={`${this.props.currItem.price}`}
+              />
+            </label>
+            <br />
+            <button type="submit">edit</button>
+          </form>
+        ) : (
+          <div />
+        )}
+      </div>
     )
   }
 }
