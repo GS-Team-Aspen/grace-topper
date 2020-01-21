@@ -42,7 +42,6 @@ class CheckoutForm extends Component {
 
   render() {
     const {user} = this.props
-
     return (
       <div>
         <form className="ui form" onSubmit={this.handleSubmit}>
