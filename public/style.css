@@ -53,6 +53,9 @@ body {
   margin: 1rem;
 }
 
+#search-bar {
+  width: 400px;
+}
 /* AllItems & SingleItems components */
 .target-name {
   font-size: 1.3rem;

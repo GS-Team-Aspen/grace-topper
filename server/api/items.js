@@ -9,7 +9,6 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const items = await Item.findAll({
-      attributes: ['id', 'name', 'price', 'imageUrl'],
       include: [Category, Review],
       where: {
         stock: {
@@ -17,7 +16,25 @@ router.get('/', async (req, res, next) => {
         }
       }
     })
-    res.json(paginate(items, req.query.page, req.query.limit))
+    const category = parseInt(req.query.category, 10)
+    res.json(
+      paginate(
+        items.filter(item => {
+          if (
+            !item.name.toLowerCase().includes(req.query.search) &&
+            !item.description.toLowerCase().includes(req.query.search)
+          )
+            return false
+          if (category === 0) return true
+          for (let i = 0; i < item.categories.length; i++) {
+            if (item.categories[i].id === category) return true
+          }
+          return false
+        }),
+        req.query.page,
+        req.query.limit
+      )
+    )
   } catch (err) {
     next(err)
   }
@@ -67,14 +84,11 @@ router.post('/', isAdmin, async (req, res, next) => {
 //Add functionality to update categories
 router.put('/:id', isAdmin, async (req, res, next) => {
   try {
-    const updatedItem = await Item.update(
-      req.body,
-      {
-        where: {id: req.params.id},
-        returning: true,
-        plain: true
-      }
-    )
+    const updatedItem = await Item.update(req.body, {
+      where: {id: req.params.id},
+      returning: true,
+      plain: true
+    })
     res.json(updatedItem[1])
   } catch (error) {
     next(error)
