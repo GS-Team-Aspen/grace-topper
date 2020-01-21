@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
+
 import {connect} from 'react-redux'
-import {addReview} from '../store/review'
+import {setReview} from '../store/item'
 
 //item & user ids are sent with description & rating
 
 class AddReviewForm extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       description: '',
       rating: ''
@@ -15,17 +16,20 @@ class AddReviewForm extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
+
   handleChange(evt) {
     this.setState({
       [evt.target.name]: evt.target.value
     })
   }
+
   handleSubmit(evt) {
     evt.preventDefault()
+
     const userId = this.props.currUser.id
-    const itemId = this.props.currItem.id
-    console.log('FORM VARS', userId, itemId, this.state)
+    const itemId = this.props.itemId
     this.props.postReview(userId, itemId, this.state)
+
     this.setState({
       description: '',
       rating: ''
@@ -33,7 +37,7 @@ class AddReviewForm extends Component {
   }
 
   render() {
-    const currUser = this.props.currUser
+    const {currUser} = this.props
 
     return (
       <div className="ui segment" id="review-form">
@@ -47,6 +51,7 @@ class AddReviewForm extends Component {
             <span />
           )}
         </div>
+
         <form className="ui form" onSubmit={this.handleSubmit}>
           <div className="field sixteen wide">
             <textarea
@@ -98,7 +103,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     postReview: (userId, itemId, review) =>
-      dispatch(addReview(userId, itemId, review))
+      dispatch(setReview(userId, itemId, review))
   }
 }
 

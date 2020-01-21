@@ -1,29 +1,67 @@
-//as of 1/16, not using this -Kristen
-
 import axios from 'axios'
 
-export const GET_CATEGORIES = 'GET_CATEGORIES'
+/**
+ * ACTION TYPES
+ */
+const SET_CATEGORIES = 'SET_CATEGORIES'
+const ADD_CATEGORY = 'ADD_CATEGORY'
+const REMOVE_CATEGORY = 'REMOVE_CATEGORY'
 
-export const getCategories = categories => ({type: GET_CATEGORIES, categories})
+/**
+ * INITIAL STATE
+ */
+const initialState = []
 
-//id=product Id
-export const fetchCategories = () => {
-  return async dispatch => {
-    try {
-      const {data} = await axios.get(`/api/categories/`)
-      dispatch(getCategories(data))
-    } catch (err) {
-      console.log(err)
-    }
+/**
+ * ACTION CREATORS
+ */
+const setCategories = categories => ({type: SET_CATEGORIES, categories})
+const addCategory = category => ({type: ADD_CATEGORY, category})
+const removeCategory = categoryId => ({type: REMOVE_CATEGORY, categoryId})
+
+/**
+ * THUNK CREATORS
+ */
+export const fetchCategories = () => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/categories`)
+    dispatch(setCategories(data))
+  } catch (err) {
+    console.error(err)
   }
 }
 
-const initialState = []
+export const setCategory = categoryName => async dispatch => {
+  try {
+    console.log(categoryName)
+    const {data} = await axios.post(`/api/categories/add`, {categoryName})
+    dispatch(addCategory(data))
+  } catch (error) {
+    console.log(error)
+  }
+}
 
-export const categoriesReducer = (state = initialState, action) => {
+export const deleteCategory = categoryId => async dispatch => {
+  try {
+    const {data} = await axios.delete('/api/categories/delete', {
+      data: {categoryId}
+    })
+    dispatch(removeCategory(categoryId))
+  } catch (err) {
+    console.error(err)
+  }
+}
+/**
+ * REDUCER
+ */
+export default function(state = initialState, action) {
   switch (action.type) {
-    case GET_CATEGORIES:
+    case SET_CATEGORIES:
       return action.categories
+    case ADD_CATEGORY:
+      return [...state, action.category]
+    case REMOVE_CATEGORY:
+      return state.filter(category => category.id !== action.categoryId)
     default:
       return state
   }
