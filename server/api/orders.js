@@ -110,6 +110,24 @@ router.put('/cart/purchase', async (req, res, next) => {
   }
 })
 
+//edits the order's status
+router.put('/:id', async (req, res, next) => {
+  try {
+    const order = await Order.findByPk(req.params.Id)
+    const changedOrder = await order.update(
+      {status: req.body},
+      {
+        where: {id: req.params.id},
+        returning: true,
+        plain: true
+      }
+    )
+    res.json(changedOrder)
+  } catch (error) {
+    next(error)
+  }
+})
+
 //**needs to capture userId; get info to OrderItems
 router.post('/', async (req, res, next) => {
   try {

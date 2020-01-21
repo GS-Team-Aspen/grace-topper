@@ -2,9 +2,11 @@ import axios from 'axios'
 
 // Constants
 export const GET_ORDER = 'GET_ORDER'
+export const EDIT_ORDER = 'EDIT_ORDER'
 
 //Action Creators
 export const getOrder = order => ({type: GET_ORDER, order})
+export const editOrder = order => ({type: EDIT_ORDER, order})
 
 //Thunk Creators
 //Add way to prevent user from viewing other users' orders. Should only be able to view own. Unless they are an admin
@@ -17,10 +19,24 @@ export const fetchOrder = orderId => async dispatch => {
   }
 }
 
+export const modOrder = (id, state) => {
+  return async dispatch => {
+    try {
+      const response = await axios.put(`../api/orders/${id}`, status)
+      const editedOrder = response.data
+      const action = editOrder(editedOrder)
+      dispatch(action)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
 //Reducer
 export default (state = {}, action) => {
   switch (action.type) {
     case GET_ORDER:
+      return action.order
+    case EDIT_ORDER:
       return action.order
     default:
       return state

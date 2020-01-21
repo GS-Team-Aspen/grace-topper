@@ -75,7 +75,6 @@ router.put('/:id', isAdmin, async (req, res, next) => {
         plain: true
       }
     )
-    console.log(updatedItem)
     res.json(updatedItem)
   } catch (error) {
     next(error)
