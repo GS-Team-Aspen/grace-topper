@@ -31,7 +31,8 @@ const CheckoutWrap = props => {
               <div />
             )}
 
-            {cart.items.length ? <CheckoutForm /> : <div />}
+            <CheckoutForm />
+            {/* {cart.items.length ? <CheckoutForm /> : <div />} */}
           </Fragment>
         ) : (
           <div />

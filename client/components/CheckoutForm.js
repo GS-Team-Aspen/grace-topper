@@ -1,6 +1,9 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {purchase} from './../store/cart'
+import StripeCheckout from 'react-stripe-checkout'
+import axios from 'axios'
+import {toast} from 'react-toastify'
 
 //Notes:
 // purchase shifts status carted > shipped, creates new "cart"
@@ -49,6 +52,27 @@ class CheckoutForm extends Component {
 
   render() {
     const {user} = this.props
+    console.log('CHECKOUT FORM', this.props)
+
+    toast.configure()
+
+    const handleToken = async (token, addresses) => {
+      console.log({token, addresses})
+      const response = await axios.post('/api/orders/checkout', {
+        token
+        // product
+      })
+      const {status} = response.data
+      if (status === 'success') {
+        toast('Success! Check email for details.', {type: 'success'})
+      } else {
+        toast('Someting went wrong.', {type: 'error'})
+      }
+    }
+
+    // dummy bc can't access cart
+    const amount = 42
+    const name = 'Urban Sombrero'
 
     return (
       <div>
@@ -148,60 +172,14 @@ class CheckoutForm extends Component {
           )}
           <h4 className="ui dividing header">Billing Information</h4>
           <div className="fields">
-            <div className="seven wide field">
-              <label>Card Number</label>
-              <input
-                type="text"
-                name="card[number]"
-                maxLength="16"
-                placeholder="Card #"
-              />
-            </div>
-            <div className="three wide field">
-              <label>CVC</label>
-              <input
-                type="text"
-                name="card[cvc]"
-                maxLength="3"
-                placeholder="CVC"
-              />
-            </div>
-            <div className="six wide field">
-              <div className="two fields">
-                <div className="field">
-                  <label>Expiration</label>
-                  <select
-                    className="ui fluid search dropdown"
-                    name="card[expire-month]"
-                  >
-                    <option value="">Month</option>
-                    <option value="1">January</option>
-                    <option value="2">February</option>
-                    <option value="3">March</option>
-                    <option value="4">April</option>
-                    <option value="5">May</option>
-                    <option value="6">June</option>
-                    <option value="7">July</option>
-                    <option value="8">August</option>
-                    <option value="9">September</option>
-                    <option value="10">October</option>
-                    <option value="11">November</option>
-                    <option value="12">December</option>
-                  </select>
-                </div>
-                <div className="field">
-                  <label>Year</label>
-                  <input
-                    type="text"
-                    name="card[expire-year]"
-                    maxLength="4"
-                    placeholder="4 digits"
-                  />
-                </div>
-              </div>
-            </div>
+            <StripeCheckout
+              stripeKey="pk_test_LRFcEN1LwrCMSWoV74R5OAzr00ms1mgNSq"
+              token={handleToken}
+              // shippingAddress="123 Fake St."
+              amount={{amount} * 100}
+              name={name}
+            />
           </div>
-
           <button
             className="ui right floated button"
             id="order-submit-button"
