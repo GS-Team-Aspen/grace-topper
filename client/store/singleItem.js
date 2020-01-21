@@ -22,9 +22,8 @@ export const fetchSingleItem = id => {
 export const modItem = (id, state) => {
   return async dispatch => {
     try {
-      const response = await axios.put(`../api/items/${id}`, state)
-      const editedItem = response.data
-      dispatch(fetchSingleItem(id))
+      const {data} = await axios.put(`../api/items/${id}`, state)
+      dispatch(getSingleItem(data))
     } catch (err) {
       console.log(err)
     }
