@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {changeItemQuantity, purchase, removeItem} from '../store/cart'
+import {changeItemQuantity, removeItem, setQuantities} from '../store/cart'
 
 const ItemCard = props => {
   const {item, handleChange, handleRemove, changeQuantity} = props
@@ -72,15 +72,24 @@ const ItemCard = props => {
 class Cart extends React.Component {
   constructor(props) {
     super(props)
+    this.loaded = false
     this.changeQuantity = this.changeQuantity.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleRemove = this.handleRemove.bind(this)
-    this.handlePurchase = this.handlePurchase.bind(this)
   }
 
-  handlePurchase(event) {
-    event.preventDefault()
-    this.props.purchase(this.props.userId, this.props.cart.id)
+  componentDidMount() {
+    if (this.props.cart.id) {
+      this.props.setQuantities(this.props.cart.id)
+      this.loaded = true
+    }
+  }
+
+  componentDidUpdate() {
+    if (!this.loaded && this.props.cart.id) {
+      this.props.setQuantities(this.props.cart.id)
+      this.loaded = true
+    }
   }
 
   changeQuantity(itemId, newValue, quantity) {
@@ -110,7 +119,7 @@ class Cart extends React.Component {
         <button
           type="purchase-button"
           className="ui green button"
-          onClick={this.handlePurchase}
+          onClick={() => this.props.history.push('/checkout')}
         >
           Purchase Cart
         </button>
@@ -136,8 +145,8 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   changeQuantity: (orderId, itemId, newValue) =>
     dispatch(changeItemQuantity(orderId, itemId, newValue)),
-  purchase: (userId, orderId) => dispatch(purchase(userId, orderId)),
-  removeItem: (itemId, orderId) => dispatch(removeItem(itemId, orderId))
+  removeItem: (itemId, orderId) => dispatch(removeItem(itemId, orderId)),
+  setQuantities: orderId => dispatch(setQuantities(orderId))
 })
 
 export default connect(mapState, mapDispatch)(Cart)
