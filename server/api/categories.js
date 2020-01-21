@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Category} = require('../db/models')
+const {Category, Item} = require('../db/models')
 module.exports = router
 
 //GET all categories
