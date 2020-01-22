@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {modItem} from '../store/singleItem'
+import {fetchSingleItem} from '../store/singleItem'
 
 class EditItem extends Component {
   constructor(props) {
@@ -16,6 +17,10 @@ class EditItem extends Component {
     this.onUpdate = this.onUpdate.bind(this)
   }
 
+  componentDidMount() {
+    this.props.getItem(this.props.item.id)
+  }
+
   handleChange(ev) {
     this.setState({[ev.target.name]: ev.target.value})
   }
@@ -27,7 +32,7 @@ class EditItem extends Component {
 
   render() {
     const {currUser} = this.props
-
+    console.log(this.props)
     return (
       <div>
         <form className="ui form" onSubmit={this.onUpdate}>
@@ -40,7 +45,7 @@ class EditItem extends Component {
                 <input
                   type="text"
                   name={field}
-                  value={this.state[field]}
+                  value={this.props.item[field]}
                   onChange={this.handleChange}
                 />
               </label>
@@ -60,7 +65,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    editItem: (id, item) => dispatch(modItem(id, item))
+    editItem: (id, item) => dispatch(modItem(id, item)),
+    getItem: id => dispatch(fetchSingleItem(id))
   }
 }
 
