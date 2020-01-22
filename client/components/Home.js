@@ -6,7 +6,7 @@ import React from 'react'
 export const Home = () => {
   return (
     <div className="home-image">
-      <img src="http://kristenandersen.online/gh/hat-combo-square.jpg" />
+      <img src="/hat-combo-3-sm.jpg" />
     </div>
   )
 }
