@@ -21,7 +21,6 @@ class EditItem extends Component {
   }
 
   componentDidMount() {
-    this.props.getItem(this.props.item.id)
     setTimeout(() => {
       this.setState({
         name: this.props.item.name,
