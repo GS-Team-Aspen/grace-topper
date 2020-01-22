@@ -308,3 +308,15 @@ input[type='number']::-webkit-outer-spin-button {
   justify-content: space-between;
   padding-bottom: 5px;
 }
+
+/* footer */
+.footer-holder {
+  display: flex;
+  padding-top: 20px;
+}
+
+.footer-bold {
+  font-weight: bold;
+  cursor: pointer;
+  padding-right: 25px;
+}

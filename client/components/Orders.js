@@ -15,15 +15,31 @@ const Orders = props => {
     },
     [page]
   )
+  if (!props.orders) return <h2>No orders</h2>
   return (
-    <div>
-      <div>
-        {props.orders ? (
-          props.orders.map(order => <OrderCard order={order} key={order.id} />)
-        ) : (
-          <h2>No orders</h2>
-        )}
-      </div>
+    <React.Fragment>
+      <table className="ui celled striped table">
+        <thead>
+          <tr>
+            <th colSpan="3">All Orders</th>
+          </tr>
+          <tr>
+            <th>ID</th>
+            <th>Status</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {props.orders.map(order => (
+            <tr key={order.id}>
+              <td>{order.id}</td>
+              <td>{order.status}</td>
+              <td>{order.user.email}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       {props.count ? (
         <Paginate
           limit={limit}
@@ -33,7 +49,7 @@ const Orders = props => {
       ) : (
         ''
       )}
-    </div>
+    </React.Fragment>
   )
 }
 
