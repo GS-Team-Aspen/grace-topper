@@ -2,33 +2,13 @@ import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {updateUser} from '../store/user'
 
-//**To do:
-//Address of logged-in user needs to be accessed from state
-
-//must get id of user from props, bc URL = /users/me
-const initialState = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  address: {
-    street: '',
-    city: '',
-    state: '',
-    zipCode: '00000'
-  }
-}
-
 class UpdateUser extends Component {
-  constructor() {
-    super()
-    this.state = initialState
+  constructor(props) {
+    super(props)
+    this.state = this.props.user
     this.handleUserChange = this.handleUserChange.bind(this)
     this.handleAddressChange = this.handleAddressChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  componentDidUpdate() {
-    !this.state.loaded && this.setState({...this.props.user, loaded: true})
   }
 
   handleUserChange(evt) {
@@ -50,6 +30,7 @@ class UpdateUser extends Component {
 
   render() {
     const {user} = this.props
+    const addressCheck = this.state.address && true
 
     return (
       <div>
@@ -119,7 +100,7 @@ class UpdateUser extends Component {
                           type="text"
                           name="street"
                           placeholder="USER STREET ADDRESS"
-                          value={this.state.address.street}
+                          value={addressCheck ? this.state.address.street : ' '}
                           onChange={this.handleAddressChange}
                         />
                       </div>
@@ -129,7 +110,7 @@ class UpdateUser extends Component {
                           type="text"
                           name="city"
                           placeholder="USER CITY"
-                          value={this.state.address.city}
+                          value={addressCheck ? this.state.address.city : ' '}
                           onChange={this.handleAddressChange}
                         />
                       </div>
@@ -142,7 +123,7 @@ class UpdateUser extends Component {
                           type="text"
                           name="state"
                           placeholder="USER STATE"
-                          value={this.state.address.state}
+                          value={addressCheck ? this.state.address.state : ' '}
                           onChange={this.handleAddressChange}
                         />
                       </div>
@@ -152,7 +133,9 @@ class UpdateUser extends Component {
                           type="number"
                           name="zip"
                           placeholder="USER ZIP"
-                          value={this.state.address.zipCode}
+                          value={
+                            addressCheck ? this.state.address.zipCode : ' '
+                          }
                           onChange={this.handleAddressChange}
                         />
                       </div>

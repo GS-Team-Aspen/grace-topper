@@ -81,8 +81,8 @@ export const updateUser = (id, user) => async dispatch => {
       user,
       address: user.address
     })
-
     dispatch(getUser({...data[1], address: data.address[1]} || defaultUser))
+    history.push('/checkout')
   } catch (err) {
     console.log('Err updating user: ', err)
   }
