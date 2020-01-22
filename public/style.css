@@ -1,3 +1,12 @@
+/* don't think this is used: */
+form div {
+  margin: 1em;
+  display: inline-block;
+  letter-spacing: 0.25rem;
+}
+
+/* grace topper styling: */
+
 body {
   font-family: 'Raleway', sans-serif;
 }
@@ -10,22 +19,34 @@ label {
   display: block;
 }
 
+/* navbar */
+
 .navbar {
   display: flex;
-  /* justify-content: flex-end; */
   align-items: center;
+  justify-content: space-between;
   padding: 5px 15px;
   background-color: black;
   border-bottom: 2px solid #d4d4d5;
 }
 
-.navbar > img {
-  width: 25%;
+.logo-wrapper {
+  width: 23vw;
+}
+img#logo {
+  width: 100%;
 }
 
-/* .nav-wrapper {
-  float: right;
-} */
+.nav-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+.welcome {
+  color: white;
+  text-align: right;
+}
 
 nav {
   display: flex;
@@ -38,18 +59,16 @@ nav a {
   margin: 1em;
 }
 
-form div {
-  margin: 1em;
-  display: inline-block;
-  letter-spacing: 0.25rem;
-}
+/* home page image */
 
 .home-image {
-  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
 }
 
 .home-image > img {
-  width: 100%;
+  height: 100%;
   opacity: 50%;
 }
 

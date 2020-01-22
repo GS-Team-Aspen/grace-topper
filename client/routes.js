@@ -7,6 +7,7 @@ import {me} from './store'
 import {fetchItems} from './store/item'
 
 //new Grace Topper components:
+import Home from './components/Home'
 import AllItems from './components/AllItems'
 import SingleItem from './components/SingleItem'
 import Orders from './components/Orders'
@@ -28,6 +29,7 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
+        <Route exact path="/" component={UserHome} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/checkout" component={CheckoutWrap} />
@@ -36,14 +38,9 @@ class Routes extends Component {
         <Route exact path="/orders" component={Orders} />
         <Route path="/cart" component={Cart} />
         <Route exact path="/items" component={AllItems} />
-        {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
-          </Switch>
-        )}
-        {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
+        {/* Displays Home component as a fallback */}
+        {/* <Route component={UserHome} /> */}
+        <Route component={Home} />
       </Switch>
     )
   }

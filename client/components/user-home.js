@@ -1,37 +1,34 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+// import PropTypes from 'prop-types'
+// import { connect } from 'react-redux'
 
 /**
  * COMPONENT
  */
-export const UserHome = props => {
-  const {email} = props
+export const UserHome = () => {
+  //const { email } = props
 
   return (
     <div className="home-image">
-      <img src="http://kristenandersen.online/gh/hat-combo.jpg" />
-      <div>
-        <h3>Welcome, {email}</h3>
-      </div>
+      <img src="http://kristenandersen.online/gh/hat-combo-square.jpg" />
     </div>
   )
 }
 
 /**
- * CONTAINER
+ * CONTAINERs
  */
-const mapState = state => {
-  return {
-    email: state.user.email
-  }
-}
+// const mapState = state => {
+//   return {
 
-export default connect(mapState)(UserHome)
+//   }
+// }
+
+//export default connect(mapState)(UserHome)
 
 /**
  * PROP TYPES
  */
-UserHome.propTypes = {
-  email: PropTypes.string
-}
+// UserHome.propTypes = {
+//   email: PropTypes.string
+// }

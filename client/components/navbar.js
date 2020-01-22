@@ -1,18 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, NavLink} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({handleClick, isLoggedIn, firstName}) => (
   <div className="navbar">
-    <img id="logo" src="http://kristenandersen.online/gh/gh-logo-white.png" />
+    <div className="logo-wrapper">
+      <Link to="/home">
+        <div>
+          <img
+            id="logo"
+            src="http://kristenandersen.online/gh/gh-logo-white.png"
+          />
+        </div>
+      </Link>
+    </div>
     <div className="nav-wrapper">
+      <div className="welcome">
+        {isLoggedIn ? `Welcome, ${firstName}` : `Welcome, guest`}
+      </div>
       <nav>
+        <div>
+          <Link to="/items">Store</Link>
+          <Link to="/cart">Cart</Link>
+        </div>
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
-            <Link to="/home">Home</Link>
             <Link to="/orders">My Orders</Link>
             <a href="#" onClick={handleClick}>
               Logout
@@ -25,13 +40,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             <Link to="/signup">Sign Up</Link>
           </div>
         )}
-        <div>
-          <Link to="/items">Store</Link>
-          <Link to="/cart">Cart</Link>
-        </div>
       </nav>
     </div>
-    <hr />
   </div>
 )
 
@@ -40,7 +50,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: state.user.userType !== 'guest'
+    isLoggedIn: state.user.userType !== 'guest',
+    firstName: state.user.firstName
   }
 }
 
