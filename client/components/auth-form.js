@@ -74,6 +74,9 @@ const AuthForm = props => {
             New to GraceTopper? <Link to="/signup">Sign Up</Link>
           </div>
         )}
+        <div className="ui message">
+          <a href="/auth/google">{displayName} with Google</a>
+        </div>
       </div>
     </div>
   )
