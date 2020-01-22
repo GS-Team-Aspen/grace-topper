@@ -1,13 +1,26 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
  */
 export const Home = () => {
   return (
-    <div className="home-image">
-      <img src="http://kristenandersen.online/gh/hat-combo-square.jpg" />
-    </div>
+    <section id="carousel">
+      <div id="carousel-text">
+        <h1>WE ALL WEAR MANY HATS.</h1>
+        <div id="button-wrapper">
+          <Link to="/items">
+            <button type="button" id="carousel-button" className="ui label">
+              Find a New One
+            </button>
+          </Link>
+        </div>
+      </div>
+      <div className="carousel-image">
+        <img src="http://kristenandersen.online/gh/hat-combo-3.jpg" />
+      </div>
+    </section>
   )
 }
 
