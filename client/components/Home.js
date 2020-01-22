@@ -18,7 +18,7 @@ export const Home = () => {
         </div>
       </div>
       <div className="carousel-image">
-        <img src="http://kristenandersen.online/gh/hat-combo-3.jpg" />
+        <img src="/hat-combo-3-sm.jpg" />
       </div>
     </section>
   )

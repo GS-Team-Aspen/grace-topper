@@ -21,17 +21,6 @@ export const fetchItemReviews = itemId => {
   }
 }
 
-export const addReview = (userId, itemId, review) => {
-  return async dispatch => {
-    try {
-      const {data} = await axios.post('/api/reviews', {userId, itemId, review})
-      dispatch(setReview(data))
-    } catch (err) {
-      console.log(err)
-    }
-  }
-}
-
 export const reviewsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ITEM_REVIEWS:

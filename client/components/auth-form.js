@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -10,26 +11,70 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error, userId} = props
 
   return (
-    <div>
-      <form onSubmit={evt => handleSubmit(evt, userId)} name={name}>
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google">{displayName} with Google</a>
+    <div className="ui middle aligned center aligned grid">
+      <div className="large five wide column">
+        <h2 className="ui image header">
+          {name === 'signup'
+            ? 'Sign up for an account'
+            : 'Log-in to your account'}
+        </h2>
+        <form
+          className="ui large form"
+          onSubmit={evt => handleSubmit(evt, userId)}
+          name={name}
+        >
+          <div className="ui stacked segment">
+            {name === 'signup' && (
+              <React.Fragment>
+                <div className="field">
+                  <div className="ui left icon input">
+                    <i className="pied piper alternate icon" />
+                    <input
+                      name="firstName"
+                      type="text"
+                      placeholder="first name"
+                    />
+                  </div>
+                </div>
+                <div className="field">
+                  <div className="ui left icon input">
+                    <i className="eye icon" />
+                    <input
+                      name="lastName"
+                      type="text"
+                      placeholder="last name"
+                    />
+                  </div>
+                </div>
+              </React.Fragment>
+            )}
+            <div className="field">
+              <div className="ui left icon input">
+                <i className="user icon" />
+                <input name="email" type="text" placeholder="email address" />
+              </div>
+            </div>
+            <div className="field">
+              <div className="ui left icon input">
+                <i className="lock icon" />
+                <input name="password" type="password" placeholder="password" />
+              </div>
+            </div>
+            <button className="ui large submit button" type="submit">
+              {displayName}
+            </button>
+            {error &&
+              error.response && (
+                <div className="ui error message"> {error.response.data} </div>
+              )}
+          </div>
+        </form>
+        {name !== 'signup' && (
+          <div className="ui message">
+            New to GraceTopper? <Link to="/signup">Sign Up</Link>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
@@ -65,7 +110,11 @@ const mapDispatch = dispatch => {
       const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
-      dispatch(auth(email, password, userId, formName))
+      const firstName =
+        evt.target.name === 'signup' ? evt.target.firstName.value : ''
+      const lastName =
+        evt.target.name === 'signup' ? evt.target.lastName.value : ''
+      dispatch(auth(firstName, lastName, email, password, userId, formName))
     }
   }
 }
