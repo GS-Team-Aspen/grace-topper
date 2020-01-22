@@ -32,11 +32,7 @@ const Orders = props => {
 
         <tbody>
           {props.orders.map(order => (
-            <tr key={order.id}>
-              <td>{order.id}</td>
-              <td>{order.status}</td>
-              <td>{order.user.email}</td>
-            </tr>
+            <OrderCard key={order.id} order={order} />
           ))}
         </tbody>
       </table>

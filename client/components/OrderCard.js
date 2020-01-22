@@ -3,13 +3,23 @@ import {Link} from 'react-router-dom'
 
 const OrderCard = ({order}) => {
   return (
-    <div>
-      <Link to={`/orders/${order.id}`} className="order">
-        <h1>{order.id}</h1>
-        <h1>{order.status}</h1>
-        <h1>{order.user.email}</h1>
-      </Link>
-    </div>
+    <tr>
+      <td>
+        <Link to={`/orders/${order.id}`} className="order">
+          {order.id}
+        </Link>
+      </td>
+      <td>
+        <Link to={`/orders/${order.id}`} className="order">
+          {order.status}
+        </Link>
+      </td>
+      <td>
+        <Link to={`/orders/${order.id}`} className="order">
+          {order.user.email}
+        </Link>
+      </td>
+    </tr>
   )
 }
 
