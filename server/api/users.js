@@ -43,11 +43,21 @@ router.put('/:id', async (req, res, next) => {
       returning: true,
       plain: true
     })
+
+    await Address.findOrCreate({where: {userId: req.params.id}})
     const address = await Address.update(req.body.address, {
       where: {userId: req.params.id},
       returning: true,
       plain: true
     })
+    // let [updatedCheck, address] = await Address.update(req.body.address, {
+    //   where: {userId: req.params.id},
+    //   returning: true,
+    //   plain: true
+    // })
+    // console.log(updatedCheck, 'check', address, 'address')
+
+    // if (!updatedCheck) address = await Address.create(req.body.address)
     res.json({...updatedUser, address})
   } catch (error) {
     next(error)
