@@ -4,6 +4,9 @@ import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, Cart, ProductManagement} from './components'
 import {me} from './store'
+
+//new Grace Topper components:
+import Home from './components/Home'
 import AllItems from './components/AllItems'
 import SingleItem from './components/SingleItem'
 import Orders from './components/Orders'
@@ -26,6 +29,7 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
+        <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/checkout" component={CheckoutWrap} />
@@ -35,6 +39,9 @@ class Routes extends Component {
         <Route path="/cart" component={Cart} />
         <Route exact path="/items" component={AllItems} />
         <Route path="/admin/productManagement" component={ProductManagement} />
+        {/* Displays Home component as a fallback */}
+        {/* <Route component={UserHome} /> */}
+        <Route component={Home} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

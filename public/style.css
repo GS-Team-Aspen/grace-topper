@@ -1,5 +1,15 @@
+/* don't think this is used: */
+form div {
+  margin: 1em;
+  display: inline-block;
+  letter-spacing: 0.25rem;
+}
+
+/* grace topper styling: */
+
 body {
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
+  border: 1px solid red;
 }
 
 a {
@@ -10,26 +20,61 @@ label {
   display: block;
 }
 
-nav a {
-  display: inline-block;
-  margin: 1em;
+/* navbar */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 15px;
+  background-color: black;
+  border-bottom: 2px solid #d4d4d5;
+}
+
+.logo-wrapper {
+  width: 23vw;
+}
+img#logo {
+  width: 100%;
+}
+
+.nav-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+.welcome {
+  color: white;
+  text-align: right;
+  margin: 0.5em 1em;
 }
 
 nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
-form div {
-  margin: 1em;
+nav a {
   display: inline-block;
+  font-weight: 600;
+  margin: 0.3em 1em 0.8em 1em;
 }
 
-/* custom css below */
+/* home page image */
 
-body {
-  font-family: 'Raleway', sans-serif;
+.home-image {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
 }
+
+.home-image > img {
+  height: 100%;
+  opacity: 50%;
+}
+
+/* pages */
 
 .centered-parent {
   display: flex;

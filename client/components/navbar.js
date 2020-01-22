@@ -1,38 +1,47 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, NavLink} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
-  <div>
-    <h1>GRACE TOPPER</h1>
-    <nav>
-      {isLoggedIn ? (
+const Navbar = ({handleClick, isLoggedIn, firstName}) => (
+  <div className="navbar">
+    <div className="logo-wrapper">
+      <Link to="/home">
         <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <Link to="/orders">My Orders</Link>
-          {isAdmin ? (
-            <Link to="/admin/productManagement">Product Management</Link>
-          ) : null}
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
+          <img
+            id="logo"
+            src="http://kristenandersen.online/gh/gh-logo-white.png"
+          />
         </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
-      )}
-      <div>
-        <Link to="/items">Store</Link>
-        <Link to="/cart">Cart</Link>
+      </Link>
+    </div>
+    <div className="nav-wrapper">
+      <div className="welcome">
+        {isLoggedIn ? `Welcome, ${firstName}` : `Welcome, Guest`}
       </div>
-    </nav>
-    <hr />
+      <nav>
+        <span className="nav-general">
+          <Link to="/items">Store</Link>
+          <Link to="/cart">Cart</Link>
+        </span>
+        {isLoggedIn ? (
+          <span className="nav-loggedin">
+            {/* The navbar will show these links after you log in */}
+            <Link to="/orders">My Orders</Link>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+          </span>
+        ) : (
+          <span>
+            {/* The navbar will show these links before you log in */}
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+          </span>
+        )}
+      </nav>
+    </div>
   </div>
 )
 
@@ -42,6 +51,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
 const mapState = state => {
   return {
     isLoggedIn: state.user.userType !== 'guest',
+    firstName: state.user.firstName
     isAdmin: state.user.userType === 'admin'
   }
 }
