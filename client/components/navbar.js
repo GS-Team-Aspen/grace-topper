@@ -9,10 +9,7 @@ const Navbar = ({handleClick, isLoggedIn, firstName, isAdmin}) => (
     <div className="logo-wrapper">
       <Link to="/home">
         <div>
-          <img
-            id="logo"
-            src="http://kristenandersen.online/gh/gh-logo-white.png"
-          />
+          <img id="logo" src="/grace-topper-logo.png" />
         </div>
       </Link>
     </div>
