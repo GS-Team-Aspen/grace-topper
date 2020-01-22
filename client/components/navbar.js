@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link, NavLink} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, firstName, isAdmin}) => (
@@ -9,10 +9,7 @@ const Navbar = ({handleClick, isLoggedIn, firstName, isAdmin}) => (
     <div className="logo-wrapper">
       <Link to="/home">
         <div>
-          <img
-            id="logo"
-            src="http://kristenandersen.online/gh/gh-logo-white.png"
-          />
+          <img id="logo" src="/grace-topper-logo.png" />
         </div>
       </Link>
     </div>
