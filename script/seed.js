@@ -14,8 +14,34 @@ const {
 } = require('../server/db/models')
 
 const orderStatuses = ['shipped', 'delivered', 'cancelled']
+const images = [
+  '/items/ICON-cap.jpg',
+  '/items/baseball-cap.jpg',
+  '/items/beret.jpg',
+  '/items/black-fedora.jpg',
+  '/items/black-hat-with-feathers.jpg',
+  '/items/blue-satin-hat.jpg',
+  '/items/flowered-bucket-hat.jpg',
+  '/items/maple-leaf-cap.jpg',
+  '/items/metal-horned-hat.jpg',
+  '/items/multicolored-knit-hats.jpg',
+  '/items/mustard-stocking-cap.jpg',
+  '/items/plaid-bucket-hat.jpg',
+  '/items/red-knit-hat.jpg',
+  '/items/sorting-hat.jpg',
+  '/items/storm-trooper-helmet.jpg',
+  '/items/striped-sombrero.jpg',
+  '/items/white-winter-hat.jpg',
+  '/items/yellow-pet-cap.jpg'
+]
 
 const rng = num => Math.floor(Math.random() * num)
+const capitalizeFirstLetter = str => {
+  return str
+    .split(' ')
+    .map(word => word[0].toUpperCase() + word.substring(1))
+    .join(' ')
+}
 
 const userFramework = []
 const addressFramework = []
@@ -42,7 +68,9 @@ for (let i = 0; i < 10; i++) {
     zipCode: faker.address.zipCode('#####')
   })
   categoriesFramework.push({
-    name: faker.commerce.productMaterial() + i
+    name: `${capitalizeFirstLetter(
+      faker.company.catchPhraseDescriptor()
+    )} ${faker.commerce.productMaterial()}`
   })
 
   cartsFramework.push({
@@ -51,15 +79,15 @@ for (let i = 0; i < 10; i++) {
 
   for (let j = 0; j < 10; j++) {
     itemsFramework.push({
-      name: faker.commerce.product(),
-      imageUrl: faker.image.fashion(),
-      description: faker.lorem.sentence(),
+      name: `${faker.commerce.productAdjective()} ${faker.commerce.productName()} Hat`,
+      imageUrl: images[rng(images.length)],
+      description: faker.hacker.phrase(),
       price: faker.commerce.price(),
       stock: faker.random.number({min: 1, max: 2000})
     })
     reviewsFramework.push({
       rating: faker.random.number({min: 1, max: 5}),
-      description: faker.lorem.paragraph()
+      description: faker.random.words()
     })
     ordersFramework.push({
       status: orderStatuses[Math.floor(Math.random() * orderStatuses.length)]

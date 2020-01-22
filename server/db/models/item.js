@@ -34,6 +34,6 @@ module.exports = db.define('item', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: 'defaultValue'
+    defaultValue: '/items/placeholder-img.png'
   }
 })
