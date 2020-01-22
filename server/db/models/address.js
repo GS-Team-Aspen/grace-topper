@@ -3,32 +3,18 @@ const db = require('../db')
 
 module.exports = db.define('address', {
   street: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
+    type: Sequelize.STRING
   },
   city: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
+    type: Sequelize.STRING
   },
   state: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
+    type: Sequelize.STRING
   },
   zipCode: {
     type: Sequelize.STRING,
-    allowNull: false,
     validate: {
       isNumeric: true,
-      notEmpty: true,
       len: [5, 5]
     }
   }

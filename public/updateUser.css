@@ -1,0 +1,21 @@
+/* as of 1/19, not used -Kristen */
+
+/* update user form */
+#change::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: #2952a3;
+}
+#change:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #2952a3;
+  opacity: 1;
+}
+#change::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #2952a3;
+  opacity: 1;
+}
+#change:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #2952a3;
+}

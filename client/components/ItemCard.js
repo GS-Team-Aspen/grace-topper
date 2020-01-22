@@ -13,13 +13,17 @@ const ItemCard = props => {
     //hover on product card
     <div className="custom-card">
       <Link to={`/items/${id}`}>
-        <div className="ui card">
+        <div className="ui raised card">
           <div className="image">
             <img src={imageUrl} />
           </div>
           <div className="extra content">
-            <span className="target-name">{`${name} ${quantity}`}</span>
-            <span className="right floated">{price}</span>
+            <span className="target-name-card">{`${name} ${quantity}`}</span>
+            <span className="right floated">
+              <div className="ui green tag labels">
+                <div className="ui label">{price}</div>
+              </div>
+            </span>
           </div>
           {/* Add to Cart button goes here */}
         </div>

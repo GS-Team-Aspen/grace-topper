@@ -32,10 +32,23 @@ export const me = () => async dispatch => {
   }
 }
 
-export const auth = (email, password, userId, method) => async dispatch => {
+export const auth = (
+  firstName,
+  lastName,
+  email,
+  password,
+  userId,
+  method
+) => async dispatch => {
   let res
   try {
-    res = await axios.post(`/auth/${method}`, {email, password, userId})
+    res = await axios.post(`/auth/${method}`, {
+      firstName,
+      lastName,
+      email,
+      password,
+      userId
+    })
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
@@ -59,6 +72,19 @@ export const logout = () => async dispatch => {
     dispatch(fetchCart(res.data.id))
   } catch (err) {
     console.error(err)
+  }
+}
+
+export const updateUser = (id, user) => async dispatch => {
+  try {
+    const {data} = await axios.put(`/api/users/${id}`, {
+      user,
+      address: user.address
+    })
+    dispatch(getUser({...data[1], address: data.address[1]} || defaultUser))
+    history.push('/checkout')
+  } catch (err) {
+    console.log('Err updating user: ', err)
   }
 }
 

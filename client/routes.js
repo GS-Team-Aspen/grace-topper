@@ -2,9 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, Cart} from './components'
+import {Login, Signup, UserHome, Cart, ProductManagement} from './components'
 import {me} from './store'
-import {fetchItems} from './store/item'
 
 //new Grace Topper components:
 import Home from './components/Home'
@@ -13,6 +12,8 @@ import SingleItem from './components/SingleItem'
 import Orders from './components/Orders'
 import SingleOrder from './components/SingleOrder'
 import CheckoutWrap from './components/CheckoutWrap'
+import UpdateUser from './components/UpdateUser'
+import {fetchCategories} from './store/categories'
 
 /**
  * COMPONENT
@@ -20,7 +21,6 @@ import CheckoutWrap from './components/CheckoutWrap'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
-    this.props.loadItems()
   }
 
   render() {
@@ -38,9 +38,19 @@ class Routes extends Component {
         <Route exact path="/orders" component={Orders} />
         <Route path="/cart" component={Cart} />
         <Route exact path="/items" component={AllItems} />
+        <Route path="/admin/productManagement" component={ProductManagement} />
         {/* Displays Home component as a fallback */}
         {/* <Route component={UserHome} /> */}
         <Route component={Home} />
+        {isLoggedIn && (
+          <Switch>
+            {/* Routes placed here are only available after logging in */}
+            <Route path="/home" component={UserHome} />
+            <Route path="/user" component={UpdateUser} />
+          </Switch>
+        )}
+        {/* Displays our Login component as a fallback */}
+        <Route component={Login} />
       </Switch>
     )
   }
@@ -60,9 +70,9 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    loadItems: () => dispatch(fetchItems()),
     loadInitialData() {
       dispatch(me())
+      dispatch(fetchCategories())
     }
   }
 }

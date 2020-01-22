@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-const CheckoutUserSumm = ({firstName, lastName, email, id}) => {
+const CheckoutUserSumm = ({firstName, lastName, email, address}) => {
   return (
     <div id="segment-checkout-user">
       <h4 className="ui dividing header" id="checkout-user-divider">
@@ -12,11 +12,16 @@ const CheckoutUserSumm = ({firstName, lastName, email, id}) => {
         <div>
           {firstName} {lastName}
         </div>
-        <div>[NEED ADDRESS]</div>
+        {address && (
+          <Fragment>
+            <div>{address.street}</div>
+            <div>{`${address.city}, ${address.state} ${address.zipCode}`}</div>
+          </Fragment>
+        )}
         <div>{email}</div>
 
         <button type="submit" className="ui label" id="edit-user-details">
-          <Link to={`/users/${id}`}>
+          <Link to="/user">
             Edit
             <i className="pen square icon icon-padding" />
           </Link>

@@ -52,6 +52,7 @@ const mapState = state => {
   return {
     isLoggedIn: state.user.userType !== 'guest',
     firstName: state.user.firstName
+    isAdmin: state.user.userType === 'admin'
   }
 }
 
