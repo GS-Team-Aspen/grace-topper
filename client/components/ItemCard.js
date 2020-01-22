@@ -16,14 +16,13 @@ const ItemCard = props => {
         <div className="ui raised card">
           <div className="image">
             <img src={imageUrl} />
+            <div className="floated ui green right ribbon label">
+              <div>{price}</div>
+            </div>
           </div>
           <div className="extra content">
             <span className="target-name-card">{`${name} ${quantity}`}</span>
-            <span className="right floated">
-              <div className="ui green tag labels">
-                <div className="ui label">{price}</div>
-              </div>
-            </span>
+            <span className="right floated" />
           </div>
           {/* Add to Cart button goes here */}
         </div>

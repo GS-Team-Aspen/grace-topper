@@ -12,21 +12,23 @@ const ItemCard = props => {
       <div className="ui fluid card">
         <div className="image">
           <img src={item.imageUrl} />
+          <span
+            className="
+            floated ui green right ribbon label"
+          >
+            {item.price.toLocaleString(undefined, {
+              style: 'currency',
+              currency: 'USD'
+            })}
+          </span>
         </div>
         <Link to={`/items/${item.id}`}>
           <div className="extra content">
             <span className="target-name">{item.name}</span>
-            <span className="right floated">
-              {item.price.toLocaleString(undefined, {
-                style: 'currency',
-                currency: 'USD'
-              })}
-            </span>
           </div>
         </Link>
         <div />
         <div className="button-holder">
-          Quantity:
           <div
             className="mini ui button"
             onClick={() =>
@@ -57,12 +59,12 @@ const ItemCard = props => {
           >
             +
           </div>
-          <div
-            className="small ui button"
-            onClick={() => handleRemove(item.id)}
-          >
-            Remove Item
-          </div>
+        </div>
+        <div
+          className="small ui red button"
+          onClick={() => handleRemove(item.id)}
+        >
+          Remove Item
         </div>
       </div>
     </div>
