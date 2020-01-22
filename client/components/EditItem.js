@@ -32,7 +32,6 @@ class EditItem extends Component {
 
   render() {
     const {currUser} = this.props
-    console.log(this.props)
     return (
       <div>
         <form className="ui form" onSubmit={this.onUpdate}>
