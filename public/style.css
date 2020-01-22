@@ -9,6 +9,7 @@ form div {
 
 body {
   font-family: 'Raleway', sans-serif;
+  border: 1px solid red;
 }
 
 a {
@@ -46,17 +47,18 @@ img#logo {
 .welcome {
   color: white;
   text-align: right;
+  margin: 0.5em 1em;
 }
 
 nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 nav a {
   display: inline-block;
   font-weight: 600;
-  margin: 1em;
+  margin: 0.3em 1em 0.8em 1em;
 }
 
 /* home page image */
