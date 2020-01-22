@@ -16,6 +16,21 @@ class EditItem extends Component {
     this.onUpdate = this.onUpdate.bind(this)
   }
 
+  validateField() {
+    return this.state.name
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        name: this.props.item.name,
+        description: this.props.item.description,
+        stock: this.props.item.stock,
+        price: this.props.item.price
+      })
+    }, 500)
+  }
+
   handleChange(ev) {
     this.setState({[ev.target.name]: ev.target.value})
   }
@@ -27,7 +42,6 @@ class EditItem extends Component {
 
   render() {
     const {currUser} = this.props
-
     return (
       <div>
         <form className="ui form" onSubmit={this.onUpdate}>
