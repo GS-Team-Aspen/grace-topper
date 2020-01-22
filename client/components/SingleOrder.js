@@ -15,6 +15,9 @@ class SingleOrder extends Component {
 
   componentDidMount() {
     this.props.getSingleOrder(this.props.match.params.orderId)
+    this.setState({
+      status: this.props.order.status
+    })
   }
 
   handleChange(ev) {
@@ -39,6 +42,7 @@ class SingleOrder extends Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div>
         {this.props.user.userType === 'admin' ? (
@@ -51,6 +55,10 @@ class SingleOrder extends Component {
                   value={this.state.status}
                   onChange={this.handleChange}
                 >
+                  <option value={this.props.order.status}>
+                    {' '}
+                    Admin Change Status Here
+                  </option>
                   <option value="delivered">delivered</option>
                   <option value="shipped">shipped</option>
                   <option value="cancelled">cancelled</option>
@@ -70,6 +78,9 @@ class SingleOrder extends Component {
         )}
         {this.props.order.items ? (
           <div>
+            <h3> Order Date: {this.props.order.createdAt.slice(0, 9)}</h3>
+            <h3> Order Status: {this.props.order.status}</h3>
+
             {this.props.order.items.map(item => (
               <ItemCard {...item} type="order" key={item.id} />
             ))}
