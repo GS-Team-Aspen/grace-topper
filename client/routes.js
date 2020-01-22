@@ -41,7 +41,6 @@ class Routes extends Component {
         <Route path="/admin/productManagement" component={ProductManagement} />
         {/* Displays Home component as a fallback */}
         {/* <Route component={UserHome} /> */}
-        <Route component={Home} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -51,6 +50,7 @@ class Routes extends Component {
         )}
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
+        <Route component={Home} />
       </Switch>
     )
   }

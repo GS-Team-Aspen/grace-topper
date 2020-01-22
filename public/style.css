@@ -252,7 +252,7 @@ button#add-review.ui.label:hover {
 /* cart */
 .button-holder {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   padding-bottom: 5px;
 }
 
