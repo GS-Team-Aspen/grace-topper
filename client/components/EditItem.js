@@ -17,8 +17,20 @@ class EditItem extends Component {
     this.onUpdate = this.onUpdate.bind(this)
   }
 
+  validateField() {
+    return this.state.name
+  }
+
   componentDidMount() {
     this.props.getItem(this.props.item.id)
+    setTimeout(() => {
+      this.setState({
+        name: this.props.item.name,
+        description: this.props.item.description,
+        stock: this.props.item.stock,
+        price: this.props.item.price
+      })
+    }, 500)
   }
 
   handleChange(ev) {
@@ -44,7 +56,7 @@ class EditItem extends Component {
                 <input
                   type="text"
                   name={field}
-                  value={this.props.item[field]}
+                  value={this.state[field]}
                   onChange={this.handleChange}
                 />
               </label>
