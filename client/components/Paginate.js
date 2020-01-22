@@ -7,16 +7,18 @@ const Paginate = props => {
   }
 
   return (
-    <Pagination
-      className="paginate"
-      defaultActivePage={1}
-      totalPages={Math.ceil(props.count / props.limit)}
-      onPageChange={handlePaginationChange}
-      firstItem={null}
-      lastItem={null}
-      pointing
-      secondary
-    />
+    <div className="centered-parent">
+      <Pagination
+        className="paginate"
+        defaultActivePage={1}
+        totalPages={Math.ceil(props.count / props.limit)}
+        onPageChange={handlePaginationChange}
+        firstItem={null}
+        lastItem={null}
+        pointing
+        secondary
+      />
+    </div>
   )
 }
 

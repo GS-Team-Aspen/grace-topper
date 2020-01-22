@@ -16,7 +16,8 @@ router.get('/', isUser, async (req, res, next) => {
             include: [User, Item],
             where: {
               status: {[Op.not]: 'carted'}
-            }
+            },
+            order: ['id']
           })
         : await Order.findAll({
             include: [User, Item],

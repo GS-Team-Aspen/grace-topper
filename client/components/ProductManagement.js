@@ -1,4 +1,5 @@
 import React from 'react'
+import {Container} from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import {makeItem} from '../store/item'
 import {setCategory, deleteCategory} from '../store/categories'
@@ -69,7 +70,7 @@ class ProductManagement extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <Container>
         <h1>Product Management</h1>
         <h3>Create Category:</h3>
         <input
@@ -170,7 +171,7 @@ class ProductManagement extends React.Component {
           })}
           <input type="submit" value="Add Item" />
         </form>
-      </React.Fragment>
+      </Container>
     )
   }
 }
